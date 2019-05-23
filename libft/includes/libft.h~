@@ -26,7 +26,6 @@
 # include "queue.h"
 # include "ft_math.h"
 # include "gc.h"
-# include "../printf/printf.h"
 
 # define SIGN(x)	((x > 0) ? 1 : -1)
 
