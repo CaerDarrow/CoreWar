@@ -11,9 +11,9 @@ all: $(ASM) $(VM)
 $(LIBFT):
 	make -C libft
 $(VM): $(LIBFT) $(VM_OBJ)
-	gcc $(CFLAGS) $(VM_OBJ) $(LIBFT) $(PRINTF) -o $(VM)
+	gcc $(CFLAGS) $(VM_OBJ) $(LIBFT) $(PRINTF) -o $(VM) -Iop.h
 $(ASM): $(LIBFT) $(ASM_OBJ)
-	gcc $(CFLAGS) $(ASM_OBJ) $(LIBFT) $(PRINTF) -o $(ASM)
+	gcc $(CFLAGS) $(ASM_OBJ) $(LIBFT) $(PRINTF) -o $(ASM) -Iop.h
 $(VM_OBJ): $(VM_SRC)
 	gcc -c $(CFLAGS) $(VM_SRC)
 	mv *.o vm/
