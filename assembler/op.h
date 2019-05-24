@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/24 17:19:24 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/24 22:41:42 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct					op_s
 {
 	char 						*name;
 	int							argc;
-	int							argv[3];
+	int							*argv;
 	int							index;
 	int							cycles;
 	char						*comment;
@@ -88,3 +88,16 @@ typedef struct					op_s
 }								t_op;
 
 t_op							g_op_tab[17];
+
+typedef struct	unit_s unit_t;
+
+struct					unit_s
+{
+	header_t					header;
+	char						exec[CHAMP_MAX_SIZE];
+	void (* add_name)(char *, unit_t *);
+	void (* add_comment)(char *, unit_t *);
+};
+
+void add_name(char *name, unit_t *unit);
+void add_comment(char *comment, unit_t *unit);
