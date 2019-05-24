@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/24 16:29:28 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/24 17:19:24 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,14 @@ typedef struct					header_s
 
 typedef struct					op_s
 {
-	char 						name[5];
+	char 						*name;
 	int							argc;
 	int							argv[3];
 	int							index;
 	int							cycles;
-	char						comment[50];
+	char						*comment;
 	int							argtypes;
 	int							t_dirsize;
 }								t_op;
+
+t_op							g_op_tab[17];

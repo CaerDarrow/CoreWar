@@ -1,10 +1,10 @@
-ASM = assembler
+ASM = asm
 VM = corewar
 CFLAGS = -Wall -Wextra -Werror -g -I libft/includes/
 VM_SRC = vm/*.c
-ASM_SRC = asm/*.c
+ASM_SRC = assembler/*.c
 VM_OBJ = vm/*.o
-ASM_OBJ = asm/*.o
+ASM_OBJ = assembler/*.o
 LIBFT = libft/libft.a
 PRINTF = libft/libftprintf.a
 all: $(ASM) $(VM)
@@ -19,7 +19,7 @@ $(VM_OBJ): $(VM_SRC)
 	mv *.o vm/
 $(ASM_OBJ): $(ASM_SRC)
 	gcc -c $(CFLAGS) $(ASM_SRC)
-	mv *.o asm/
+	mv *.o assembler/
 clean:
 	/bin/rm -rf $(VM_OBJ)
 	/bin/rm -rf $(ASM_OBJ)
