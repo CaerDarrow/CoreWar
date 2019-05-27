@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/24 21:52:21 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/27 20:24:33 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void			game_loop(t_game_entity *entity)
 		if (i % 64 == 63)
 			ft_printf("\n");
 	}
-
+	
 }

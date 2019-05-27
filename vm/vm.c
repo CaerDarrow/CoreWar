@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/24 21:16:37 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/27 20:29:13 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,8 @@ int						main(int argc, char const *argv[])
 		return (ft_printf("Usage:\n"));
 	read_champs(argc, argv, &entity);
 	game_loop(&entity);
+	ft_memdel((void **)&entity.bg);
+	l_destroy(&entity.player);
+	l_destroy(&entity.cursor);
 	return (0);
 }
