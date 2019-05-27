@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.c                                               :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/24 21:16:37 by jjacobso         ###   ########.fr       */
+/*   Created: 2019/05/24 19:34:43 by jjacobso          #+#    #+#             */
+/*   Updated: 2019/05/24 19:35:20 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int						main(int argc, char const *argv[])
+void			error(char *s)
 {
-	t_game_entity		entity;
-
-
-	if (argc == 1)
-		return (ft_printf("Usage:\n"));
-	read_champs(argc, argv, &entity);
-	game_loop(&entity);
-	return (0);
+	ft_printf("%s\n", s);
+	exit(-1);
 }

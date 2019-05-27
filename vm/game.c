@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.c                                               :+:      :+:    :+:   */
+/*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/24 21:16:37 by jjacobso         ###   ########.fr       */
+/*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
+/*   Updated: 2019/05/24 21:52:21 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int						main(int argc, char const *argv[])
+void			game_loop(t_game_entity *entity)
 {
-	t_game_entity		entity;
+	int			i;
 
+	(void)entity;
+	i = -1;
+	while (++i < MEM_SIZE)
+	{
+		ft_printf("%02x ", entity->bg[i]);
+		if (i % 64 == 63)
+			ft_printf("\n");
+	}
 
-	if (argc == 1)
-		return (ft_printf("Usage:\n"));
-	read_champs(argc, argv, &entity);
-	game_loop(&entity);
-	return (0);
 }
