@@ -6,32 +6,24 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/05/24 17:01:36 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/27 20:42:51 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// парсер
-// структура под распарсенные элементы
-// ассоциативный массив для операций
-// ассоциативный массив для типов аргументов
-// сборщик
-enum ophexcode
+#ifndef ASM_H
+# define ASM_H
+# include "op.h"
+# include "libft.h"
+
+typedef struct	s_unit
 {
-	0x00,
-	0x01,
-	0x02,
-	0x03,
-	0x04,
-	0x05,
-	0x06,
-	0x07,
-	0x08,
-	0x09,
-	0x0a,
-	0x0b,
-	0x0c,
-	0x0d,
-	0x0e,
-	0x0f,
-	0x10,
-};
+	header_t	header;
+	char		exec[CHAMP_MAX_SIZE];
+}				t_unit;
+
+void			set_magic(t_unit *unit);
+void			set_name(char *name, t_unit *unit);
+void			set_prog_size(int size, t_unit *unit);
+void			set_comment(char *comment, t_unit *unit);
+
+#endif

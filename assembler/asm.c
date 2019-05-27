@@ -6,61 +6,83 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/05/24 22:59:18 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/27 20:47:16 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
-#include "libft.h"
-#include <stdio.h>
+#include "asm.h"
 
-int  main(int argc, char **argv)
+static void		checkchamp(char *filename)
 {
-	unit_t *unit;
-	unsigned char	*ptr;
-	int i;
-	int fd;
-	unsigned char buffer[CHAMP_MAX_SIZE];
+	int				i;
+	int				k;
+	int				fd;
+	unsigned char	buffer[sizeof(t_unit)];
 
-	i = 0;
-	// (void)(argc);
-	// ptr = malloc(sizeof(unsigned char) * CHAMP_MAX_SIZE);
-	// fd = open(argv[1], O_RDWR);
-	// if (read(fd, buffer, CHAMP_MAX_SIZE))
-	// {
-	// 	ft_memcpy(ptr, buffer, CHAMP_MAX_SIZE);
-	// }
-	// while (i < CHAMP_MAX_SIZE)
-	// {
-	// 	printf("%02x", ptr[i]);
-	// 	if ((i + 1) % 2 == 0)
-	// 		printf(" ");
-	// 	if ((i + 1) % 8 == 0)
-	// 		printf("\n");
-	// 	i++;
-	// }
-	unit = (unit_t *)malloc(sizeof(unit_t));
-	ft_bzero(unit, CHAMP_MAX_SIZE);
-	unit->add_name = &add_name;
-	unit->add_comment = &add_comment;
-	unit->header.magic = COREWAR_EXEC_MAGIC;
-	unit->add_name("Batman", unit);
-	unit->header.prog_size = COREWAR_EXEC_MAGIC;
-	unit->add_comment("This city needs me", unit);
-	ptr = (unsigned char *)unit;
-	ft_memcpy(ptr, unit, CHAMP_MAX_SIZE);
-	write(fd, ptr, CHAMP_MAX_SIZE);
-	while (i < CHAMP_MAX_SIZE)
+	fd = open(filename, O_RDWR, 0755);
+	if (read(fd, buffer, sizeof(t_unit)))
 	{
+		i = 0;
+		while (i < CHAMP_MAX_SIZE)
+		{
+			printf("%02x", buffer[i]);
+			if ((i + 1) % 2 == 0)
+				printf(" ");
+			if ((i + 1) % 16 == 0)
+				printf("\n");
+			i++;
+		}
+	}
+	k = 0;
+	k = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
+	printf("\n%#x\n", k);
+	close(fd);
+}
+
+static t_unit	*initchamp(void)
+{
+	t_unit *unit;
+
+	unit = (t_unit *)malloc(sizeof(t_unit));
+	ft_bzero(unit, CHAMP_MAX_SIZE);
+	set_magic(unit);
+	set_name("Batman", unit);
+	set_prog_size((void *)22, unit);
+	set_comment("This city needs me", unit);
+	return (unit);
+}
+
+static void		writechamp(t_unit *unit, char *filename)
+{
+	unsigned char	*ptr;
+	size_t			i;
+	int				fd;
+
+	fd = open(ft_strjoin(filename, ".cor"), O_RDWR | O_CREAT, 0755);
+	ptr = (unsigned char *)unit;
+	i = 0;
+	while (i < sizeof(t_unit))
+	{
+		write(fd, &(ptr[i]), sizeof(ptr[i]));
 		printf("%02x", ptr[i]);
 		if ((i + 1) % 2 == 0)
 			printf(" ");
-		if ((i + 1) % 8 == 0)
+		if ((i + 1) % 16 == 0)
 			printf("\n");
 		i++;
 	}
+	printf("\n______________\n");
 	close(fd);
-	//printf("%x", ptr);
+}
+
+int				main(int argc, char **argv)
+{
+	t_unit *unit;
+
+	(void)(argc);
+	unit = initchamp();
+	writechamp(unit, argv[1]);
+	checkchamp("a.cor");
 	free(unit);
 	return (0);
 }
