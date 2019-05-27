@@ -6,45 +6,41 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/24 22:03:51 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/27 20:28:30 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int			valide_champ(const char *s)
-{
-	(void)s;
-	return (1);
-}
+// static int			valide_champ(const char *s)
+// {
+// 	(void)s;
+// 	return (1);
+// }
 
 static void			get_champ(const char *s, t_game_entity *entity,
 						int cur_player)
 {
 	t_header		*champ;
-	char			*code;
-	int				i;
+	unsigned char	*code;
 	int				fd;
+
 	if ((fd = open(s, O_RDONLY)) < 0)
 		error("Cant open file");
-	// ft_printf("%d",COREWAR_EXEC_MAGIC);
 	if (!(champ = (t_header *)malloc(sizeof(t_header))))
 		error("Malloc error");
-	if ((champ->magic = get_magic()) != COREWAR_EXEC_MAGIC)
+	if ((champ->magic = get_magic(fd)) != COREWAR_EXEC_MAGIC)
+		error("Invalid champion1");
+	get_prog_name(fd, champ->prog_name);
+	if ((champ->prog_size = get_prog_size(fd)) > CHAMP_MAX_SIZE)
 		error("Invalid champion");
-	champ->prog_name = get_prog_name();
-	champ->prog_size = get_prog_size();
-	champ->comment = get_comment();
-	code = get_code();
-	ft_strncpy(entity->bg + (MEM_SIZE * cur_player / entity->players),
-		code, ft_strlen(code));// len - 1 ?
-	// (void)i;
-	// i = 0;
-	// char b =0;
-	// while (read(fd, &b, 1) == 1)
-	// {
-	// 	entity->bg[i++ + MEM_SIZE * cur_player / entity->players] = b;
-	// }
+	get_comment(fd, champ->comment);
+	code = get_code(fd, champ->prog_size);
+	ft_memcpy(entity->bg + (MEM_SIZE * cur_player / entity->players),
+		code, champ->prog_size);
+	ft_memdel((void **)&code);
+	ld_push_back(&entity->player, champ);
+	// ft_printf("%u %s %u %s\n", champ->magic, champ->prog_name, champ->prog_size, champ->comment);
 	close(fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/24 21:58:44 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/27 20:28:24 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include			"libft.h"
 # include			"op.h"
+
+# define BYTE(n)	n
+# define UINT_SIZE	8
 
 typedef struct		s_cursor
 {
@@ -37,6 +40,19 @@ typedef struct		s_game_entity
 }					t_game_entity;
 
 void				read_champs(int ac, const char *argv[], t_game_entity *ge);
-void				error(char *s);
 void				game_loop(t_game_entity *entity);
+/*
+**					error.c
+*/
+void				error(char *s);
+/*
+**					get_header.c
+*/
+int					get_null(int fd);
+unsigned int		get_magic(int fd);
+void				get_prog_name(int fd, char s[]);
+unsigned int		get_prog_size(int fd);
+void				get_comment(int fd, char s[]);
+unsigned char		*get_code(int fd, unsigned int size);
+
 #endif
