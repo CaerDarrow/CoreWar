@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/27 20:28:24 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/28 16:27:29 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ typedef struct		s_game_entity
 	t_list			*player;
 	char			players;
 }					t_game_entity;
+
+typedef struct		s_unit
+{
+	t_header		header;
+	unsigned char	*exec;
+}					t_unit;
 
 void				read_champs(int ac, const char *argv[], t_game_entity *ge);
 void				game_loop(t_game_entity *entity);

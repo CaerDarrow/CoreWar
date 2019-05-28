@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/05/27 20:47:16 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/28 16:30:11 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,40 +39,13 @@ static void		checkchamp(char *filename)
 	close(fd);
 }
 
-static t_unit	*initchamp(void)
+
+static void		read(char *filename)
 {
-	t_unit *unit;
-
-	unit = (t_unit *)malloc(sizeof(t_unit));
-	ft_bzero(unit, CHAMP_MAX_SIZE);
-	set_magic(unit);
-	set_name("Batman", unit);
-	set_prog_size((void *)22, unit);
-	set_comment("This city needs me", unit);
-	return (unit);
-}
-
-static void		writechamp(t_unit *unit, char *filename)
-{
-	unsigned char	*ptr;
-	size_t			i;
-	int				fd;
-
-	fd = open(ft_strjoin(filename, ".cor"), O_RDWR | O_CREAT, 0755);
-	ptr = (unsigned char *)unit;
-	i = 0;
-	while (i < sizeof(t_unit))
-	{
-		write(fd, &(ptr[i]), sizeof(ptr[i]));
-		printf("%02x", ptr[i]);
-		if ((i + 1) % 2 == 0)
-			printf(" ");
-		if ((i + 1) % 16 == 0)
-			printf("\n");
-		i++;
-	}
-	printf("\n______________\n");
-	close(fd);
+	if (!(fd = open(filename, O_RDONLY)))
+		//error
+		;
+	
 }
 
 int				main(int argc, char **argv)
@@ -82,7 +55,7 @@ int				main(int argc, char **argv)
 	(void)(argc);
 	unit = initchamp();
 	writechamp(unit, argv[1]);
-	checkchamp("a.cor");
+	//checkchamp("a.cor");
 	free(unit);
 	return (0);
 }
