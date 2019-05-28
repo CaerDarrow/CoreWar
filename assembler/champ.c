@@ -6,12 +6,11 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:01:26 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/05/28 20:59:31 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/28 22:08:57 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
 
 static size_t	writerev(size_t start, int fd, unsigned char *ptr)
 {
@@ -26,7 +25,7 @@ static size_t	writerev(size_t start, int fd, unsigned char *ptr)
 	return (start + 4);
 }
 
-t_unit	*initchamp(void)
+t_unit			*initchamp(void)
 {
 	t_unit *unit;
 
@@ -36,11 +35,12 @@ t_unit	*initchamp(void)
 	set_name("Batman", unit);
 	set_prog_size(22, unit);
 	set_comment("This city needs me", unit);
-	set_exec((unsigned char *)"aaaaaaaaaaaaaaaaaaaaaa", unit->header.prog_size, unit);
+	set_exec((unsigned char *)"aaaaaaaaaaaaaaaaaaaaaa",
+	unit->header.prog_size, unit);
 	return (unit);
 }
 
-void	writechamp(t_unit *unit, char *fname)
+void			writechamp(t_unit *unit, char *fname)
 {
 	unsigned char	*ptr;
 	char			*name;
