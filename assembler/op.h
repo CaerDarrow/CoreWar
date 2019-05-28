@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/27 20:36:31 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/28 18:15:15 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,26 @@
 # define DIR_CODE				2
 # define IND_CODE				3
 
-# define MAX_ARGS_NUMBER			4
-# define MAX_PLAYERS				4
+# define MAX_ARGS_NUMBER		4
+# define MAX_PLAYERS			4
 # define MEM_SIZE				(4*1024)
-# define IDX_MOD					(MEM_SIZE / 8)
+# define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
 # define COMMENT_CHAR			'#'
 # define LABEL_CHAR				':'
-# define DIRECT_CHAR				'%'
+# define DIRECT_CHAR			'%'
 # define SEPARATOR_CHAR			','
 
-# define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"
+# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
-# define NAME_CMD_STRING			".name"
+# define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
 
 # define REG_NUMBER				16
 
 # define CYCLE_TO_DIE			1536
-# define CYCLE_DELTA				50
+# define CYCLE_DELTA			50
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
 
@@ -61,7 +61,8 @@ typedef char					t_arg_type;
 # define T_LAB					8
 
 /*
-** Toto
+** valgrind --suppressions=/Users/ajon-hol/macos.supp --leak-check=full
+** ./asm vm_champs/champs/42.s
 */
 
 # define PROG_NAME_LENGTH		(128)
@@ -76,17 +77,4 @@ typedef struct					s_header
 	char						comment[COMMENT_LENGTH + 1];
 }								t_header;
 
-typedef struct					s_op
-{
-	char						*name;
-	int							argc;
-	int							*argv;
-	int							index;
-	int							cycles;
-	char						*comment;
-	int							argtypes;
-	int							t_dirsize;
-}								t_op;
-
-t_op							g_op_tab[17];
 #endif
