@@ -1,0 +1,7 @@
+n строк (пустых или с комментариями # ;)
+name/comment
+comment/name
+
+?.label
+char - instruction
+num - inderect

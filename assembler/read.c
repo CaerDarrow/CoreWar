@@ -6,13 +6,13 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:29:46 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/05/29 14:59:26 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/29 20:49:28 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int	check_name(char *fname)
+static int	check_fname(char *fname)
 {
 	size_t	len;
 	char	*ext;
@@ -26,39 +26,36 @@ static int	check_name(char *fname)
 static char	**ft_readlines(int fd)
 {
 	char *line;
-	char **parsed;
+	char **readed;
 	size_t i;
 
-	parsed = (char **)malloc(sizeof(*parsed));
+	readed = (char **)malloc(sizeof(*readed));
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
 		if (i > 0)
-			parsed = (char **)realloc(parsed, sizeof(*parsed) * (i + 1));
-		parsed[i] = ft_strdup(line);
+			readed = (char **)realloc(readed, sizeof(*readed) * (i + 1));
+		readed[i] = ft_strdup(line);
 		ft_memdel((void **)&line);
 		i++;
 	}
-	parsed = (char **)realloc(parsed, sizeof(*parsed) * (i + 1));
-	parsed[i] = NULL;
-	return(parsed);
+	readed = (char **)realloc(readed, sizeof(*readed) * (i + 1));
+	readed[i] = NULL;
+	return(readed);
 }
 
 int			read_s(char *fname)
 {
 	int	fd;
-	char **parsed;
+	char **readed;
 
-	if (check_name(fname))
+	if (check_fname(fname))
 	{
 		if ((fd = open(fname, O_RDONLY)) != -1)
 		{
-			parsed = ft_readlines(fd);
-			while (*parsed)
-			{
-				ft_printf("%s\n", *parsed);
-				parsed++;
-			}
+			readed = ft_readlines(fd);
+			parse(readed);
+			ft_freemas(&readed, 0);
 			close(fd);
 			return (1);
 		}
