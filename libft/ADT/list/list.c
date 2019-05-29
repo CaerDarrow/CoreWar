@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 12:15:38 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/04/22 19:27:40 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/29 19:25:37 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ size_t						l_size(t_list *lst)
 	{
 		res++;
 		lst = lst->next;
+	}
+	return (res);
+}
+
+size_t						l_full_size(t_list *l)
+{
+	size_t					res;
+
+	while (l && l->prev)
+		l = l->prev;
+	res = 0;
+	while (l)
+	{
+		res++;
+		l = l->next;
 	}
 	return (res);
 }

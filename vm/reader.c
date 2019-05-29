@@ -6,17 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/28 20:01:01 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/29 15:55:47 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-// static int			valide_champ(const char *s)
-// {
-// 	(void)s;
-// 	return (1);
-// }
 
 static void			get_champ(const char *s, t_game_entity *entity,
 						int cur_player)
@@ -30,7 +24,7 @@ static void			get_champ(const char *s, t_game_entity *entity,
 	if (!(champ = (t_header *)malloc(sizeof(t_header))))
 		champ_error("Malloc error", cur_player);
 	if ((champ->magic = get_magic(fd, cur_player)) != COREWAR_EXEC_MAGIC)
-		champ_error("Invalid champion magic header", cur_player);
+		champ_error("Not binary file", cur_player);
 	get_prog_name(fd, champ->prog_name, cur_player);
 	if ((champ->prog_size = get_prog_size(fd, cur_player)) > CHAMP_MAX_SIZE)
 		champ_error("Invalid champion programm size", cur_player);
