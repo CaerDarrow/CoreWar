@@ -1,7 +1,8 @@
 ASM = asm
 VM = corewar
-CFLAGS = -Wall -Wextra -Werror -g -I libft/includes/
-VM_SRC = vm/error.c vm/game.c vm/get_header.c vm/reader.c vm/vm.c vm/cursor.c
+CFLAGS =  -g -I libft/includes/
+VM_SRC = vm/error.c vm/game.c vm/get_header.c vm/reader.c vm/vm.c vm/cursor.c \
+vm/op.c
 ASM_SRC = assembler/*.c
 VM_OBJ = $(VM_SRC:.c=.o)
 ASM_OBJ = $(ASM_SRC:.c=.o)

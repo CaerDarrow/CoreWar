@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:55:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/28 15:35:13 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/31 12:58:17 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ unsigned int		get_magic(int fd, int cur_player)
 	unsigned char	b[BYTE(4)];
 
 	if (read(fd, &b, BYTE(4)) != BYTE(4))
-		champ_error("Invalid magic header", cur_player);
+		champ_error("Not binary file", cur_player);
 	return ((b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3]);
 }
 

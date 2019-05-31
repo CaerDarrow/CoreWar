@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/29 21:16:42 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/31 14:45:25 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,74 @@ int				get_reg_num(t_cursor *c, int n)//only less or eq to u32
 // 	return (BITCOUNT(alive)); /////////////////////
 // }
 
-int				time_to_apply_func(t_game_entity *entity, t_cursor *cur_cursor_data)
+int				time_to_apply_op(t_cursor *cursor)
 {
-	(void)entity;(void)cur_cursor_data;
+	if (cursor->cycles_to_exec && !is_valide_op(cursor->op_code))///
+		error("Unexpected error :: invalid op code");///
+		// return (0);
+	return (cursor->cycles_to_exec == 0);
+}
+
+int				is_valide_op(char op_code)
+{
+	return (op_code >= 0 && op_code <= 16);
+}
+
+int				is_live_op(char op_code)
+{
+	return (op_code == 1);
+}
+
+int				is_valide_type(unsigned char argc, unsigned char *argv)
+{
+	(void)argv;(void)argc;
 	return (1);
 }
 
-int				apply_func(t_game_entity *entity, t_cursor *cur_cursor_data)
+void			*get_op_by_code(char op_code)
 {
-	(void)entity;(void)cur_cursor_data;
-	return (1);
-
+	(void)op_code;
+	return (&live);
 }
 
-int				is_valide(int func_code)
+unsigned char	get_op_code(unsigned char *bg, int position)
 {
-	(void)func_code;
-	return (1);
-
+	return (bg[position]);
 }
 
-int				is_live_func(int func_code)
+unsigned char	read_args_type(unsigned char *bg, int position)
 {
-	(void)func_code;
+	// &bg?
+	(void)bg;(void)position;
+	return (1);
+}
+
+unsigned char	*read_args(unsigned char *bg, int position)
+{
+	(void)bg;(void)position;
 	return (0);
+}
 
+int				apply_op(t_game_entity *entity, t_cursor *cursor)
+{
+	unsigned char		argc;
+	unsigned char		*argv;
+	void		(*f)(t_game_entity *, t_cursor *,unsigned char, unsigned char *);
+
+	f = get_op_by_code(cursor->op_code);
+	argc = 0;
+	if (g_op_tab[cursor->op_code].argtypes)
+		argc = read_args_type(entity->bg, cursor->position);
+	argv = read_args(entity->bg, cursor->position);
+	cursor->moved = 1;
+	if (!is_valide_type(argc, argv))
+	{
+		move_cursor(cursor, 1);
+		return (-1);
+	}
+	f(entity, cursor, argc, argv);
+	move_cursor(cursor, cursor->step);
+	return (cursor->op_code);
 }
 
 void			kill_cursor(t_list **cur)
@@ -124,9 +167,14 @@ void			try_kill_cursors(t_game_entity *entity)
 		if (cursor_should_die(cursor, entity->cycles_to_die))
 		{
 			if (prev)
+			{
+				ft_printf("Died at %d\n", entity->cycles_to_die );
 				kill_cursor(&cursor);
+			}
 			else
 			{
+				ft_printf("Died at %d\n", entity->cycles_to_die );
+
 				kill_cursor(&entity->cursors);
 				cursor = entity->cursors;
 				continue;
@@ -157,38 +205,54 @@ void			check_cursors(t_game_entity *entity, int *live_calls)
 	}
 }
 
+int				get_exec_time_by_code(unsigned char op_code)
+{
+	return (g_op_tab[op_code].cycles);
+}
+
+void			set_op_code(t_cursor *cursor, unsigned char *bg)
+{
+	cursor->moved = 0;
+	cursor->op_code = get_op_code(bg ,cursor->position);
+	if (is_valide_op(cursor->op_code))
+		cursor->cycles_to_exec = get_exec_time_by_code(cursor->op_code);
+}
+
 void			game_loop(t_game_entity *entity)
 {
 	(void)entity;
-	t_list		*cursor;
-	t_cursor	*cur_cursor_data;
+	t_list		*cursor_ptr;
+	t_cursor	*cursor;
 	int			live_calls;
-	int			func_code;
+	char		op_code;
 
 	live_calls = 0;//hide in entity
-	while (l_size(entity->cursors))
+	while (entity->cursors)
 	{
-		cursor = entity->cursors;
-		while (cursor)
+		if (entity->cycle == 1534)
+			ft_printf("BREAK\n");
+		cursor_ptr = entity->cursors;
+		while (cursor_ptr)
 		{
-			cur_cursor_data = (t_cursor *)cursor->data;
-			if (time_to_apply_func(entity, cur_cursor_data))
-			{
-				//standalone func
-				func_code = apply_func(entity, cur_cursor_data);
-				if (!is_valide(func_code))//validate or not after cycles?
-					move_cursor(entity, cur_cursor_data);
-				else if (is_live_func(func_code))
+			cursor = (t_cursor *)cursor_ptr->data;
+			// ft_printf("%d\n\n", get_op_code(entity->bg ,cursor->position));
+			// if else or if if ???
+			if (cursor->moved)
+				set_op_code(cursor, entity->bg);
+			if (cursor->cycles_to_exec > 0)
+				cursor->cycles_to_exec--;
+			else if (cursor->cycles_to_exec == 0)
+				if (is_live_op(apply_op(entity, cursor)))
 					live_calls++;
-			}
-			else
-				shift_cycle(cur_cursor_data);
-			cursor = cursor->next;
+			cursor_ptr = cursor_ptr->next;
+			// TODO move if invalid func args or all valide; all funcs implementation; welcome,goodbye messages;flag managment
 		}
 		entity->cycle++;
 		// ft_printf("%d\n", entity->cycle);
 		check_cursors(entity, &live_calls);
+		// ft_printf("%d\n", live_calls);
 	}
+	// print_bg(entity);
 	//Choose winner
-	// ft_printf("\nGame end %d\n", entity->cycle);
+	ft_printf("\nGame end at %d, last alive player %d\n", entity->cycle - 1, entity->last_alive_player);
 }

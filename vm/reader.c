@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/29 15:55:47 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/31 13:55:33 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void			get_champ(const char *s, t_game_entity *entity,
 		champ_error("Invalid champion programm size", cur_player);
 	get_comment(fd, champ->comment, cur_player);
 	code = get_code(fd, champ->prog_size, cur_player);
-	ft_memcpy(entity->bg + (MEM_SIZE * cur_player / entity->n_players),
+	ft_memcpy(entity->bg + (MEM_SIZE * (cur_player - 1) / entity->n_players),
 		code, champ->prog_size);
 	ft_memdel((void **)&code);
 	ld_push_back(&entity->players, champ);
@@ -50,5 +50,5 @@ void				read_champs(int argc, const char *argv[],
 	entity->n_players = argc - 1;
 	i = 0;
 	while (++i < argc)
-		get_champ(argv[i], entity, i - 1);
+		get_champ(argv[i], entity, i);
 }
