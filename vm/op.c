@@ -6,11 +6,11 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/24 17:53:55 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/31 14:17:19 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#include "vm.h"
 
 t_op	g_op_tab[] =
 {
@@ -38,3 +38,25 @@ t_op	g_op_tab[] =
 	{"lfork", 1, (int []){T_DIR}, 15, 1000, "long fork", 0, 1},
 	{"aff", 1, (int []){T_REG}, 16, 2, "aff", 1, 0},
 };
+
+char				get_step(unsigned char argc, unsigned char *argv)
+{
+	(void)argv;
+	(void)argc;
+	return (6);
+}
+
+int					get_arg1(unsigned char argc, unsigned char *argv)
+{
+	(void)argv;
+	(void)argc;
+	return (-1);
+}
+
+void				live(t_game_entity *entity, t_cursor *cursor,
+unsigned char argc, unsigned char *argv)
+{
+	cursor->last_live_call = entity->cycle;
+	cursor->step = get_step(argc, argv);
+	entity->last_alive_player = get_arg1(argc ,argv);//if not valide number = all dead?
+}
