@@ -6,7 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:19:26 by jjacobso          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/05/31 14:09:00 by jjacobso         ###   ########.fr       */
+=======
+/*   Updated: 2019/05/31 15:21:48 by jjacobso         ###   ########.fr       */
+>>>>>>> abd20af5941e634035bb1b3172d0a3d774548449
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +61,7 @@ void			move_cursor(t_cursor *cursor, int bytes)
 {
 	cursor->position = (cursor->position + bytes) % MEM_SIZE;
 }
+<<<<<<< HEAD
 
 // void			shift_cycle(t_cursor *cursor)
 // {
@@ -64,3 +69,5 @@ void			move_cursor(t_cursor *cursor, int bytes)
 // 	if (cursor->cycles_to_exec < 0)///
 // 		error("Something bad happened (unexpected)");///
 // }
+=======
+>>>>>>> abd20af5941e634035bb1b3172d0a3d774548449
