@@ -1,10 +1,6 @@
 ASM = asm
 VM = corewar
-<<<<<<< HEAD
-CFLAGS =  -g -I libft/includes/
-=======
 CFLAGS = -Wall -Wextra -Werror -g -I libft/includes/
->>>>>>> abd20af5941e634035bb1b3172d0a3d774548449
 VM_SRC = vm/error.c vm/game.c vm/get_header.c vm/reader.c vm/vm.c vm/cursor.c \
 vm/op.c
 ASM_SRC = assembler/*.c
