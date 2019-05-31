@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 14:02:30 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/31 15:25:49 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,22 @@ typedef struct		s_game_entity
 	int				last_alive_player;
 }					t_game_entity;
 
+typedef struct					op_s
+{
+	char 						*name;
+	int							argc;
+	int							*argv;
+	int							index;
+	int							cycles;
+	char						*comment;
+	int							argtypes;
+	int							t_dirsize;
+}								t_op;
+
+t_op							g_op_tab[17];
+void							(*g_op_ptr[17])(t_game_entity *, t_cursor *,
+								unsigned char, unsigned char *);
+
 void				read_champs(int ac, const char *argv[], t_game_entity *ge);
 void				game_loop(t_game_entity *entity);
 /*
@@ -64,7 +80,6 @@ int					time_to_apply_op(t_cursor *cursor);
 int					apply_op(t_game_entity *entity, t_cursor *cursor);
 int					is_valide_op(char op_code);
 int					is_live_op(char op_code);
-void				shift_cycle(t_cursor *cursor);
 void				check_handler(t_game_entity *entity, int *live_calls);
 
 void				destroy_cur(t_list **t);
@@ -77,7 +92,12 @@ t_cursor			*cursor_create(int id, char playes);
 void				live(t_game_entity * entity, t_cursor *cursor,
 unsigned char argc, unsigned char *argv);
 /*
-**	TODO
+TODO: move if invalid func args or all valide;
+all funcs implementation;
+welcome,goodbye messages;
+flag managment;
+set\get reg
+**	Features:
 **	Game progress in procents
 ** test.cor 156018 cycles;
 */

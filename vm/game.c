@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 14:45:25 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/05/31 15:26:38 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,6 @@ int				get_reg_num(t_cursor *c, int n)//only less or eq to u32
 	return (n);
 }
 
-
-
-
-
-// int				alive_players(t_game_entity *entity)
-// {
-// 	t_list		*c;
-// 	int			alive;
-//
-// 	alive = 0;
-// 	c = entity->cursors;
-// 	while (c)
-// 	{
-// 		alive |= get_reg_num(c->data, 1);
-// 		c = c->next;
-// 	}
-// 	return (BITCOUNT(alive)); /////////////////////
-// }
-
 int				time_to_apply_op(t_cursor *cursor)
 {
 	if (cursor->cycles_to_exec && !is_valide_op(cursor->op_code))///
@@ -78,10 +59,9 @@ int				is_valide_type(unsigned char argc, unsigned char *argv)
 	return (1);
 }
 
-void			*get_op_by_code(char op_code)
+void			*get_op_by_code(unsigned char op_code)
 {
-	(void)op_code;
-	return (&live);
+	return (g_op_ptr[op_code]);
 }
 
 unsigned char	get_op_code(unsigned char *bg, int position)
@@ -102,11 +82,12 @@ unsigned char	*read_args(unsigned char *bg, int position)
 	return (0);
 }
 
-int				apply_op(t_game_entity *entity, t_cursor *cursor)
+int						apply_op(t_game_entity *entity, t_cursor *cursor)
 {
 	unsigned char		argc;
 	unsigned char		*argv;
-	void		(*f)(t_game_entity *, t_cursor *,unsigned char, unsigned char *);
+	void				(*f)(t_game_entity *, t_cursor *,
+						unsigned char, unsigned char *);
 
 	f = get_op_by_code(cursor->op_code);
 	argc = 0;
@@ -224,7 +205,6 @@ void			game_loop(t_game_entity *entity)
 	t_list		*cursor_ptr;
 	t_cursor	*cursor;
 	int			live_calls;
-	char		op_code;
 
 	live_calls = 0;//hide in entity
 	while (entity->cursors)
@@ -245,7 +225,6 @@ void			game_loop(t_game_entity *entity)
 				if (is_live_op(apply_op(entity, cursor)))
 					live_calls++;
 			cursor_ptr = cursor_ptr->next;
-			// TODO move if invalid func args or all valide; all funcs implementation; welcome,goodbye messages;flag managment
 		}
 		entity->cycle++;
 		// ft_printf("%d\n", entity->cycle);
