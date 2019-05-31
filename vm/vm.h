@@ -6,11 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/05/31 14:02:30 by jjacobso         ###   ########.fr       */
-=======
-/*   Updated: 2019/05/31 15:25:49 by jjacobso         ###   ########.fr       */
->>>>>>> abd20af5941e634035bb1b3172d0a3d774548449
+/*   Updated: 2019/05/31 16:23:23 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +80,6 @@ int					time_to_apply_op(t_cursor *cursor);
 int					apply_op(t_game_entity *entity, t_cursor *cursor);
 int					is_valide_op(char op_code);
 int					is_live_op(char op_code);
-<<<<<<< HEAD
-void				shift_cycle(t_cursor *cursor);
-=======
->>>>>>> abd20af5941e634035bb1b3172d0a3d774548449
 void				check_handler(t_game_entity *entity, int *live_calls);
 
 void				destroy_cur(t_list **t);
