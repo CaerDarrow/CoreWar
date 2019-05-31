@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 16:25:03 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/31 20:48:04 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,22 @@ int				is_live_op(char op_code)
 	return (op_code == 1);
 }
 
-int				is_valide_type(unsigned char argc, unsigned char *argv)
+int				is_valide_type(unsigned char argc, int op_code)
 {
-	(void)argv;(void)argc;
+	int					i;
+	int					type;
+	int					code;
+
+	i = -1;
+	while (++i < g_op_tab[op_code].argc)
+	{
+		type = g_op_tab[op_code].argv[i];
+		code = (argc >> (6 - i * 2)) & 0xFF;
+		if (!(((type & T_DIR) && (code = DIR_CODE)) ||
+			((type & T_IND) && (code = IND_CODE)) ||
+			((type & T_REG) && (code = REG_CODE))))
+			return (0);
+	}
 	return (1);
 }
 
@@ -66,20 +79,51 @@ void			*get_op_by_code(unsigned char op_code)
 
 unsigned char	get_op_code(unsigned char *bg, int position)
 {
-	return (bg[position]);
+	return (bg[position % IDX_MOD]);
 }
 
 unsigned char	read_args_type(unsigned char *bg, int position)
 {
-	// &bg?
-	(void)bg;(void)position;
-	return (1);
+	return (bg[(position + 1) % IDX_MOD]);
 }
 
-unsigned char	*read_args(unsigned char *bg, int position)
+
+
+unsigned char	*read_args(t_cursor *cursor, unsigned char *bg, unsigned char argc)
 {
-	(void)bg;(void)position;
+	unsigned char		*res;
+	int					i;
+	int					code;
+
+	(void)argc;
+	(void)bg;
+	res = 0;
+	i = -1;
+	while (++i < g_op_tab[cursor->op_code].argc)
+	{
+		code = (argc >> (6 - i * 2)) & 0xFF;//get code ?
+		if (code == DIR_CODE)
+		{
+			ft_printf("Read dir\n");
+		}
+		else if (code == IND_CODE)
+		{
+			ft_printf("Read ind\n");
+
+		}
+		else if (code == REG_CODE)
+		{
+			ft_printf("Read reg\n");
+
+		}
+	}
+
 	return (0);
+}
+
+char					get_dir_size(int op_code)
+{
+	return (g_op_tab[op_code].t_dirsize);
 }
 
 int						apply_op(t_game_entity *entity, t_cursor *cursor)
@@ -93,13 +137,13 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 	argc = 0;
 	if (g_op_tab[cursor->op_code].argtypes)
 		argc = read_args_type(entity->bg, cursor->position);
-	argv = read_args(entity->bg, cursor->position);
 	cursor->moved = 1;
-	if (!is_valide_type(argc, argv))
+	if (!is_valide_type(argc, cursor->op_code))
 	{
 		move_cursor(cursor, 1);
 		return (-1);
 	}
+	argv = read_args(cursor, entity->bg, argc);
 	f(entity, cursor, argc, argv);
 	move_cursor(cursor, cursor->step);
 	return (cursor->op_code);
@@ -231,7 +275,7 @@ void			game_loop(t_game_entity *entity)
 		check_cursors(entity, &live_calls);
 		// ft_printf("%d\n", live_calls);
 	}
-	// print_bg(entity);
+	print_bg(entity);
 	//Choose winner
-	ft_printf("\nGame end at %d, last alive player %d\n", entity->cycle - 1, entity->last_alive_player);
+	ft_printf("\nGame end at %d, last alive player %d\n", entity->cycle , entity->last_alive_player);
 }

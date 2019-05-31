@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:19:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 16:23:53 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/31 17:38:38 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_cursor		*cursor_create(int id, char players)
 	}
 	c->reg[i] = 0;
 	c->moved = 1;
+	c->id = id;
 	c->position = MEM_SIZE * (id - 1) / players;
 	return (c);
 }
