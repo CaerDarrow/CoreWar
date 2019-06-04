@@ -6,7 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 20:54:24 by jjacobso          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/06/04 17:58:14 by ajon-hol         ###   ########.fr       */
+=======
+/*   Updated: 2019/05/31 17:49:08 by jjacobso         ###   ########.fr       */
+>>>>>>> e31733db81df6dcf005b68da7dbdbe111912ef19
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +57,7 @@ unsigned long long	ft_pow(int a, int b);
 /*
 ** 					libft/mem/
 */
+void**				ft_copy_mass(void **mas, int size);
 void				*ft_intset(void *dest, int c, size_t len);
 int					**ft_mas(int x, int y, int c);
 void				*ft_int_get_mass(int m);

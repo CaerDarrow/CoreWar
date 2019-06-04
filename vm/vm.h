@@ -6,52 +6,55 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 16:23:23 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/05/31 20:12:28 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 
-# include			"libft.h"
-# include			"op.h"
+# include						"libft.h"
+# include						"op.h"
 
-# define BYTE(n)	n
+# define BYTE(n)				n
+# define XOR(x, y)				((x + y) % 2)
+# define REG_NUM				16
 
-typedef struct		s_cursor
+typedef struct					s_cursor
 {
-	unsigned char	**reg;
-	char			carry;
-	int				last_live_call;
-	unsigned char	op_code;
-	int				cycles_to_exec;
-	int				position;
-	char			step;//dont need to store
-	char			moved;
-}					t_cursor;
+	char						id;
+	unsigned char				**reg;
+	char						carry;
+	int							last_live_call;
+	unsigned char				op_code;
+	int							cycles_to_exec;
+	int							position;
+	char						step;//dont need to store
+	char						moved;
+}								t_cursor;
 
-typedef struct		s_game_entity
+typedef struct					s_game_entity
 {
-	unsigned char	*bg;
-	t_list			*cursors;
-	t_list			*players;
-	char			n_players;
-	long			cycle;
-	int				cycles_to_die;
-	int				cycles_with_same_ctd;
-	int				last_alive_player;
-}					t_game_entity;
+	unsigned char				*bg;
+	t_list						*cursors;
+	t_list						*players;
+	char						n_players;
+	long						cycle;
+	int							cycles_to_die;
+	int							cycles_with_same_ctd;
+	int							last_alive_player;
+}								t_game_entity;
 
 typedef struct					op_s
 {
 	char 						*name;
-	int							argc;
+	char						argc;
 	int							*argv;
-	int							index;
+	char						index;
 	int							cycles;
 	char						*comment;
-	int							argtypes;
-	int							t_dirsize;
+	char						argtypes;
+	char						t_dirsize;
 }								t_op;
 
 t_op							g_op_tab[17];
@@ -91,6 +94,8 @@ void				shift_cycle(t_cursor *cursor);
 t_cursor			*cursor_create(int id, char playes);
 void				live(t_game_entity * entity, t_cursor *cursor,
 unsigned char argc, unsigned char *argv);
+int					get_reg_num(t_cursor *c, int n);
+char				type(char argc, char flag);
 /*
 TODO: move if invalid func args or all valide;
 all funcs implementation;
@@ -100,5 +105,6 @@ set\get reg
 **	Features:
 **	Game progress in procents
 ** test.cor 156018 cycles;
+** % IDX_MODE check
 */
 #endif
