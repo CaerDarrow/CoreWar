@@ -6,66 +6,66 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:46:07 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/05/29 22:23:41 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/04 20:16:03 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-// typedef struct	s_parsed
-// {
-// 	char		*label;
-// 	char		*instruction;
-// 	char		*register;
-// 	char		*separator;
-// 	char		*direct;
-// 	char		*direct_label;
-// 	char		*string;
-// }				t_parsed;
-
-static int	skipspaces(int i, char *line)
-{
-	while (ft_isspace(line[i]))
-		i++;
-	return (i);
-}
-
-int	parse(char **readed)
+int	parse(char *readed)
 {
 	int i;
-	int j;
-	char *line;
+	char *pch;
+	//char *prologue;
 
 	i = 0;
-	while ((line = readed[i]) && i < 10)
+	// ft_printf("Lexical error at [%d:%d]\n", i, 1);
+	// pch = ft_strtok(readed, ".");
+	// prologue = ft_strdup(pch);
+	// ft_printf("%s\n", prologue);
+	// pch = ft_strtok(0, " ");
+	// ft_printf("%s\n", pch);
+	// pch = ft_strtok(0, "\"");
+	// ft_printf("%s\n", pch);
+	// pch = ft_strtok(0, "\"");
+	// ft_printf("[%s]\n", pch);
+	// pch = ft_strtok(0, ".");
+	// ft_printf("%s\n", pch);
+	// pch = ft_strtok(0, " ");
+	// ft_printf("%s\n", pch);
+	// pch = ft_strtok(0, "\"");
+	// ft_printf("%s\n", pch);
+	// pch = ft_strtok(0, "\"");
+	// ft_printf("[%s]\n", pch);
+	pch = ft_strtok(readed, "\"\n");
+	while (pch != NULL)
 	{
-		ft_printf("[%s]\n", line);
-		j = 0;
-		j = skipspaces(j, line);
-		if (ft_strequ(line, ""))
-			;
-		else if (line[j] == '#' || line[j] == ';')
-			ft_printf("Comment: %s\n", (line + j));
-		else if (line[j] == '.')
+		if (ft_strisalpha(pch))
 		{
-			j = skipspaces(j, line);
-			if (ft_strnequ((line + j), ".name", 5))
-			{
-				ft_printf("Name: %s\n", (line + j));
-				j = skipspaces(j, (line + j));
-				if (line[j] != '\"')
-					ft_printf("Lexical error at [%d:%d]\n", i, j);
-			}
-			else if (ft_strnequ((line + j), ".comment", 8))
-			{
-				ft_printf("Comment: %s\n", (line + j));
-				j = skipspaces(j, line);
-				if (line[j] != '\"')
-					ft_printf("Lexical error at [%d:%d]\n", i, j);
-			}
-			else
-				ft_printf("Error string\n");
+			ft_printf("INSTRUCTION: [%s, %d]\n", pch, i);
 		}
+		else if (ft_strisnum(pch))
+		{
+			ft_printf("INDIRECT: [%s, %d]\n", pch, i);
+		}
+		else if (pch[0] == '%')
+		{
+			if (ft_strisnum(pch + 1))
+				ft_printf("DIRECT: [%s, %d]\n", pch, i);
+			else if (pch[1] == ':' && ft_strisalnum(pch + 2))
+				ft_printf("DIRECT_LABEL: [%s, %d]\n", pch, i);
+		}
+		else if (pch[0] == 'r')
+		{
+			ft_printf("REGISTER: [%s, %d]\n", pch, i);
+		}
+		else if (pch[ft_strlen(pch) - 1] == ':')
+		{
+			ft_printf("LABEL: [%s, %d]\n", pch, i);
+		}
+		else
+			ft_printf("ERROR?: [%s, %d]\n", pch, i);
+		pch = ft_strtok(NULL, "\"\n");
 		i++;
 	}
 	return (1);

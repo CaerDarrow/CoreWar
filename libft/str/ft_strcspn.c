@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_strcspn.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/30 14:09:15 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:46 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/04 12:52:17 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/04 12:55:38 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isspace(char c)
+size_t	ft_strcspn(const char *s1, const char *s2)
 {
-	return (c == '\t' || c == ' ');
+
+	size_t ret;
+
+	ret = 0;
+	while(*s1)
+	{
+		if (ft_strchr(s2, *s1))
+			return ret;
+		else
+		{
+			s1++;
+			ret++;
+		}
+	}
+	return ret;
 }

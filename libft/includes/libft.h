@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 20:54:24 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/29 21:37:58 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/04 17:58:14 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,13 @@ char				ft_toupper(char c);
 char				*ft_strupper(char *s);
 char				*ft_strlower(char *s);
 char				*ft_strsubchr(char const *s, unsigned int start, char c);
+char 				*ft_strtok(char *s, const char *delim);
+size_t				ft_strcspn(const char *s1, const char *s2);
+int					ft_strisalpha(char *str);
+int					ft_strisnum(char *str);
+int					ft_strisalnum(char *str);
+int					ft_strisspace(char *str);
+
 /*
 **					libft/vec
 */

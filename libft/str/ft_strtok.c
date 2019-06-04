@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/04 12:08:36 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/04 12:46:51 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/04 17:55:40 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strtok(char *s, const char *delim)
 {
-	t_unit *unit;
+	static char	*lasts;
+	int			ch;
 
-	if (argc < 2)
-		ft_printf("Usage: ./asm [possible flags] <sourcefile.s>\n");
-	else if ( /*readed = */read_s(argv[argc - 1]))
+	if (s == 0)
+		s = lasts;
+	if ((ch = *s++) == '\0')
+		return 0;
+	while (ft_strchr(delim, ch))
 	{
-		unit = initchamp(/*readed*/);
-		writechamp(unit, argv[argc - 1]);
-		free(unit);
+		if ((ch = *s++) == '\0')
+			return 0;
 	}
-	return (0);
+	--s;
+	lasts = s + ft_strcspn(s, delim);
+	if (*lasts != 0)
+		*lasts++ = 0;
+	return s;
 }

@@ -1,5 +1,13 @@
-.name           "42"
+
+# 1231      2313
+
+
+.name           "4
+
+12
+2"
 .comment        "Just a basic Winner Program"
+
 
 entree:	live	%42		# entree
 	ld	%0,r5
@@ -7,7 +15,7 @@ entree:	live	%42		# entree
 	zjmp	%:bite
 
 tir:	sti	r1,%:tirb,%1
-	ld	%2304,r10
+	ld	%2304    ,   r10
 	ld	%1,r5
 	ld	%0,r11
 
@@ -239,3 +247,5 @@ tird:	live	%42
 	zjmp	%:p1
 
 fin:	live	%633
+
+# 1231      2313

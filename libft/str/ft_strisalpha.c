@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_strisalpha.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/30 14:09:15 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/04 17:56:46 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/04 16:17:16 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/04 16:22:26 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isspace(char c)
+int	ft_strisalpha(char *str)
 {
-	return (c == '\t' || c == ' ');
+	while (*str)
+	{
+		if (!(ft_isalpha(*str)))
+			return(0);
+		str++;
+	}
+	return(1);
 }
