@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 20:12:28 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/05 14:10:20 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,19 @@ void				shift_cycle(t_cursor *cursor);
 t_cursor			*cursor_create(int id, char playes);
 void				live(t_game_entity * entity, t_cursor *cursor,
 unsigned char argc, unsigned char *argv);
-int					get_reg_num(t_cursor *c, int n);
-char				type(char argc, char flag);
+unsigned char		**get_reg_num(t_cursor *c, int n);
+int					get_num(unsigned char *s);
 /*
 TODO: move if invalid func args or all valide;
 all funcs implementation;
 welcome,goodbye messages;
 flag managment;
 set\get reg
+check if regsize = 5 ; reg_num type?
 **	Features:
 **	Game progress in procents
 ** test.cor 156018 cycles;
-** % IDX_MODE check
+** % IDX_MODE check or special function for this purpose
+
 */
 #endif

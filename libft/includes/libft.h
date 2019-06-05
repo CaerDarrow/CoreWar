@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2018/11/20 20:54:24 by jjacobso          #+#    #+#             */
 /*   Updated: 2019/06/05 18:38:56 by ajon-hol         ###   ########.fr       */
+=======
+/*   Created: 2019/06/05 11:00:19 by jjacobso          #+#    #+#             */
+/*   Updated: 2019/06/05 11:00:29 by jjacobso         ###   ########.fr       */
+>>>>>>> c8c61e8b41982ef61609048d971e7a35410485cf
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +30,6 @@
 # include "stack.h"
 # include "queue.h"
 # include "ft_math.h"
-# include "gc.h"
 # include "../printf/printf.h"
 
 # define SIGN(x)	((x > 0) ? 1 : -1)

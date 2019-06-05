@@ -6,11 +6,40 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:19:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 17:38:38 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/05 14:09:56 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+// unsigned char	*num_to_bytes(int n)
+// {
+// 	unsigned char	*res;
+// 	int				size;
+// 	int				i;
+//
+// 	size = 4;
+// 	if (!(res = ft_strnew(size)))
+// 		error("Malloc error");
+// 	i = -1;
+// 	while (++i < size)
+// 		res[i] = (n >> (6 - i * 2)) & 0xFF;
+// 	return (res);
+// }
+
+int				get_num(unsigned char *s)
+{
+	int			i;
+	int			res;
+
+	res = 0;
+	i = -1;
+
+	while (++i < REG_SIZE)
+		res = (res << 8) | s[i];
+	// res = (cursor->reg[0][0] << 24) | (cursor->reg[0][1] << 16) | (cursor->reg[0][2] << 8) | cursor->reg[0][3];
+	return (-res);
+}
 
 t_cursor		*cursor_create(int id, char players)
 {
@@ -25,10 +54,11 @@ t_cursor		*cursor_create(int id, char players)
 	i = -1;
 	while (++i < 16)
 	{
-		if (!(c->reg[i] = (unsigned char *)malloc(REG_SIZE)))
+		if (!(c->reg[i] = (unsigned char *)malloc(REG_SIZE * sizeof(unsigned char))))
 			error("Malloc error");
 		ft_bzero(c->reg[i], REG_SIZE);
-		set_reg_num(c, 1, id);
+		set_reg_num(c, 1, -id);
+		// ft_printf("%d\n", get_player_num(c));
 	}
 	c->reg[i] = 0;
 	c->moved = 1;
