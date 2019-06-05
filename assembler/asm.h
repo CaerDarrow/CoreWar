@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/04 17:55:18 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/05 21:55:52 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct		s_parsed
 }					t_parsed;
 
 int					read_s(char *fname);
-int					parse(char *readed);
+int					parse(char **readed);
 t_unit				*initchamp(void);
 void				writechamp(t_unit *unit, char *fname);
 void				set_magic(t_unit *unit);
@@ -53,6 +53,10 @@ void				set_name(char *name, t_unit *unit);
 void				set_prog_size(int size, t_unit *unit);
 void				set_comment(char *comment, t_unit *unit);
 void				set_exec(unsigned char *exec, int size, t_unit *unit);
+int					match(char *regexp, char *text);
+int					matchstar(int c, char *regexp, char *text);
+int					match(char *regexp, char *text);
+char				*lexer(char *s, const char *delim, char **save_ptr);
 
-t_op				g_op_tab[17];	
+t_op				g_op_tab[17];
 #endif

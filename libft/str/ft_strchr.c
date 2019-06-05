@@ -6,13 +6,13 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 17:49:42 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/01/21 16:57:11 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/05 18:31:36 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strchr(const char *src, int c)
+char	*ft_strchr(const char *src, int c)
 {
 	const char	*s;
 

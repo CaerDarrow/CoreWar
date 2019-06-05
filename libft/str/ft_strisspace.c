@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:57:02 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/04 17:57:53 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/05 18:37:01 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	ft_strisspace(char *str)
 	while (*str)
 	{
 		if (!(ft_isspace(*str)))
-			return(0);
+			return (0);
 		str++;
 	}
-	return(1);
+	return (1);
 }

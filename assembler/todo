@@ -6,3 +6,22 @@ comment/name
 char - instruction
 num - indirect
 % direct
+
+lexer()
+{
+	command_name()
+	{.}
+	string()
+	{"*"\n}
+	comment()
+	{COMMENT_CHAR*\n}
+	label()
+	{[LABEL_CHARS]LABEL_CHAR}
+	direct()
+	{DIRECT_CHAR}
+	separtor()
+	{SEPARATOR_CHAR}
+	inderect()
+	{[0-9]}
+
+}

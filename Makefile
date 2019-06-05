@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -g -I libft/includes/
 VM_SRC = vm/error.c vm/game.c vm/get_header.c vm/reader.c vm/vm.c vm/cursor.c \
 vm/op.c
 ASM_SRC = assembler/asm.c assembler/champ.c assembler/op.c assembler/parse.c \
-assembler/read.c assembler/set.c
+assembler/read.c assembler/set.c assembler/lexer.c assembler/regexp.c
 VM_OBJ = $(VM_SRC:.c=.o)
 ASM_OBJ = $(ASM_SRC:.c=.o)
 LIBFT = libft/libft.a

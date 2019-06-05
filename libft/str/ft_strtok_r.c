@@ -1,24 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strisnum.c                                      :+:      :+:    :+:   */
+/*   ft_strtok_r.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/04 16:20:23 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/05 18:36:28 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/04 12:46:51 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/05 18:33:22 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strisnum(char *str)
+char	*ft_strtok_r(char *s, const char *delim, char **save_ptr)
 {
-	while (*str)
+	char *end;
+
+	if (s == NULL)
+		s = *save_ptr;
+	if (*s == '\0')
 	{
-		if (!(ft_isdigit(*str)))
-			return (0);
-		str++;
+		*save_ptr = s;
+		return (NULL);
 	}
-	return (1);
+	s += ft_strspn(s, delim);
+	if (*s == '\0')
+	{
+		*save_ptr = s;
+		return (NULL);
+	}
+	end = s + ft_strcspn(s, delim);
+	if (*end == '\0')
+	{
+		*save_ptr = end;
+		return (s);
+	}
+	*end = '\0';
+	*save_ptr = end + 1;
+	return (s);
 }

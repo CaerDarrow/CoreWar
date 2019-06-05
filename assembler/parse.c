@@ -6,66 +6,63 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:46:07 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/04 20:16:03 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/05 22:08:08 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int	parse(char *readed)
+// char *take_delim(char **readed)
+// {
+// 	while (**readed)
+// 	{
+// 		if (**readed == COMMENT_CHAR)
+// 			return ("\0");
+// 		else if (**readed == '.')
+// 			return (" \t");
+// 		else if (**readed == '\"')
+// 		{
+// 			(*readed)++;
+// 			return ("\"");
+// 		}
+// 		else if (ft_isalpha(**readed))
+// 			return (" ,:\t");
+// 		else if (**readed == 'r')
+// 			return (",\0");
+// 		else if (**readed == DIRECT_CHAR)
+// 			return (",\0");
+// 		else if (ft_isdigit(**readed))
+// 			return (",\0");
+// 		(*readed)++;
+// 	}
+// 	return(NULL);
+// }
+
+int	parse(char **readed)
 {
 	int i;
-	char *pch;
-	//char *prologue;
+	char *line;
+	// char *pch;
+	// char *delim;
+	// char *reentry;
 
 	i = 0;
-	// ft_printf("Lexical error at [%d:%d]\n", i, 1);
-	// pch = ft_strtok(readed, ".");
-	// prologue = ft_strdup(pch);
-	// ft_printf("%s\n", prologue);
-	// pch = ft_strtok(0, " ");
-	// ft_printf("%s\n", pch);
-	// pch = ft_strtok(0, "\"");
-	// ft_printf("%s\n", pch);
-	// pch = ft_strtok(0, "\"");
-	// ft_printf("[%s]\n", pch);
-	// pch = ft_strtok(0, ".");
-	// ft_printf("%s\n", pch);
-	// pch = ft_strtok(0, " ");
-	// ft_printf("%s\n", pch);
-	// pch = ft_strtok(0, "\"");
-	// ft_printf("%s\n", pch);
-	// pch = ft_strtok(0, "\"");
-	// ft_printf("[%s]\n", pch);
-	pch = ft_strtok(readed, "\"\n");
-	while (pch != NULL)
+	while (readed[i] && (line = ft_strdup(readed[i])))
 	{
-		if (ft_strisalpha(pch))
-		{
-			ft_printf("INSTRUCTION: [%s, %d]\n", pch, i);
-		}
-		else if (ft_strisnum(pch))
-		{
-			ft_printf("INDIRECT: [%s, %d]\n", pch, i);
-		}
-		else if (pch[0] == '%')
-		{
-			if (ft_strisnum(pch + 1))
-				ft_printf("DIRECT: [%s, %d]\n", pch, i);
-			else if (pch[1] == ':' && ft_strisalnum(pch + 2))
-				ft_printf("DIRECT_LABEL: [%s, %d]\n", pch, i);
-		}
-		else if (pch[0] == 'r')
-		{
-			ft_printf("REGISTER: [%s, %d]\n", pch, i);
-		}
-		else if (pch[ft_strlen(pch) - 1] == ':')
-		{
-			ft_printf("LABEL: [%s, %d]\n", pch, i);
-		}
-		else
-			ft_printf("ERROR?: [%s, %d]\n", pch, i);
-		pch = ft_strtok(NULL, "\"\n");
+		// reentry = NULL;
+		// delim = take_delim(&line);
+		// pch = lexer(line, delim, &reentry);
+		// while (pch != NULL)
+		// {
+		// 	line += (ft_strlen(pch) + 1);
+		// 	delim = take_delim(&line);
+		// 	ft_printf("[%s]\n");
+		// 	pch = lexer(line, delim, &reentry);
+		// 	getchar();
+		// }
+		// ft_printf("__________________\n");
+		if (*line && match("#/*$", line))
+			ft_printf("%s\n", line);
 		i++;
 	}
 	return (1);

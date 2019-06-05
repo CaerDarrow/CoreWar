@@ -1,0 +1,112 @@
+char *take_delim(char **readed)
+{
+	while (**readed)
+	{
+		if (**readed == COMMENT_CHAR)
+			return ("\0");
+		else if (**readed == '.')
+			return (" \t");
+		else if (**readed == '\"')
+		{
+			(*readed)++;
+			return ("\"");
+		}
+		else if (ft_isalpha(**readed))
+			return (" ,:\t");
+		else if (**readed == 'r')
+			return (",\0");
+		else if (**readed == DIRECT_CHAR)
+			return (",\0");
+		else if (ft_isdigit(**readed))
+			return (",\0");
+		(*readed)++;
+	}
+	return(NULL);
+}
+
+int	parse(char **readed)
+{
+	int i;
+	char *line;
+	char *pch;
+	char *delim;
+	char *reentry;
+
+	i = 0;
+	while ((line = ft_strdup(readed[i])))
+	{
+		reentry = NULL;
+		delim = take_delim(&line);
+		pch = ft_strtok_r(line, delim, &reentry);
+		while (pch != NULL)
+		{
+			line += (ft_strlen(pch) + 1);
+			delim = take_delim(&line);
+			ft_printf("[%s]\n", ft_strtrim(pch));
+			pch = ft_strtok_r(line, delim, &reentry);
+			getchar();
+		}
+		ft_printf("__________________\n");
+		i++;
+	}
+	return (1);
+}
+
+// ft_printf("Lexical error at [%d:%d]\n", i, 1);
+// while (pch != NULL)
+// {
+// 	if (ft_strisalpha(pch))
+// 	{
+// 		ft_printf("INSTRUCTION: [%s, %d]\n", pch, i);
+// 	}
+// 	else if (ft_strisnum(pch))
+// 	{
+// 		ft_printf("INDIRECT: [%s, %d]\n", pch, i);
+// 	}
+// 	else if (pch[0] == '%')
+// 	{
+// 		if (ft_strisnum(pch + 1))
+// 			ft_printf("DIRECT: [%s, %d]\n", pch, i);
+// 		else if (pch[1] == ':' && ft_strisalnum(pch + 2))
+// 			ft_printf("DIRECT_LABEL: [%s, %d]\n", pch, i);
+// 	}
+// 	else if (pch[0] == 'r')
+// 	{
+// 		ft_printf("REGISTER: [%s, %d]\n", pch, i);
+// 	}
+// 	else if (pch[ft_strlen(pch) - 1] == ':')
+// 	{
+// 		ft_printf("LABEL: [%s, %d]\n", pch, i);
+// 	}
+// 	else
+// 		ft_printf("ERROR?: [%s, %d]\n", pch, i);
+// 	pch = ft_strtok(NULL, "\n");
+// 	i++;
+// }
+
+
+int	parse(char **readed)
+{
+	int i;
+	char *line;
+	char *pch;
+	char *delim = "#:.";
+	char *reentry;
+
+	i = 0;
+	while ((line = ft_strdup(readed[i])))
+	{
+		reentry = NULL;
+		pch = lexer(line, delim, &reentry);
+		while (pch != NULL)
+		{
+			line += (ft_strlen(pch) + 1);
+			ft_printf("[%s]\n", pch);
+			pch = lexer(0, delim, &reentry);
+			getchar();
+		}
+		ft_printf("__________________\n");
+		i++;
+	}
+	return (1);
+}

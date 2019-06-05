@@ -1,10 +1,9 @@
 
 # 1231      2313
 
-
 .name           "4
-
-12
+kname
+  12
 2"
 .comment        "Just a basic Winner Program"
 

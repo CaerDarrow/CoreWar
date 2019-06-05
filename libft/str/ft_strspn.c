@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strspn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/22 10:57:53 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/05 16:39:45 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/04 12:52:17 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/05 18:36:02 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strtrim(char const *src)
+size_t	ft_strspn(const char *s1, const char *s2)
 {
-	char const	*start;
-	char const	*s;
-	size_t		len;
+	size_t ret;
 
-	s = src;
-	start = s;
-	while (ft_isspace(*s++))
-		start++;
-	while (*s)
-		s++;
-	while (--s != start && ft_isspace(*s))
-		;
-	len = s - start + 1;
-	return (ft_strsub(start, 0, len));
+	ret = 0;
+	while (*s1 && ft_strchr(s2, *s1++))
+		ret++;
+	return (ret);
 }
