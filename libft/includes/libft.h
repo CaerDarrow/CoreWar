@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/20 20:54:24 by jjacobso          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/06/04 17:58:14 by ajon-hol         ###   ########.fr       */
-=======
-/*   Updated: 2019/05/31 17:49:08 by jjacobso         ###   ########.fr       */
->>>>>>> e31733db81df6dcf005b68da7dbdbe111912ef19
+/*   Created: 2019/06/05 11:00:19 by jjacobso          #+#    #+#             */
+/*   Updated: 2019/06/05 11:00:29 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +25,6 @@
 # include "stack.h"
 # include "queue.h"
 # include "ft_math.h"
-# include "gc.h"
 # include "../printf/printf.h"
 
 # define SIGN(x)	((x > 0) ? 1 : -1)

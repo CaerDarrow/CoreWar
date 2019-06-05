@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/05/31 19:39:48 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/05 14:22:36 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ void				set_carry(char *carry, int num)
 		*carry = 0;
 }
 
-char				type(char argc, char flag)
-{
-	return (argc & flag);
-}
-
 char				get_step(unsigned char argc, unsigned char *argv)
 {
 	(void)argv;
@@ -60,31 +55,71 @@ char				get_step(unsigned char argc, unsigned char *argv)
 	return (6);
 }
 
+int					get_arg_size(unsigned char argc, int flag, int n)
+{
+	int				code;
+
+	code = (argc >> (6 - n * 2)) & 0xFF;
+	if (code == DIR_CODE)
+	{
+		if (flag)
+			return (DIR_SIZE);
+		return (IND_SIZE);
+	}
+	else if (code == IND_CODE)
+		return (IND_SIZE);
+	else if (code == REG_CODE)
+		return (1);
+	return (0);
+}
+// merge get arg funcs
 int					get_arg1(unsigned char argc, unsigned char *argv, int flag)
 {
-	(void)argv;
-	(void)argc;
-	(void)flag;
+	int				size;
+	int				i;
+	int				res;
 
-	return (-1);
+	size = get_arg_size(argc, flag, 1);
+	res = 0;
+	i = -1;
+	while (++i < size)
+		res = (res << 8) | argv[i];
+		ft_printf("1:%d %s %d\n", res, argv, get_num(argv));
+	return (res);
 }
 
 int					get_arg2(unsigned char argc, unsigned char *argv, int flag)
 {
-	(void)argv;
-	(void)argc;
-	(void)flag;
+	int				size;
+	int				i;
+	int				res;
+	int				offset;
 
-	return (-1);
+	offset = get_arg_size(argc, flag, 1);
+	size = get_arg_size(argc, flag, 2);
+	res = 0;
+	i = -1;
+	while (++i < size)
+		res = (res << 8) | argv[i + offset];
+		ft_printf("2:%d %s %d\n", res, argv, get_num(argv));
+	return (res);
 }
 
 int					get_arg3(unsigned char argc, unsigned char *argv, int flag)
 {
-	(void)argv;
-	(void)argc;
-	(void)flag;
+	int				size;
+	int				i;
+	int				res;
+	int				offset;
 
-	return (-1);
+	offset = get_arg_size(argc, flag, 1) + get_arg_size(argc, flag, 2);
+	size = get_arg_size(argc, flag, 3);
+	res = 0;
+	i = -1;
+	while (++i < size)
+		res = (res << 8) | argv[i + offset];
+	ft_printf("3:%d %s %d\n", res, argv, get_num(argv));
+	return (res);
 }
 
 void				live(t_game_entity *entity, t_cursor *cursor,
@@ -93,17 +128,18 @@ void				live(t_game_entity *entity, t_cursor *cursor,
 	cursor->last_live_call = entity->cycle;
 	cursor->step = get_step(argc, argv);
 	entity->last_alive_player = get_arg1(argc, argv, 1);//if not valide number = all dead?
+	ft_printf("live\n");
 }
 
 void				ld(t_game_entity *entity, t_cursor *cursor,
 						unsigned char argc, unsigned char *argv)
 {
-	int				num;
+	int				num;//unsigned char *?
 
 	(void)entity;
-	// read T_REG_SIZE BYTES; T_REG is machine word
 	set_reg_num(cursor, (num = get_arg1(argc, argv, 1)), get_arg2(argc, argv, 1));
 	set_carry(&cursor->carry, num);
+	ft_printf("ld\n");
 }
 
 void				st(t_game_entity *entity, t_cursor *cursor,
@@ -111,6 +147,7 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 {
 	(void)entity;
 	set_reg_num(cursor, get_arg2(argc, argv, 1), get_arg1(argc, argv, 1));
+	ft_printf("st\n");
 }
 
 void				add(t_game_entity *entity, t_cursor *cursor,
@@ -122,6 +159,7 @@ void				add(t_game_entity *entity, t_cursor *cursor,
 	num = get_arg1(argc, argv, 1) + get_arg2(argc, argv, 1);
 	set_reg_num(cursor, get_arg3(argc, argv, 1), num);
 	set_carry(&cursor->carry, num);
+	ft_printf("add\n");
 }
 
 void				sub(t_game_entity *entity, t_cursor *cursor,
@@ -133,6 +171,7 @@ void				sub(t_game_entity *entity, t_cursor *cursor,
 	num = get_arg1(argc, argv, 1) - get_arg2(argc, argv, 1);
 	set_reg_num(cursor, get_arg3(argc, argv, 1), num);
 	set_carry(&cursor->carry, num);
+	ft_printf("sub\n");
 }
 
 void				and(t_game_entity *entity, t_cursor *cursor,
@@ -144,6 +183,7 @@ void				and(t_game_entity *entity, t_cursor *cursor,
 	num = get_arg1(argc, argv, 1) & get_arg2(argc, argv, 1);
 	set_reg_num(cursor, get_arg3(argc, argv, 1), num);
 	set_carry(&cursor->carry, num);
+	ft_printf("and\n");
 }
 
 void				or(t_game_entity *entity, t_cursor *cursor,
@@ -155,6 +195,7 @@ void				or(t_game_entity *entity, t_cursor *cursor,
 	num = get_arg1(argc, argv, 1) | get_arg2(argc, argv, 1);
 	set_reg_num(cursor, get_arg3(argc, argv, 1), num);
 	set_carry(&cursor->carry, num);
+	ft_printf("xor\n");
 }
 
 void				xor(t_game_entity *entity, t_cursor *cursor,
@@ -166,6 +207,7 @@ void				xor(t_game_entity *entity, t_cursor *cursor,
 	num = XOR(get_arg1(argc, argv, 1), get_arg2(argc, argv, 1));
 	set_reg_num(cursor, get_arg3(argc, argv, 1), num);
 	set_carry(&cursor->carry, num);
+	ft_printf("xor\n");
 }
 
 void				zjmp(t_game_entity *entity, t_cursor *cursor,
@@ -175,6 +217,7 @@ void				zjmp(t_game_entity *entity, t_cursor *cursor,
 	(void)entity;
 	if (cursor->carry)
 		move_cursor(cursor, get_arg1(argc, argv, 1));
+	ft_printf("zjmp\n");
 }
 
 void				ldi(t_game_entity *entity, t_cursor *cursor,
@@ -186,6 +229,7 @@ void				ldi(t_game_entity *entity, t_cursor *cursor,
  	num = (get_arg1(argc, argv, 1) + get_arg2(argc, argv, 1)) % IDX_MOD;
 	set_reg_num(cursor, num, get_arg2(argc, argv, 1));
 	set_carry(&cursor->carry, num);
+	ft_printf("ldi\n");
 }
 
 void				sti(t_game_entity *entity, t_cursor *cursor,
@@ -195,6 +239,7 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	(void)entity;
 	set_reg_num(cursor, get_arg3(argc, argv, 1),
 		(get_arg1(argc, argv, 1) + get_arg2(argc, argv, 1)) % IDX_MOD);
+	ft_printf("sti\n");
 }
 
 void				clone(t_game_entity *entity, t_cursor *cursor,
@@ -209,6 +254,7 @@ void				clone(t_game_entity *entity, t_cursor *cursor,
 	new_cursor->position = get_arg1(argc, argv, 1);
 	//something more?
 	ld_push_front(&entity->cursors, new_cursor);// push back?
+	ft_printf("clone\n");
 }
 
 void				lld(t_game_entity *entity, t_cursor *cursor,
@@ -230,7 +276,7 @@ void				lldi(t_game_entity *entity, t_cursor *cursor,
 	num = get_arg1(argc, argv, 1) + get_arg2(argc, argv, 1);
 	set_reg_num(cursor, num, get_arg2(argc, argv, 1));
 	set_carry(&cursor->carry, num);
-
+	ft_printf("lldi\n");
 }
 
 void				lclone(t_game_entity *entity, t_cursor *cursor,
@@ -245,14 +291,15 @@ void				lclone(t_game_entity *entity, t_cursor *cursor,
 	new_cursor->position = get_arg1(argc, argv, 0);
 	//something more?
 	ld_push_front(&entity->cursors, new_cursor);// push back?
-
+	ft_printf("lclone\n");
 }
 
 void				aff(t_game_entity *entity, t_cursor *cursor,
 						unsigned char argc, unsigned char *argv)
 {
 	(void)entity;
-	ft_printf("c\n", get_reg_num(cursor, get_arg1(argc, argv, 1)));
+	ft_printf("aff\n");
+	ft_printf("%s\n", *get_reg_num(cursor, get_arg1(argc, argv, 1)));
 }
 
 void		(*g_op_ptr[])(t_game_entity *, t_cursor *,
