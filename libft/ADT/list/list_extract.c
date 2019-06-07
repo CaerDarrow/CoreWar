@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 18:31:59 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/02/19 16:12:58 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:56:15 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void						*l_get_data(t_list **l, int n)
 {
 	t_list					*t;
 
-	if (!l || !*l || n < 0)
+	if (!l || !*l || n <= 0)
 		return (NULL);
 	t = *l;
-	while (n-- >= 0 && t)
+	while (--n > 0 && t)
 		t = t->next;
-	if (n > 0)
+	if (n > 0 || !t)
 		return (NULL);
 	return (t->data);
 }

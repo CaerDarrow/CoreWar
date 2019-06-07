@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:19:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/05 14:09:56 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/05 15:59:03 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // 	return (res);
 // }
 
-int				get_num(unsigned char *s)
+int				get_num(unsigned char *s, int size)
 {
 	int			i;
 	int			res;
@@ -35,10 +35,10 @@ int				get_num(unsigned char *s)
 	res = 0;
 	i = -1;
 
-	while (++i < REG_SIZE)
+	while (++i < size)
 		res = (res << 8) | s[i];
 	// res = (cursor->reg[0][0] << 24) | (cursor->reg[0][1] << 16) | (cursor->reg[0][2] << 8) | cursor->reg[0][3];
-	return (-res);
+	return (res);
 }
 
 t_cursor		*cursor_create(int id, char players)

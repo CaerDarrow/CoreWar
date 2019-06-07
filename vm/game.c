@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/05 14:31:26 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/05 17:53:46 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void			print_bg(t_game_entity *entity)
 	}
 }
 
-int				is_valide_reg(int n)
+int				is_valid_reg(int n)
 {
 	return (n > 0 && n <= 16);
 }
@@ -34,32 +34,32 @@ void			set_reg_num(t_cursor *cursor, int n, int value)//only less or eq to u32
 	int			i;
 
 	i = -1;
-	if (!is_valide_reg(n))
+	if (!is_valid_reg(n))
 		error("Invalid register");
 	while (++i < REG_SIZE)
 		cursor->reg[n - 1][i] = (value >> (32 - 8 * (i + 1))) & 0xFF;
 }
 
-unsigned char	**get_reg_num(t_cursor *cursor, int n)//only less or eq to u32
+unsigned char	*get_reg_num(t_cursor *cursor, int n)//only less or eq to u32
 {
-	if (!is_valide_reg(n))
-		error("Invalid register");
-		ft_printf("getreg: %d\n", get_num(cursor->reg[n - 1]));
-	return (&cursor->reg[n - 1]);
+	if (!is_valid_reg(n))
+		error("Invalid register: get reg value");
+		ft_printf("getreg: %d\n", get_num(cursor->reg[n - 1], 4));
+	return (cursor->reg[n - 1]);
 	// return ptr unsigned char*
 }
 
 int				time_to_apply_op(t_cursor *cursor)
 {
-	if (cursor->cycles_to_exec && !is_valide_op(cursor->op_code))///
+	if (cursor->cycles_to_exec && !is_valid_op(cursor->op_code))///
 		error("Unexpected error :: invalid op code");///
 		// return (0);
 	return (cursor->cycles_to_exec == 0);
 }
 
-int				is_valide_op(char op_code)
+int				is_valid_op(char op_code)
 {
-	return (op_code >= 0 && op_code <= 16);
+	return (op_code > 0 && op_code <= 16);
 }
 
 int				is_live_op(char op_code)
@@ -67,7 +67,7 @@ int				is_live_op(char op_code)
 	return (op_code == 1);
 }
 
-int				is_valide_type(unsigned char argc, int op_code)
+int				is_valid_type(unsigned char argc, int op_code)
 {
 	int					i;
 	int					type;
@@ -88,6 +88,8 @@ int				is_valide_type(unsigned char argc, int op_code)
 
 void			*get_op_by_code(unsigned char op_code)
 {
+	if (!is_valid_op(op_code))
+		return (NULL);
 	return (g_op_ptr[op_code]);
 }
 
@@ -116,76 +118,111 @@ unsigned char		*get_dir_value(unsigned char *bg, int position, int offset, int s
 
 	if (!(res = (unsigned char	*)ft_strnew(size)))
 		error("Malloc error");
-	addr = position + 1 + offset;
+		// ft_printf("%d\n\n", offset);
+	addr = position + offset;
 	if (addr < 0)
 		addr += MEM_SIZE;
 	addr %= IDX_MOD;
+	// ft_printf("DIR ADDR: %d\n", addr);
 	i = -1;
 	while (++i < size)
 		res[i] = bg[addr + i];
+	// ft_printf("DIR VAL: %d SIZE: %d\n", get_num(res, size), size);
+	// ft_printf("``%d``\n", res[1]);
 	return (res);
 }
 
-unsigned char		**get_ind_value(unsigned char *bg, int position, int offset)
+unsigned char		*get_ind_value(unsigned char *bg, int position, int offset)
 {
 	int				addr;
-	unsigned char	**res;
+	unsigned char	*res;
 	int				i;
 
-	res = 0;// trash
-	// res = malloc(8);
-	if (!(*res = (unsigned char	*)ft_strnew(IND_SIZE)))
+	if (!(res = (unsigned char	*)ft_strnew(IND_SIZE)))
 		error("Malloc error");
-	addr = position + 1 + offset;
+	addr = position + offset;
 	if (addr < 0)
 		addr += MEM_SIZE;
 	addr %= IDX_MOD;
 	i = -1;
 	while (++i < IND_SIZE)
 		addr = (addr | (bg[addr + i] << ((IND_SIZE - i) * 2)));
+	ft_printf("IND ADDR: %d\n", addr);
 	i = -1;
 	while (++i < IND_SIZE)
-		(*res)[i] = bg[addr + i];
+		res[i] = bg[addr + i];
 	return (res);
 }
 
-unsigned char	*read_args(t_cursor *cursor, unsigned char *bg, unsigned char argc)
+unsigned char			*get_reg_value(unsigned char *bg, int position, int offset)
 {
-	unsigned char		*res;
+	int				addr;
+	unsigned char	*res;
+	int				i;
+	int				size;
+
+	size = 1;
+	if (!(res = (unsigned char	*)ft_strnew(size)))
+		error("Malloc error");
+	addr = position + offset;
+	if (addr < 0)
+		addr += MEM_SIZE;
+	addr %= IDX_MOD;
+	// ft_printf("REG ADDR: %d\n", addr);
+	i = -1;
+	while (++i < size)
+		res[i] = bg[addr + i];
+	// ft_printf("REG VAL: %d\n", get_num(res, size));
+	return (res);
+}
+
+// int						args_size(unsigned char argc, int op_code)
+// {
+// 	int					i;
+// 	int					res;
+//
+// 	i = 0;
+// 	res = 0;
+// 	while (++i < g_op_tab[op_code].argc)
+// 		res += get_arg_size(argc, i, g_op_tab[op_code].t_dirsize);
+// 	return (res);
+// }
+
+t_list				*read_args(t_cursor *cursor, unsigned char *bg, unsigned char argc)
+{
+	// unsigned char		*res;
 	int					i;
 	int					code;
 	int					offset;
-
+	// unsigned char		*b;
+	t_list				*res;
 	(void)argc;
 	(void)bg;
-	res = 0;
-	offset = 0;
+	//////////////////////////////// merge dont work with binary strings
+	// if (!(res = ft_strnew(args_size(argc, cursor->op_code))))
+	// 	error("Malloc error");
+	offset = g_op_tab[cursor->op_code].argtypes ? 2 : 1;
 	i = -1;
-	ft_printf("argc:%d\n", g_op_tab[cursor->op_code].argc);
+	res = 0;
+
 	while (++i < g_op_tab[cursor->op_code].argc)
 	{
-		code = (argc >> (6 - i * 2)) & 0b11;//get code ?
+		code = (argc >> (6 - i * 2)) & 0b11;
 		if (code == DIR_CODE)
 		{
-			ft_printf("Read dir\n");
-			res = (unsigned char *)ft_strmerge(2, (char **)&res, (char **)get_dir_value(bg, cursor->position, offset, get_dir_size(cursor->op_code)));
+			ld_push_back(&res, get_dir_value(bg, cursor->position, offset, get_dir_size(cursor->op_code)));
 			offset += get_dir_size(cursor->op_code);
 		}
 		else if (code == IND_CODE)
 		{
-			ft_printf("Read ind\n");
-			res = (unsigned char *)ft_strmerge(2, (char **)&res, (char **)get_ind_value(bg, cursor->position, offset));
+			ld_push_back(&res, get_ind_value(bg, cursor->position, offset));
 			offset += IND_SIZE;
 		}
 		else if (code == REG_CODE)
 		{
-			ft_printf("Read reg\n");
-			res = (unsigned char *)ft_strmerge(2, (char **)&res, (char **)get_reg_num(cursor, bg[cursor->position + 2 + offset]));
-			ft_printf("read reg arg: %s\n", res);
+			ld_push_back(&res, get_reg_value(bg, cursor->position, offset));
 			offset += 1;
 		}
-		else
-			error("Unexpected: Wrong code");
 	}
 	return (res);
 }
@@ -193,26 +230,31 @@ unsigned char	*read_args(t_cursor *cursor, unsigned char *bg, unsigned char argc
 int						apply_op(t_game_entity *entity, t_cursor *cursor)
 {
 	unsigned char		argc;
-	unsigned char		*argv;
+	t_list				*argv;
 	void				(*f)(t_game_entity *, t_cursor *,
-						unsigned char, unsigned char *);
+						unsigned char, t_list *);
 
 	argv = 0;///
-	f = get_op_by_code(cursor->op_code);
+	if (!(f = get_op_by_code(cursor->op_code)))
+	{
+		move_cursor(cursor, 1);
+		return (1);
+	}
 	argc = DIR_CODE << 6;
 	if (g_op_tab[cursor->op_code].argtypes)
 		argc = read_args_type(entity->bg, cursor->position);
 	cursor->moved = 1;
-	if (!is_valide_type(argc, cursor->op_code))
+	if (!is_valid_type(argc, cursor->op_code))
 	{
-		error("Invalide argv type");
+		error("Invalid argv type");////////////////tmp
 		move_cursor(cursor, 1);
 		return (-1);
 	}
 	argv = read_args(cursor, entity->bg, argc);
-	ft_printf("argv:%s\n", argv);
 	f(entity, cursor, argc, argv);
-	ft_memdel((void**)&argv);
+	// ft_memdel((void**)&argv);
+	l_destroy(&argv);
+	cursor->step = get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].argtypes);
 	move_cursor(cursor, cursor->step);
 	return (cursor->op_code);
 }
@@ -267,7 +309,6 @@ void			try_kill_cursors(t_game_entity *entity)
 			else
 			{
 				ft_printf("Died at %d\n", entity->cycles_to_die );
-
 				kill_cursor(&entity->cursors);
 				cursor = entity->cursors;
 				continue;
@@ -307,7 +348,7 @@ void			set_op_code(t_cursor *cursor, unsigned char *bg)
 {
 	cursor->moved = 0;
 	cursor->op_code = get_op_code(bg ,cursor->position);
-	if (is_valide_op(cursor->op_code))
+	if (is_valid_op(cursor->op_code))
 		cursor->cycles_to_exec = get_exec_time_by_code(cursor->op_code);
 }
 

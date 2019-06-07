@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/05 14:10:20 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/05 17:49:21 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct					op_s
 
 t_op							g_op_tab[17];
 void							(*g_op_ptr[17])(t_game_entity *, t_cursor *,
-								unsigned char, unsigned char *);
+								unsigned char, t_list *);
 
 void				read_champs(int ac, const char *argv[], t_game_entity *ge);
 void				game_loop(t_game_entity *entity);
@@ -81,7 +81,7 @@ unsigned char		*get_code(int fd, unsigned int size, int cur_player);
 void				init_cursors(t_game_entity *entity);
 int					time_to_apply_op(t_cursor *cursor);
 int					apply_op(t_game_entity *entity, t_cursor *cursor);
-int					is_valide_op(char op_code);
+int					is_valid_op(char op_code);
 int					is_live_op(char op_code);
 void				check_handler(t_game_entity *entity, int *live_calls);
 
@@ -93,16 +93,19 @@ void				move_cursor(t_cursor *cursor, int b);
 void				shift_cycle(t_cursor *cursor);
 t_cursor			*cursor_create(int id, char playes);
 void				live(t_game_entity * entity, t_cursor *cursor,
-unsigned char argc, unsigned char *argv);
-unsigned char		**get_reg_num(t_cursor *c, int n);
-int					get_num(unsigned char *s);
+					unsigned char argc, t_list *argv);
+unsigned char		*get_reg_num(t_cursor *c, int n);
+int					get_num(unsigned char *s, int size);
+int					get_step(unsigned char op_code, unsigned char argc, char flag);
+int					is_valid_op(char op_code);
 /*
-TODO: move if invalid func args or all valide;
+TODO: move if invalid func args or all valid;
 all funcs implementation;
 welcome,goodbye messages;
 flag managment;
 set\get reg
 check if regsize = 5 ; reg_num type?
+dir size carefull
 **	Features:
 **	Game progress in procents
 ** test.cor 156018 cycles;
