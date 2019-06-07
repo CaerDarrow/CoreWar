@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:01:26 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/04 12:14:20 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/07 20:43:21 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static size_t	writerev(size_t start, int fd, unsigned char *ptr)
 
 t_unit			*initchamp(void)
 {
-	t_unit 	*unit;
+	t_unit	*unit;
 	int		psize;
 
 	psize = 22;

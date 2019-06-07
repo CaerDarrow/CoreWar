@@ -1,11 +1,11 @@
 
 # 1231      2313
 
-.namer 
-"4
+.name "4
   12
 2"
 .comment        "Just a basic Winner Program"
+
 
 
 entree:	live	%42		# entree

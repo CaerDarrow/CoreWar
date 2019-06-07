@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/05 21:55:52 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/07 20:41:31 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ASM_H
 # include "op.h"
 # include "libft.h"
+# define I i + g_readed
 
 typedef struct		s_unit
 {
@@ -44,8 +45,8 @@ typedef struct		s_parsed
 	char			*string;
 }					t_parsed;
 
-int					read_s(char *fname);
-int					parse(char **readed);
+char				*read_s(char *fname);
+int					parse(char *readed);
 t_unit				*initchamp(void);
 void				writechamp(t_unit *unit, char *fname);
 void				set_magic(t_unit *unit);
