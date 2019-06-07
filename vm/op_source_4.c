@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clear_int.c                                     :+:      :+:    :+:   */
+/*   op_source_4.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmors-um <gmors-um@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/25 18:28:50 by gmors-um          #+#    #+#             */
-/*   Updated: 2019/06/07 19:53:56 by jjacobso         ###   ########.fr       */
+/*   Created: 2019/06/07 17:48:54 by jjacobso          #+#    #+#             */
+/*   Updated: 2019/06/07 19:13:58 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "vm.h"
 
-void				ft_clear_int(int *mas, int size)
+void				aff(t_game_entity *entity, t_cursor *cursor,
+						t_uchar argc, t_list *argv)
 {
-	while (size--)
-		mas[size] = 0;
+	(void)entity;
+	ft_printf("%s\n", get_reg_num(cursor, get_arg(argc, argv, 1, 1)));
 }

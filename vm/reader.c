@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 13:55:33 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/07 17:45:45 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void			get_champ(const char *s, t_game_entity *entity,
 						int cur_player)
 {
 	t_header		*champ;
-	unsigned char	*code;
+	t_uchar	*code;
 	int				fd;
 
 	if ((fd = open(s, O_RDONLY)) < 0)
@@ -42,7 +42,7 @@ void				read_champs(int argc, const char *argv[],
 {
 	int				i;
 
-	if (!(entity->bg = (unsigned char *)malloc(MEM_SIZE)))
+	if (!(entity->bg = (t_uchar *)malloc(MEM_SIZE)))
 		error("Malloc error");
 	ft_bzero(entity->bg, MEM_SIZE);
 	if (argc - 1 > MAX_PLAYERS)

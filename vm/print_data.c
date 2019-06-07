@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clear_int.c                                     :+:      :+:    :+:   */
+/*   print_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmors-um <gmors-um@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/25 18:28:50 by gmors-um          #+#    #+#             */
-/*   Updated: 2019/06/07 19:53:56 by jjacobso         ###   ########.fr       */
+/*   Created: 2019/06/07 18:39:07 by jjacobso          #+#    #+#             */
+/*   Updated: 2019/06/07 18:39:17 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "vm.h"
 
-void				ft_clear_int(int *mas, int size)
+
+void			print_bg(t_game_entity *entity)
 {
-	while (size--)
-		mas[size] = 0;
+	int			i;
+	i = -1;
+	while (++i < MEM_SIZE)
+	{
+		ft_printf("%02x ", entity->bg[i]);
+		if (i % 64 == 63)
+			ft_printf("\n");
+	}
 }

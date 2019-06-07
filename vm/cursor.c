@@ -6,28 +6,12 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:19:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/05 15:59:03 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/07 18:10:10 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-// unsigned char	*num_to_bytes(int n)
-// {
-// 	unsigned char	*res;
-// 	int				size;
-// 	int				i;
-//
-// 	size = 4;
-// 	if (!(res = ft_strnew(size)))
-// 		error("Malloc error");
-// 	i = -1;
-// 	while (++i < size)
-// 		res[i] = (n >> (6 - i * 2)) & 0xFF;
-// 	return (res);
-// }
-
-int				get_num(unsigned char *s, int size)
+int				get_num(t_uchar *s, int size)
 {
 	int			i;
 	int			res;
@@ -37,7 +21,6 @@ int				get_num(unsigned char *s, int size)
 
 	while (++i < size)
 		res = (res << 8) | s[i];
-	// res = (cursor->reg[0][0] << 24) | (cursor->reg[0][1] << 16) | (cursor->reg[0][2] << 8) | cursor->reg[0][3];
 	return (res);
 }
 
@@ -49,16 +32,15 @@ t_cursor		*cursor_create(int id, char players)
 	if (!(c = (t_cursor *)malloc(sizeof(t_cursor))))
 		error("Malloc error");
 	ft_bzero(c, sizeof(t_cursor));
-	if (!(c->reg = (unsigned char **)malloc(17 * sizeof(unsigned char *))))
+	if (!(c->reg = (t_uchar **)malloc(17 * sizeof(t_uchar *))))
 		error("Malloc error");
 	i = -1;
 	while (++i < 16)
 	{
-		if (!(c->reg[i] = (unsigned char *)malloc(REG_SIZE * sizeof(unsigned char))))
+		if (!(c->reg[i] = (t_uchar *)malloc(REG_SIZE * sizeof(t_uchar))))
 			error("Malloc error");
 		ft_bzero(c->reg[i], REG_SIZE);
 		set_reg_num(c, 1, -id);
-		// ft_printf("%d\n", get_player_num(c));
 	}
 	c->reg[i] = 0;
 	c->moved = 1;
@@ -76,15 +58,15 @@ void					destroy_cur(t_list **t)
 	ft_memdel((void**)t);
 }
 
-int				cursor_should_die(t_list *c, int cycles_to_die)
+int				cursor_should_die(t_list *c, t_game_entity *entity)
 {
 	if (c && c->data)
-		return (((t_cursor *)c->data)->last_live_call - cycles_to_die < 0);
-	ft_printf("Unexpected\n");
+		return (entity->cycle - ((t_cursor *)c->data)->last_live_call >= entity->cycles_to_die); /// > or >=
+	error("Unexpected error: cursor_should_die()");
 	return (0);
 }
 
 void			move_cursor(t_cursor *cursor, int bytes)
 {
-	cursor->position = (cursor->position + bytes) % MEM_SIZE;
+	cursor->position = correct_position(cursor->position + bytes);
 }
