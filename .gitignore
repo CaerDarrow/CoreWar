@@ -1,9 +1,9 @@
-*.gch
-*.a
-*.o
-.DS_Store
+**.gch
+**.a
+**.o
+**.DS_Store
 cmake-build-debug
 CMakeLists.txt
 obj
-.idea
-*.dSYM
+**.idea
+**.dSYM
