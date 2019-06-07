@@ -21,11 +21,13 @@ $(STORED_VM_OBJ): vm/obj/%.o:vm/%.c
 	gcc $(CFLAGS) -c $< -o $@
 $(STORED_ASM_OBJ): assembler/obj/%.o:assembler/%.c
 	gcc $(CFLAGS) -c $< -o $@
-$(ASM_OBJ): %.o:%.c
-	gcc $(CFLAGS) -c $< -o $@
-$(VM): $(LIBFT) $(STORED_VM_OBJ)
+vm/obj:
+	mkdir vm/obj
+assembler/obj:
+	mkdir vm/obj
+$(VM): $(LIBFT) vm/obj $(STORED_VM_OBJ)
 	gcc $(CFLAGS) $(STORED_VM_OBJ) $(LIBFT) $(PRINTF) -o $(VM)
-$(ASM): $(LIBFT) $(STORED_ASM_OBJ)
+$(ASM): $(LIBFT) assembler/obj $(STORED_ASM_OBJ)
 	gcc $(CFLAGS) $(STORED_ASM_OBJ) $(LIBFT) $(PRINTF) -o $(ASM)
 clean:
 	$(RM) $(STORED_VM_OBJ)
