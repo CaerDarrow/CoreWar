@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:52 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 20:55:11 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:38:53 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,22 @@
  		error("Unexpected error :: lose cursor");
  }
 
-
  void			check_cursors(t_game_entity *entity)
  {
- 	if (entity->cycle % entity->cycles_to_die == 0 ||
+ 	if (entity->cycle - entity->last_check >= entity->cycles_to_die ||
  		entity->cycles_to_die <= 0)
  	{
  		try_kill_cursors(entity);
+		entity->cycles_with_same_ctd++;
  		if (entity->live_calls >= NBR_LIVE ||
  			entity->cycles_with_same_ctd == MAX_CHECKS)
  		{
  			entity->cycles_to_die -= CYCLE_DELTA;
  			entity->cycles_with_same_ctd = 0;
  		}
- 		else
- 			entity->cycles_with_same_ctd++;
  		entity->live_calls = 0;
+		if (g_verbose == VERBOSE_LVL(2))
+			ft_printf("Cycle to die is now %d\n", entity->cycles_to_die);
+		entity->last_check = entity->cycle;
  	}
  }

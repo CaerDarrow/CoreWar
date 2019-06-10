@@ -6,17 +6,17 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 17:45:45 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:58:49 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void			get_champ(const char *s, t_game_entity *entity,
+static t_header		*get_champ(const char *s, t_game_entity *entity,
 						int cur_player)
 {
 	t_header		*champ;
-	t_uchar	*code;
+	t_uchar			*code;
 	int				fd;
 
 	if ((fd = open(s, O_RDONLY)) < 0)
@@ -33,22 +33,69 @@ static void			get_champ(const char *s, t_game_entity *entity,
 	ft_memcpy(entity->bg + (MEM_SIZE * (cur_player - 1) / entity->n_players),
 		code, champ->prog_size);
 	ft_memdel((void **)&code);
-	ld_push_back(&entity->players, champ);
 	close(fd);
+	return (champ);
+}
+
+static void			introduce(t_header *p, int n)
+{
+	ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", n,
+		p->prog_size, p->prog_name, p->comment);
+}
+
+static int			set_flags(int argc, const char *argv[],
+						t_game_entity *entity, int *i)
+{
+	(void)entity;
+	if (ft_strcmp(argv[*i], "-v") == 0)
+	{
+		++*i;
+		if (*i >= argc)
+			error("Invalid flag");
+		g_verbose = VERBOSE_LVL(atoi(argv[*i]));
+		return (1);
+	}
+	return (0);
+}
+
+static int			count_players(int argc, const char *argv[])
+{
+	int				res;
+
+	res = 0;
+	while (--argc > 0)
+	{
+		if (argv[argc][0] != '-')
+			res++;
+		else if (ft_strcmp(argv[argc], "-v") == 0)
+			res--;
+	}
+	return (res);
 }
 
 void				read_champs(int argc, const char *argv[],
 						t_game_entity *entity)
 {
 	int				i;
+	t_header		*champ;
+	int				n;
 
 	if (!(entity->bg = (t_uchar *)malloc(MEM_SIZE)))
 		error("Malloc error");
 	ft_bzero(entity->bg, MEM_SIZE);
-	if (argc - 1 > MAX_PLAYERS)
+	entity->n_players = count_players(argc, argv);
+	if (entity->n_players > MAX_PLAYERS)
 		error("Too many players");
-	entity->n_players = argc - 1;
+	ft_printf("Players: %d\n", entity->n_players);
+	ft_printf("Introducing contestants...\n");
 	i = 0;
+	n = 1;
 	while (++i < argc)
-		get_champ(argv[i], entity, i);
+		if (!(argv[i][0] == '-' && set_flags(argc, argv, entity, &i)))
+		{
+			champ = get_champ(argv[i], entity, n);
+			ld_push_back(&entity->players, champ);
+			introduce(champ, n);
+			n++;
+		}
 }

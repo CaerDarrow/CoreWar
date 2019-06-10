@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:48:20 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 19:13:55 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:42:40 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 void				sti(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
-	t_uchar	*reg_num;
+	t_uchar			*reg_num;
 	int				addr;
 	int				i;
 
-	addr = (get_arg(argc, argv, 2, 0) + get_arg(argc, argv, 3, 0)) % IDX_MOD;
+	addr = (cursor->position + get_arg(argc, argv, 2, 0) + get_arg(argc, argv, 3, 0)) % IDX_MOD;
 	reg_num = get_reg_num(cursor, get_arg(argc, argv, 1, 1));
-	// ft_printf("reg_num: %d\n", get_num(reg_num, 4));
 	i = -1;
 	while (++i < REG_SIZE)
 		entity->bg[addr + i] = reg_num[i];

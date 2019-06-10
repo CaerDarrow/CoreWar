@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2019/06/07 19:12:21 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:06:29 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_op	g_op_tab[] =
 		&ldi, 1, 0},
 	{"sti", 3, (int []){T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
 		&sti, 1, 0},
-	{"clone", 1, (int []){T_DIR}, 12, 800, &clone, 0, 0},
+	{"fork", 1, (int []){T_DIR}, 12, 800, &clone, 0, 0},
 	{"lld", 2, (int []){T_DIR | T_IND, T_REG}, 13, 10, &lld, 1, 1},
 	{"lldi", 3, (int []){T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
 		&lldi, 1, 0},
-	{"lclone", 1, (int []){T_DIR}, 15, 1000, &lclone, 0, 2},
+	{"lfork", 1, (int []){T_DIR}, 15, 1000, &lclone, 0, 2},
 	{"aff", 1, (int []){T_REG}, 16, 2, &aff, 1, 1},
 };

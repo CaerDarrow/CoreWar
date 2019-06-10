@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:47:50 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 19:13:46 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:22:54 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void				zjmp(t_game_entity *entity, t_cursor *cursor,
 	(void)entity;
 	if (cursor->carry)
 		move_cursor(cursor, get_arg(argc, argv, 1, g_op_tab[cursor->op_code].t_dirsize));
+	if (g_verbose > 0)
+		ft_printf("Player's cursor %d at %d; arg: %d\n", cursor->id, cursor->position, get_arg(argc, argv, 1, g_op_tab[cursor->op_code].t_dirsize));
 }
 
 void				ldi(t_game_entity *entity, t_cursor *cursor,

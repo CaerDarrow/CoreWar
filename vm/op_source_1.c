@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:46:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 19:13:36 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:44:21 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,23 @@ void				ld(t_game_entity *entity, t_cursor *cursor,
 void				st(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
-	(void)entity;
-	set_reg_num(cursor, get_arg(argc, argv, 2, 1), get_arg(argc, argv, 1, 1));
+	t_uchar			*reg_num;
+	int				addr;
+	int				i;
+
+	//set reg if 2 argc is reg
+	reg_num = get_reg_num(cursor, get_arg(argc, argv, 1, g_op_tab[cursor->op_code].t_dirsize));
+	if (arg_type(argc, 2) == REG_CODE)
+	{
+		set_reg_num(cursor, get_arg(argc, argv, 2, g_op_tab[cursor->op_code].t_dirsize), uchar_to_int(reg_num, REG_SIZE));
+	}
+	else
+	{
+		addr = (cursor->position + get_arg(argc, argv, 2, g_op_tab[cursor->op_code].t_dirsize)) % IDX_MOD;
+		i = -1;
+		while (++i < REG_SIZE)
+			entity->bg[correct_position(addr + i)] = reg_num[i];
+	}
 }
 
 void				add(t_game_entity *entity, t_cursor *cursor,
