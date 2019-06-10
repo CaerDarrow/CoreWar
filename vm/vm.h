@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 15:23:37 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 20:27:17 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define XOR(x, y)		((x + y) % 2)
 # define REG_NUM		16
 # define VERBOSE_LVL(n)	n
+# define ARG(n)			get_arg(argv, n)
 
 typedef unsigned char	t_uchar;
 
@@ -59,7 +60,7 @@ typedef struct			op_s
 	void				(*op)(t_game_entity *, t_cursor *,
 						t_uchar, t_list *);
 	char				argtypes;
-	char				t_dirsize;
+	char				dir;
 }						t_op;
 
 int						g_verbose;
@@ -151,8 +152,9 @@ void					aff(t_game_entity *entity, t_cursor *cursor,
 void					set_carry(char *carry, int num);
 int						get_arg_size(t_uchar argc, int flag, int n);
 int						uchar_to_int(t_uchar *s, int size);
-int						get_arg(t_uchar argc, t_list *argv, int n, int flag);
-int						arg_type(t_uchar argc, int n);
+int						get_arg(t_list *argv, int n);
+int						arg_code(t_uchar argc, int n);
+int						get_num_by_addr(unsigned char *bg, int addr, int size);
 /*
 **						game_service.c
 */
@@ -200,10 +202,26 @@ GET_ARG{1,2,3} macros
 **	Game progress in procents
 ** test.cor 156018 cycles;
 ** % IDX_MODE check or special function for this purpose
-///
-./corewar -v 2test.cor test.cor test.cor  /// bug
-///
+
 better flag managment
-fix get_t_ind
+
+P   33 | live -1
+P   31 | zjmp -5 OK
+P   30 | zjmp -5 OK
+P   29 | zjmp -5 OK
+P   28 | zjmp -5 OK
+P   15 | zjmp -5 OK
+P   14 | zjmp -5 OK
+P   13 | zjmp -5 OK
+P    7 | zjmp -5 OK
+P    6 | zjmp -5 OK
+P    3 | zjmp -5 OK
+P    1 | live -1
+It is now cycle 27436
+It is now cycle 27437
+It is now cycle 27438
+Cycle to die is now -14
+It is now cycle 27439
+Contestant 1, "stayin' alive", has won !
 */
 #endif

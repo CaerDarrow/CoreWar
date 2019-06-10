@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:55:28 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 15:19:02 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 20:27:09 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int					get_arg_size(t_uchar argc, int flag, int n)
 {
 	int				code;
 
-	code = arg_type(argc, n - 1);
+	code = arg_code(argc, n);
 	if (code == DIR_CODE)
 	{
 		if (flag)
@@ -56,12 +56,24 @@ int					uchar_to_int(t_uchar *s, int size)
 	return (res);
 }
 
-int					get_arg(t_uchar argc, t_list *argv, int n, int flag)
+int					get_arg(t_list *argv, int n)
 {
-	return (uchar_to_int(l_get_data(&argv, n), get_arg_size(argc, flag, n)));
+	return (*(int *)l_get_data(&argv, n));
 }
 
-int					arg_type(t_uchar argc, int n)
+int					get_num_by_addr(unsigned char *bg, int addr, int size)
 {
-	return ((argc >> (6 - n * 2)) & 0b11);
+	int				i;
+	int				res;
+
+	res = 0;
+	i = -1;
+	while (++i < size)
+		res = (res << 8) + bg[correct_position(addr + i)];
+	return (res);
+}
+
+int					arg_code(t_uchar argc, int n)
+{
+	return ((argc >> (6 - (n - 1) * 2)) & 0b11);
 }
