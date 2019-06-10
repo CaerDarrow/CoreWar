@@ -6,13 +6,13 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 17:23:44 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/10 18:42:40 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/10 21:03:28 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_sep(char *rd, int *i)
+void	get_sep(char *rd, int *i, t_list **lst)
 {
 	while (ft_isspace(rd[*I]) || rd[*I] == SEPARATOR_CHAR)
 	{
@@ -28,4 +28,5 @@ void	get_sep(char *rd, int *i)
 			ft_printf("[SEPARATOR {%c}]", rd[*I]);
 		(*i)++;
 	}
+	(void)(*lst);
 }

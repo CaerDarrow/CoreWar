@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:15:47 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/10 19:47:26 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/10 21:03:25 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	issep(char c)
 	return (0);
 }
 
-void		get_label(char *rd, int *i)
+void		get_label(char *rd, int *i, t_list **lst)
 {
 	char	*test;
 	int		j;
@@ -47,4 +47,5 @@ void		get_label(char *rd, int *i)
 		else if ((*i)++)
 			ft_printf("[LABEL {%s}]", test);
 	}
+	(void)(*lst);
 }

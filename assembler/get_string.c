@@ -6,13 +6,13 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:18:31 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/10 19:56:00 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/10 21:03:33 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_string(char *rd, int *i)
+void	get_string(char *rd, int *i, t_list **lst)
 {
 	char	*test;
 	int		j;
@@ -36,6 +36,8 @@ void	get_string(char *rd, int *i)
 		(*i)++;
 	}
 	test = ft_strsub(rd, j, (*I - j));
+	ld_push_back(lst, test);
 	ft_printf("[STRING {%s}]", test);
 	(*i)++;
+	(void)(*lst);
 }

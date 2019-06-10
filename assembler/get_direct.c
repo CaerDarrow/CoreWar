@@ -6,13 +6,13 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:19:10 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/10 19:35:07 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/10 21:03:18 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_direct(char *rd, int *i)
+void	get_direct(char *rd, int *i, t_list **lst)
 {
 	char	*test;
 	int		j;
@@ -25,7 +25,7 @@ void	get_direct(char *rd, int *i)
 		while (islabelchar(rd[*I]))
 			(*i)++;
 		test = ft_strsub(rd, j, (*I - j));
-		ft_printf("[DIRECT LABEL{%s}]", test);
+		ft_printf("[DIRECT_LABEL{%s}]", test);
 	}
 	else
 	{
@@ -36,4 +36,5 @@ void	get_direct(char *rd, int *i)
 		test = ft_strsub(rd, j, (*I - j));
 		ft_printf("[DIRECT {%s}]", test);
 	}
+	(void)(*lst);
 }

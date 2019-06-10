@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_commandname.c                                  :+:      :+:    :+:   */
+/*   inittoken.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 18:17:13 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/10 21:03:10 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/10 21:18:04 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/10 21:28:05 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_commandname(char *rd, int *i, t_list **lst)
+t_token	*inittoken(int strpos, int type)
 {
-	char	*test;
-	int		j;
+	t_token	*token;
 
-	(*i)++;
-	j = *I;
-	while (islabelchar(rd[*I]))
-		(*i)++;
-	test = ft_strsub(rd, j, (*I - j));
-	ft_printf("[COMMAND NAME {%s}]", test);
-	(void)(*lst);
+	token = (t_token *)malloc(sizeof(*token));
+	token->tokpos[0] = g_line + 1;
+	token->tokpos[1] = strpos;
+	token->toktype = type;
+	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/10 19:52:23 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/10 21:21:58 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define ASM_H
 # include "op.h"
 # include "libft.h"
-# define I i + g_readed
 
 /*
 ** read
@@ -26,36 +25,31 @@ char				*read_s(char *fname);
 ** parse (lexer)
 */
 
-typedef struct		s_parsed
+# define I i + g_readed
+
+typedef struct		s_token
 {
 	int				tokpos[2];
-	char			*toktype;
+	int				toktype;
 	char			*token;
-}					t_parsed;
+}					t_token;
 
 int					islabelchar(char c);
-void				get_sep(char *rd, int *i);
-void				get_commandname(char *rd, int *i);
-void				get_string(char *rd, int *i);
-void				get_comment(char *rd, int *i);
-void				get_direct(char *rd, int *i);
-void				get_label(char *rd, int *i);
-int					parse(char *readed);
+t_token				*inittoken(int strpos, int type);
+void				get_sep(char *rd, int *i, t_list **lst);
+void				get_commandname(char *rd, int *i, t_list **lst);
+void				get_string(char *rd, int *i, t_list **lst);
+void				get_comment(char *rd, int *i, t_list **lst);
+void				get_direct(char *rd, int *i, t_list **lst);
+void				get_label(char *rd, int *i, t_list **lst);
+t_list				*parse(char *rd);
 
 int					g_readed;
 int					g_line;
 
-static void			(*g_get[6])(char *rd, int *i) = {
-	get_sep,
-	get_commandname,
-	get_string,
-	get_label,
-	get_comment,
-	get_direct
-};
-
-enum				e_get {
-	SEP, COMMAND_NAME, STRING, LABEL, COMMENT, DIRECT
+enum				e_type {
+	SEP, COMMAND_NAME, STRING, LABEL, COMMENT, DIRECT, DIRECT_LABEL,
+	INSTRUCTION, REGISTER, INDERECT, NEWLINE
 };
 
 /*
