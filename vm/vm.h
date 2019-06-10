@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 19:18:47 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:30:43 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct			s_game_entity
 	int					cycles_to_die;
 	int					cycles_with_same_ctd;
 	int					last_alive_player;
+	int					last_check;
 	int					live_calls;
 }						t_game_entity;
 
@@ -205,7 +206,10 @@ GET_ARG{1,2,3} macros
 
 It is now cycle 156018
 Contestant 1, "Batman", has won !
-./vm_champs/corewar -v 3 test.cor
+ ./vm_champs/corewar -v 6 test.cor | head -n 110
 create verbose mode and compare it with sample
+
+
+ctd incorrect adjust
 */
 #endif
