@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 14:05:48 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 18:44:30 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 		ft_printf("Exec: %s at %d by %d player's cursor; cycles to die: %d; live calls: %d\n", g_op_tab[cursor->op_code].name, entity->cycle, cursor->id, entity->cycles_to_die, entity->live_calls);
 	l_destroy(&argv);
 	if (f != zjmp)
-		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].t_dirsize));
+		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].dir));
 	return (cursor->op_code);
 }
