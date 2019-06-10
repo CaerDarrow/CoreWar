@@ -2,6 +2,7 @@ int	main()
 {
 	unsigned char c = 244;
 	char cc = (char)c;
-	printf("%d %d\n", (unsigned char)cc, c);
+	printf("%X",c);
+	printf("%x",c);
 	return (0);
 }

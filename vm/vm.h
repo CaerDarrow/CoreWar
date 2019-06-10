@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 13:57:03 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:23:37 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,7 @@ void					set_carry(char *carry, int num);
 int						get_arg_size(t_uchar argc, int flag, int n);
 int						uchar_to_int(t_uchar *s, int size);
 int						get_arg(t_uchar argc, t_list *argv, int n, int flag);
-char					*get_name_by_ptr(void (*op)(t_game_entity *,
-							t_cursor *,	t_uchar, t_list *));
+int						arg_type(t_uchar argc, int n);
 /*
 **						game_service.c
 */
@@ -205,5 +204,6 @@ GET_ARG{1,2,3} macros
 ./corewar -v 2test.cor test.cor test.cor  /// bug
 ///
 better flag managment
+fix get_t_ind
 */
 #endif

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 10:38:34 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/04/15 16:24:27 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 15:13:36 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char			*ft_itoabase(uintmax_t num, int mbase)
 	char		*base;
 	int			len;
 
-	base = "0123456789ABCDEF";
+	base = "0123456789abcdef";
 	len = ft_nlen(num, mbase);
 	if (!(res = ft_strnew(len)))
 		return (NULL);
