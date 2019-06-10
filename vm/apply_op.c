@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 13:22:07 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:05:48 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int			get_step(t_uchar op_code, t_uchar argc, char flag)
 
 static t_uchar			read_args_type(t_uchar *bg, int position)
 {
-	return (bg[(position + 1) % IDX_MOD]);
+	return (bg[correct_position(position + 1)]);
 }
 
 static void				*get_op_by_code(t_uchar op_code)
@@ -69,7 +69,7 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 	argv = read_args(cursor, entity->bg, argc);
 	f(entity, cursor, argc, argv);
 	if (g_verbose)
-		ft_printf("Exec: %s at %d; cycles to die: %d; live calls: %d\n", g_op_tab[cursor->op_code].name, entity->cycle, entity->cycles_to_die, entity->live_calls);
+		ft_printf("Exec: %s at %d by %d player's cursor; cycles to die: %d; live calls: %d\n", g_op_tab[cursor->op_code].name, entity->cycle, cursor->id, entity->cycles_to_die, entity->live_calls);
 	l_destroy(&argv);
 	if (f != zjmp)
 		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].t_dirsize));

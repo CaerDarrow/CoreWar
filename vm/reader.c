@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 12:54:27 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:58:49 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void			introduce(t_header *p, int n)
 		p->prog_size, p->prog_name, p->comment);
 }
 
-static void			set_flags(int argc, const char *argv[],
+static int			set_flags(int argc, const char *argv[],
 						t_game_entity *entity, int *i)
 {
 	(void)entity;
@@ -53,9 +53,9 @@ static void			set_flags(int argc, const char *argv[],
 		if (*i >= argc)
 			error("Invalid flag");
 		g_verbose = VERBOSE_LVL(atoi(argv[*i]));
+		return (1);
 	}
-	else
-		error("Invalid flag");
+	return (0);
 }
 
 static int			count_players(int argc, const char *argv[])
@@ -83,16 +83,15 @@ void				read_champs(int argc, const char *argv[],
 	if (!(entity->bg = (t_uchar *)malloc(MEM_SIZE)))
 		error("Malloc error");
 	ft_bzero(entity->bg, MEM_SIZE);
-	if (argc - 1 > MAX_PLAYERS)
-		error("Too many players");
 	entity->n_players = count_players(argc, argv);
+	if (entity->n_players > MAX_PLAYERS)
+		error("Too many players");
+	ft_printf("Players: %d\n", entity->n_players);
 	ft_printf("Introducing contestants...\n");
 	i = 0;
 	n = 1;
 	while (++i < argc)
-		if (argv[i][0] == '-')
-			set_flags(argc, argv, entity, &i);
-		else
+		if (!(argv[i][0] == '-' && set_flags(argc, argv, entity, &i)))
 		{
 			champ = get_champ(argv[i], entity, n);
 			ld_push_back(&entity->players, champ);

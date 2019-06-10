@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 13:35:00 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:37:54 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void					init_game_entity(t_game_entity *entity)
 	entity->cycles_to_die = CYCLE_TO_DIE;
 	g_verbose = 0;
 	entity->cycle = 1;
-	// entity->last_check = 1;////////////
 }
 
 void					destroy_cursors(t_game_entity *entity)

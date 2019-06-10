@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 18:36:17 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 14:26:03 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,10 @@ static t_uchar		*get_dir_value(t_uchar *bg, int position, int offset, int size)
 
 	if (!(res = (t_uchar	*)ft_strnew(size)))
 		error("Malloc error");
-		// ft_printf("%d\n\n", offset);
 	addr = position + offset;
-	if (addr < 0)
-		addr += MEM_SIZE;
-	addr %= IDX_MOD;
-	// ft_printf("DIR ADDR: %d\n", addr);
 	i = -1;
 	while (++i < size)
-		res[i] = bg[addr + i];
-	// ft_printf("DIR VAL: %d SIZE: %d\n", get_num(res, size), size);
-	// ft_printf("``%d``\n", res[1]);
+		res[i] = bg[correct_position(addr + i)];
 	return (res);
 }
 
@@ -50,16 +43,12 @@ static t_uchar		*get_ind_value(t_uchar *bg, int position, int offset)
 	if (!(res = (t_uchar	*)ft_strnew(IND_SIZE)))
 		error("Malloc error");
 	addr = position + offset;
-	if (addr < 0)
-		addr += MEM_SIZE;
-	addr %= IDX_MOD;
 	i = -1;
 	while (++i < IND_SIZE)
-		addr = (addr | (bg[addr + i] << ((IND_SIZE - i) * 2)));
-	// ft_printf("IND ADDR: %d\n", addr);
+		addr = (addr | (bg[correct_position(addr + i)] << ((IND_SIZE - i) * 2)));
 	i = -1;
 	while (++i < IND_SIZE)
-		res[i] = bg[addr + i];
+		res[i] = bg[correct_position(addr + i)];
 	return (res);
 }
 
@@ -77,7 +66,7 @@ static t_uchar		*get_reg_value(t_uchar *bg, int position, int offset)
 	// ft_printf("REG ADDR: %d\n", addr);
 	i = -1;
 	while (++i < size)
-		res[i] = bg[addr + i];
+		res[i] = bg[correct_position(addr + i)];
 	// ft_printf("REG VAL: %d\n", get_num(res, size));
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 13:30:43 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:57:03 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,15 +201,9 @@ GET_ARG{1,2,3} macros
 **	Game progress in procents
 ** test.cor 156018 cycles;
 ** % IDX_MODE check or special function for this purpose
-
-
-
-It is now cycle 156018
-Contestant 1, "Batman", has won !
- ./vm_champs/corewar -v 6 test.cor | head -n 110
-create verbose mode and compare it with sample
-
-
-ctd incorrect adjust
+///
+./corewar -v 2test.cor test.cor test.cor  /// bug
+///
+better flag managment
 */
 #endif

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:09:57 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 21:09:44 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/10 13:55:44 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				correct_position(int new_pos)
 
 static t_uchar	get_op_code(t_cursor *cursor, t_uchar *bg)
 {
-	return (bg[cursor->position % IDX_MOD]);
+	return (bg[cursor->position]);
 }
 
 void			set_op_code(t_cursor *cursor, t_uchar *bg)
