@@ -4,7 +4,7 @@
 .name "4
   12
 2"
-.comment        "Just a basic Winner Program"
+.comment "Just a basic Winner Program"
 
 
 
