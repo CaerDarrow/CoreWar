@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax.c                                           :+:      :+:    :+:   */
+/*   syntax2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 17:35:12 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/12 17:43:16 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/12 17:50:12 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ int	syntax(t_list *lst)
 		{
 			lst = lst->next;
 			token = (t_token *)lst->data;
-			if (!(token->type == NEWLINE || token->type == INSTRUCTION ||
-				token->type == COMMENT))
+			while (token->type != LABEL)
 			{
-				ft_printf("{[%s][%03d:%03d]\"%s\"}\n",
-				type[token->type], token->pos[0], token->pos[1], token->token);
-				return (0);
+				if (!(token->type == NEWLINE || token->type == INSTRUCTION ||
+					token->type == COMMENT))
+				{
+					ft_printf("{[%s][%03d:%03d]\"%s\"}\n",
+					type[token->type], token->pos[0], token->pos[1], token->token);
+					return (0);
+				}
 			}
 		}
 		else if (token->type == INSTRUCTION)
