@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 12:07:04 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:01:29 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,8 @@ void					set_op_code(t_cursor *cursor, t_uchar *bg);
 int						is_valid_reg(int n);
 int						is_valid_op(char op_code);
 int						is_live_op(char op_code);
-int						is_valid_type(t_uchar argc, int op_code);
+int						is_valid_argc(t_uchar argc, int op_code);
+int						is_proper_argc(t_uchar argc, int op_code);
 /*
 **						read_args.c
 */

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 12:29:52 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:52:06 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			game_loop(t_game_entity *entity)
 	{
 		if (VERBOSE_LVL(2))
 			ft_printf("It is now cycle %d\n", entity->cycle);
-		if (entity->cycle == 1750)
+		if (entity->cycle == 9720)
 			ft_printf("BREAK\n");
 		cursor_ptr = entity->cursors;
 		i = 0;

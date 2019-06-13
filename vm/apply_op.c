@@ -6,18 +6,20 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 13:26:11 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:02:37 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int			get_step(t_uchar op_code, t_uchar argc, char flag)
+static int			get_step(t_uchar op_code, t_uchar argc)
 {
 	int				i;
 	int				res;
+	int				flag;
 
 	res = 1 + g_op_tab[op_code].argtypes;
+	flag = g_op_tab[op_code].dir;
 	i = -1;
 	while (++i < g_op_tab[op_code].argc)
 		res += get_arg_size(argc, flag, i + 1);
@@ -63,15 +65,22 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 	argc = DIR_CODE << 6;
 	if (g_op_tab[cursor->op_code].argtypes)
 		argc = read_args_type(entity->bg, cursor->position);
-	if (!is_valid_type(argc, cursor->op_code))
+	if (!is_valid_argc(argc, cursor->op_code))
 	{
 		// error("Invalid argv type");////////////////tmp
-		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].dir));
+		move_cursor(cursor, 1);
 		return (-1);
 	}
+	else if (!is_proper_argc(argc, cursor->op_code))
+	{
+		// error("Invalid argv type");////////////////tmp
+		move_cursor(cursor, get_step(cursor->op_code, argc));
+		return (-1);
+	}
+
 	if (!(argv = read_args(cursor, entity->bg, argc)))
 	{
-		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].dir));
+		move_cursor(cursor, get_step(cursor->op_code, argc));
 		return (-1);
 	}
 	if (VERBOSE_LVL(4))
@@ -80,6 +89,6 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 	f(entity, cursor, argc, argv);
 	l_destroy(&argv);
 	if ((f == zjmp && !carry) || (f != zjmp))
-		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].dir));
+		move_cursor(cursor, get_step(cursor->op_code, argc));
 	return (cursor->op_code);
 }

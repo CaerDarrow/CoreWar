@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:13:33 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 18:27:47 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:01:12 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int				is_live_op(char op_code)
 	return (op_code == 1);
 }
 
-int				is_valid_type(t_uchar argc, int op_code)
+int				is_proper_argc(t_uchar argc, int op_code)
 {
 	int					i;
 	int					type;
@@ -41,6 +41,23 @@ int				is_valid_type(t_uchar argc, int op_code)
 		if (!(((type & T_DIR) && (code == DIR_CODE)) ||
 			((type & T_IND) && (code == IND_CODE)) ||
 			((type & T_REG) && (code == REG_CODE))))
+			return (0);
+	}
+	return (1);
+}
+
+int				is_valid_argc(t_uchar argc, int op_code)
+{
+	int					i;
+	int					code;
+
+	i = -1;
+	while (++i < g_op_tab[op_code].argc)
+	{
+		code = (argc >> (6 - i * 2)) & 0b11;
+		if (!((code == DIR_CODE) ||
+			(code == IND_CODE) ||
+			(code == REG_CODE)))
 			return (0);
 	}
 	return (1);
