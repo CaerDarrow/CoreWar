@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:52 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 13:34:03 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:07:45 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,12 @@
 	 		{
 	 			entity->cycles_to_die -= CYCLE_DELTA;
 	 			entity->periods_with_same_ctd = 0;
+				if (VERBOSE_LVL(2))
+					ft_printf("Cycle to die is now %d\n", entity->cycles_to_die);
 	 		}
 		// }
  		entity->live_calls = 0;
-		if (VERBOSE_LVL(2))
-			ft_printf("Cycle to die is now %d\n", entity->cycles_to_die);
+
 		entity->last_check = entity->cycle;
  	}
  }

@@ -14,6 +14,8 @@ STORED_VM_OBJ = $(addprefix vm/obj/,$(notdir $(VM_OBJ)))
 STORED_ASM_OBJ = $(addprefix assembler/obj/,$(notdir $(ASM_OBJ)))
 LIBFT = libft/libft.a
 PRINTF = libft/libftprintf.a
+lib:
+	make re -C libft
 all: $(VM) $(ASM)
 $(LIBFT):
 	make -C libft
@@ -33,9 +35,9 @@ clean:
 	$(RM) $(STORED_VM_OBJ)
 	$(RM) $(STORED_ASM_OBJ)
 	$(RM) *.dSYM
-	make -C libft clean
+	make clean -C libft
 fclean: clean
 	$(RM) $(VM)
 	$(RM) $(ASM)
-	make -C libft fclean
+	make fclean -C libft
 re: fclean all
