@@ -6,13 +6,13 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/12 17:10:30 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/13 18:29:48 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	printtokens(t_list **parsed)
+static void	printtoken(t_list **parsed)
 {
 	t_token		*token;
 	t_list		*ptr;
@@ -21,17 +21,23 @@ static void	printtokens(t_list **parsed)
 	"INDERECT", "NEWLINE"};
 
 	ptr = *parsed;
-	while (ptr)
+	token = (t_token *)ptr->data;
+	if (token->type == NEWLINE)
+		ft_printf("{[%s][%03d:%03d]}%s",
+		type[token->type], token->pos[0], token->pos[1], token->token);
+	else
+		ft_printf("{[%s][%03d:%03d]\"%s\"}",
+		type[token->type], token->pos[0], token->pos[1], token->token);
+}
+
+static void	lcondel(t_list **parsed)
+{
+	t_token		*token;
+
+	if (parsed && *parsed && (token = (t_token *)((*parsed)->data)))
 	{
-		token = (t_token *)ptr->data;
-		if (token->type == NEWLINE)
-			ft_printf("{[%s][%03d:%03d]}%s",
-			type[token->type], token->pos[0], token->pos[1], token->token);
-		else
-			ft_printf("{[%s][%03d:%03d]\"%s\"}",
-			type[token->type], token->pos[0], token->pos[1], token->token);
 		ft_memdel((void **)&token->token);
-		ptr = ptr->next;
+		ft_memdel((void **)&(*parsed)->data);
 	}
 }
 
@@ -53,8 +59,8 @@ int			main(int argc, char **argv)
 				writechamp(unit, argv[argc - 1]);
 				free(unit);
 			}
-			printtokens(&parsed);
-			l_destroy(&parsed);
+			l_iter(&parsed, printtoken);
+			l_delall(&parsed, lcondel);
 		}
 		free(readed);
 	}

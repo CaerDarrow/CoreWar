@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/12 17:41:20 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:08:18 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char				*read_s(char *fname);
 typedef struct		s_token
 {
 	int				pos[2];
-	char			type;
+	int				type;
 	char			*token;
 }					t_token;
 

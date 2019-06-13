@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 12:15:31 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/29 19:25:47 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 17:06:26 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,9 @@ t_list						*l_last(t_list *l);
 t_list						*l_copy(t_list *a);
 void						l_reverse(t_list **l);
 size_t						l_full_size(t_list *l);
+void						l_delall(t_list **head, void (*f)(t_list **elem));
+void						l_reciter(t_list **lst, void (*f1)(t_list **l,
+							void (*f)(t_list **l)), void (*f2)(t_list **l));
+void						l_delone(t_list **cur, void (*f)(t_list **elem));
+void						l_iter(t_list **lst, void (*f)(t_list **elem));
 #endif
