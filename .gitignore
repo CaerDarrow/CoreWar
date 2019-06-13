@@ -1,9 +1,11 @@
 **.gch
-**.a
 **.o
+**.a
 **.DS_Store
 cmake-build-debug
 CMakeLists.txt
 obj
 **.idea
 **.dSYM
+asm
+corewar

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:55:28 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 20:27:09 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 12:43:56 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ int					uchar_to_int(t_uchar *s, int size)
 	return (res);
 }
 
-int					get_arg(t_list *argv, int n)
+int					get_arg(t_list *argv, int argc, int n, int flag)
 {
+	// to type func ;get size and override num
+	if (get_arg_size(argc, flag, n) == 2)///// rm
+		return (*(short *)l_get_data(&argv, n));///// rm
 	return (*(int *)l_get_data(&argv, n));
 }
 

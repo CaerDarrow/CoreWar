@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 18:44:30 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:26:11 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,37 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 	t_list				*argv;
 	void				(*f)(t_game_entity *, t_cursor *,
 						t_uchar, t_list *);
+	char				carry;
 
+	carry = cursor->carry;
 	argv = 0;
+
+
 	if (!(f = get_op_by_code(cursor->op_code)))
 	{
 		move_cursor(cursor, 1);
-		return (1);
+		return (-1);
 	}
 	argc = DIR_CODE << 6;
 	if (g_op_tab[cursor->op_code].argtypes)
 		argc = read_args_type(entity->bg, cursor->position);
-	cursor->moved = 1;
 	if (!is_valid_type(argc, cursor->op_code))
 	{
-		error("Invalid argv type");////////////////tmp
-		move_cursor(cursor, 1);
+		// error("Invalid argv type");////////////////tmp
+		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].dir));
 		return (-1);
 	}
-	argv = read_args(cursor, entity->bg, argc);
+	if (!(argv = read_args(cursor, entity->bg, argc)))
+	{
+		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].dir));
+		return (-1);
+	}
+	if (VERBOSE_LVL(4))
+		ft_printf("P    %ld | ", cursor->index);
+		// ft_printf("Cursor %d: %s at cycle %d by %d player's cursor; cycles to die: %d; live calls: %d; cursor position: %d\n",cursor->index, g_op_tab[cursor->op_code].name, entity->cycle, cursor->id, entity->cycles_to_die, entity->live_calls, cursor->position);
 	f(entity, cursor, argc, argv);
-	if (g_verbose)
-		ft_printf("Exec: %s at %d by %d player's cursor; cycles to die: %d; live calls: %d\n", g_op_tab[cursor->op_code].name, entity->cycle, cursor->id, entity->cycles_to_die, entity->live_calls);
 	l_destroy(&argv);
-	if (f != zjmp)
+	if ((f == zjmp && !carry) || (f != zjmp))
 		move_cursor(cursor, get_step(cursor->op_code, argc, g_op_tab[cursor->op_code].dir));
 	return (cursor->op_code);
 }

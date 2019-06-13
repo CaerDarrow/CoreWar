@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:19:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 18:10:10 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:51:14 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int				get_num(t_uchar *s, int size)
 	return (res);
 }
 
-t_cursor		*cursor_create(int id, char players)
+t_cursor		*cursor_create(t_game_entity *entity, int id)
 {
 	t_cursor	*c;
 	int			i;
@@ -43,30 +43,41 @@ t_cursor		*cursor_create(int id, char players)
 		set_reg_num(c, 1, -id);
 	}
 	c->reg[i] = 0;
-	c->moved = 1;
 	c->id = id;
-	c->position = MEM_SIZE * (id - 1) / players;
+	c->index = ++entity->alive_cursors;
+	c->position = MEM_SIZE * (id - 1) / entity->n_players;
 	return (c);
 }
 
 void					destroy_cur(t_list **t)
 {
-	if (!t || !*t || !(*t)->data)
-		error("Cant destroy this cursor(unexpected)");
 	ft_freemas((char ***)&((t_cursor*)(*t)->data)->reg, 0);
 	ft_memdel((void**)&(*t)->data);
 	ft_memdel((void**)t);
 }
 
-int				cursor_should_die(t_list *c, t_game_entity *entity)
+int					cursor_should_die(t_list *c, t_game_entity *entity)
 {
 	if (c && c->data)
-		return (entity->cycle - ((t_cursor *)c->data)->last_live_call >= entity->cycles_to_die); /// > or >=
+		return (entity->cycle - ((t_cursor *)c->data)->last_live_call >= entity->cycles_to_die);
 	error("Unexpected error: cursor_should_die()");
 	return (0);
 }
 
-void			move_cursor(t_cursor *cursor, int bytes)
+void				move_cursor(t_cursor *cursor, int bytes)
 {
+	if (VERBOSE_LVL(16))
+		ft_printf("Cursor %d: Player's %d cursor moved from %d", cursor->index, cursor->id, cursor->position);
 	cursor->position = correct_position(cursor->position + bytes);
+	if (VERBOSE_LVL(16))
+		ft_printf(" to %d\n", cursor->position);
+}
+
+void				copy_reg(t_uchar **dest, t_uchar **src)
+{
+	int				i;
+
+	i = -1;
+	while (++i < REG_NUM)
+		ft_memcpy(dest[i], src[i], REG_SIZE);
 }

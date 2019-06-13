@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 13:58:49 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:06:05 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ static int			set_flags(int argc, const char *argv[],
 		++*i;
 		if (*i >= argc)
 			error("Invalid flag");
-		g_verbose = VERBOSE_LVL(atoi(argv[*i]));
+		g_verbose = atoi(argv[*i]);
 		return (1);
 	}
+	else
+		error("Wrong flag");
 	return (0);
 }
 
@@ -84,9 +86,9 @@ void				read_champs(int argc, const char *argv[],
 		error("Malloc error");
 	ft_bzero(entity->bg, MEM_SIZE);
 	entity->n_players = count_players(argc, argv);
-	if (entity->n_players > MAX_PLAYERS)
-		error("Too many players");
-	ft_printf("Players: %d\n", entity->n_players);
+	if (entity->n_players > MAX_PLAYERS || entity->n_players <= 0)
+		error("Invalid quantity of champions");
+	ft_printf("Players: %d\n", entity->n_players);//////////
 	ft_printf("Introducing contestants...\n");
 	i = 0;
 	n = 1;

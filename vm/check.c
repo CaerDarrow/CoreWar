@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:52 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 13:38:53 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:34:03 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
  	t_list		*prev;
  	t_list		*b;
 
- 	if (!*cur || !cur)
+ 	if (!cur || !*cur)
  		error("Unexpected error :: kill_cursor()");
- 	ft_printf("Someone just died; left alive: %d\n", l_full_size(*cur));
+	// ft_printf("Someone just died(player's %d cursor); left alive: %d\n", l_full_size(*cur), ((t_cursor *)(*cur)->data)->id);
  	prev = (*cur)->prev;
  	if (prev)
  	{
@@ -47,6 +47,7 @@
  {
  	t_list		*cursor;
  	t_list		*prev;
+	// t_cursor	*c;
 
  	prev = 0;
  	cursor = entity->cursors;
@@ -56,13 +57,20 @@
  		{
  			if (prev)
  			{
- 				ft_printf("Cursor died; cycles_to_die: %d\n", entity->cycles_to_die );
+				if (VERBOSE_LVL(8))
+				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",CURSOR(cursor)->index, entity->cycle - CURSOR(cursor)->last_live_call, entity->cycles_to_die );
  				kill_cursor(&cursor);
+				cursor = cursor->prev;/////////////////////////////////!!!!!!!!!!!!!!
+				// entity->alive_cursors--;
+				// ft_printf("\tF\n");
  			}
  			else
  			{
- 				ft_printf("Cursor died; cycles_to_die: %d\n", entity->cycles_to_die );
+				if (VERBOSE_LVL(8))
+ 					ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",CURSOR(entity->cursors)->index, entity->cycle - CURSOR(entity->cursors)->last_live_call, entity->cycles_to_die );
  				kill_cursor(&entity->cursors);
+				// ft_printf("\tF\n");
+				// entity->alive_cursors--;
  				cursor = entity->cursors;
  				continue;
  			}
@@ -80,15 +88,18 @@
  		entity->cycles_to_die <= 0)
  	{
  		try_kill_cursors(entity);
-		entity->cycles_with_same_ctd++;
- 		if (entity->live_calls >= NBR_LIVE ||
- 			entity->cycles_with_same_ctd == MAX_CHECKS)
- 		{
- 			entity->cycles_to_die -= CYCLE_DELTA;
- 			entity->cycles_with_same_ctd = 0;
- 		}
+		entity->periods_with_same_ctd++;///////?
+		// if (entity->last_check != 0)
+		// {
+	 		if (entity->live_calls >= NBR_LIVE ||
+	 			entity->periods_with_same_ctd == MAX_CHECKS)
+	 		{
+	 			entity->cycles_to_die -= CYCLE_DELTA;
+	 			entity->periods_with_same_ctd = 0;
+	 		}
+		// }
  		entity->live_calls = 0;
-		if (g_verbose == VERBOSE_LVL(2))
+		if (VERBOSE_LVL(2))
 			ft_printf("Cycle to die is now %d\n", entity->cycles_to_die);
 		entity->last_check = entity->cycle;
  	}

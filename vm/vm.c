@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 18:44:54 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/12 16:37:57 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void					init_cursors(t_game_entity *entity)
 	i = entity->n_players;
 	while (i > 0)
 	{
-		ld_push_front(&entity->cursors, cursor_create(i, entity->n_players));
+		ld_push_front(&entity->cursors, cursor_create(entity, i));
 		i--;
 	}
 }
@@ -46,12 +46,27 @@ void					destroy_cursors(t_game_entity *entity)
 	}
 }
 
+void					print_usage()
+{
+
+	ft_printf("Usage:\n\
+	-v N\t: Verbosity levels, can be added together to enable several\n\
+	\t* 1 : Show PC movements\n\
+	\t* 2 : Show cycles\n\
+	\t* 4 : Show operations\n\
+	\t* 8 : Show deaths\n\
+	\t* 16 : Show cursors movements\n");
+}
+
 int						main(int argc, char const *argv[])
 {
 	t_game_entity		entity;
 
 	if (argc == 1)
-		return (ft_printf("Usage:\n"));
+	{
+		print_usage();
+		return (0);
+	}
 	init_game_entity(&entity);
 	read_champs(argc, argv, &entity);
 	init_cursors(&entity);

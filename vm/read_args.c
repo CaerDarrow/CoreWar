@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/10 20:28:16 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/13 12:44:47 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int			*get_ind_value(t_uchar *bg, int position, int offset, int op_code)
 {
 	int				addr;
 
-	addr = get_num_by_addr(bg, position + offset, IND_SIZE);
+	addr = (short)get_num_by_addr(bg, position + offset, IND_SIZE);
 	if (op_code != 13) /// ...
 		addr %= IDX_MOD;
 	return (ft_int_get_mass(addr));
@@ -36,7 +36,12 @@ static int			*get_ind_value(t_uchar *bg, int position, int offset, int op_code)
 
 static int			*get_reg_value(t_uchar *bg, int position, int offset)
 {
-	return (ft_int_get_mass(get_num_by_addr(bg, position + offset, 1)));
+	int				reg;
+
+	reg = get_num_by_addr(bg, position + offset, 1);
+	if (!is_valid_reg(reg))
+		return (NULL);
+	return (ft_int_get_mass(reg));
 }
 
 t_list				*read_args(t_cursor *cursor, t_uchar *bg, t_uchar argc)
@@ -64,6 +69,8 @@ t_list				*read_args(t_cursor *cursor, t_uchar *bg, t_uchar argc)
 		}
 		else if (code == REG_CODE)
 		{
+			if (!get_reg_value(bg, cursor->position, offset))
+				return (NULL);
 			ld_push_back(&res, get_reg_value(bg, cursor->position, offset));
 			offset += 1;
 		}
