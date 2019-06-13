@@ -6,26 +6,34 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 17:23:44 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/10 18:42:40 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:02:08 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_sep(char *rd, int *i)
+void	get_sep(char *rd, int *i, t_list **lst)
 {
+	t_token	*token;
+
 	while (ft_isspace(rd[*I]) || rd[*I] == SEPARATOR_CHAR)
 	{
 		if (rd[*I] == '\n')
 		{
-			g_line++;
+			token = inittoken(*i, NEWLINE);
+			token->token = ft_strdup("\n");
+			ld_push_back(lst, token);
 			g_readed += (*i);
 			(*i) = 1;
-			ft_printf("[NEWLINE]\n");
+			g_line++;
 			continue ;
 		}
 		else if (rd[*I] == SEPARATOR_CHAR)
-			ft_printf("[SEPARATOR {%c}]", rd[*I]);
+		{
+			token = inittoken(*i, SEP);
+			token->token = ft_strdup(",");
+			ld_push_back(lst, token);
+		}
 		(*i)++;
 	}
 }
