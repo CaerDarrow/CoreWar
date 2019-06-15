@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:48:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 19:14:59 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/15 19:26:44 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,27 @@ t_rb_tree		*rb_uncle(t_rb_tree *t)
 	gp = rb_grandparent(t);
 	if (gp)
 	{
-		if (gp->left == t)
+		if (gp->left == t->parent)
 			return (gp->right);
 		return (gp->left);
 	}
+	return (NULL);
+}
+
+void			*rb_find(t_rb_tree *t, int index)
+{
+	if (!t)
+		return (NULL);
+	while (1)
+	{
+		if (index > t->index && t->right)
+			t = t->right;
+		else if (index < t->index && t->left)
+			t = t->left;
+		else
+			break ;
+	}
+	if (t->index == index)
+		return (t->data);
 	return (NULL);
 }

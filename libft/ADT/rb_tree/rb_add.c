@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:46:15 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 19:11:32 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/15 19:56:36 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_rb_tree		*rb_node_create(void *data, long long index, t_rb_tree *parent)
 	if (!parent)
 		tr->clr = B;
 	else
-		// tr->clr = !parent->clr;
 		tr->clr = R;
 	return (tr);
 }
@@ -63,6 +62,11 @@ int				rb_push(t_rb_tree **root, void *data, long long index)
 		t->left = rb_node_create(data, index, t);
 		t = t->left;
 	}
-	rb_balance(root, t);
+	// ft_printf("\nBEFORE BALANCING:\n");
+	// rb_print(*root, 1);
+	rb_fix_insertion(t);
+	rb_fix_root(root);
+	// ft_printf("\nAFTER BALANCING:\n");
+	// rb_print(*root, 1);
 	return (1);
 }

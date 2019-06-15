@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 14:01:29 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/15 20:40:38 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct			op_s
 }						t_op;
 
 int						g_verbose;
+int						g_dump_flag;
+int						g_d_flag;
 t_op					g_op_tab[17];
 
 void					read_champs(int ac, const char *argv[], t_game_entity *ge);
@@ -181,7 +183,7 @@ t_uchar					*get_reg_num(t_cursor *cursor, int n);
 /*
 **						print_data.c
 */
-void					print_bg(t_game_entity *entity);
+void					print_bg(t_game_entity *entity, int mod);
 /*
 **						apply_op.c
 */
@@ -233,5 +235,10 @@ It is now cycle 27439
 Contestant 1, "stayin' alive", has won !
 max num of cursor > MAX_INT
 
+ CYCLE="55";./vm_champs/corewar -d $CYCLE -v 14 helltrain.cor > tt; ./corewar -d $CYCLE -v 14 helltrain.cor > t; diff t tt;
+////////////////////!!!!!!!!!!!!!!
+!!!!!!!!!!!!
+!!!!!!!!!! at cycle 1 apply_op error?
+!!!!!!!!!!
 */
 #endif

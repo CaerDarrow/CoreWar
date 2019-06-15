@@ -7,16 +7,15 @@ vm/op.c vm/op_source_1.c vm/op_source_2.c vm/op_source_3.c vm/op_source_4.c \
 vm/op_service.c vm/game_service.c vm/game_validation.c vm/apply_op.c \
 vm/check.c vm/print_data.c vm/registers.c vm/read_args.c
 ASM_SRC = $(wildcard assembler/*.c)
-
 VM_OBJ = $(VM_SRC:.c=.o)
 ASM_OBJ = $(ASM_SRC:.c=.o)
 STORED_VM_OBJ = $(addprefix vm/obj/,$(notdir $(VM_OBJ)))
 STORED_ASM_OBJ = $(addprefix assembler/obj/,$(notdir $(ASM_OBJ)))
 LIBFT = libft/libft.a
 PRINTF = libft/libftprintf.a
-lib:
-	make re -C libft
 all: $(VM) $(ASM)
+lib:
+	make -C libft
 $(LIBFT):
 	make -C libft
 $(STORED_VM_OBJ): vm/obj/%.o:vm/%.c

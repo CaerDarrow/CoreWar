@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 19:09:58 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 19:50:57 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/15 18:47:19 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,32 @@ void		rb_print(t_rb_tree *t, int iter)
 	}
 }
 
-void			rb_rotate_left(t_rb_tree **root)
+void			rb_set_left(t_rb_tree *t, t_rb_tree *l)
 {
-	t_rb_tree	*tr;
+	if (t)
+	{
+		t->left = l;
+		if (l)
+			l->parent = t;
+	}
+}
 
-	if (!*root || !(*root)->right)
+void			rb_set_right(t_rb_tree *t, t_rb_tree *r)
+{
+	if (t)
+	{
+		t->right = r;
+		if (r)
+			r->parent = t;
+	}
+}
+
+void			rb_rotate_left(t_rb_tree *tr)
+{
+	// ft_printf("\nBEFORE LEFT ROTATE:\n");
+	// rb_print(tr, 1);
+	if (!tr || !tr->right)
 		return ;
-	tr = *root;
 	if (tr->parent)
 	{
 		if (tr->parent->left == tr)
@@ -48,16 +67,16 @@ void			rb_rotate_left(t_rb_tree **root)
 	tr->parent->left = tr;
 	if (tr->right)
 		tr->right->parent = tr;
-	(*root) = tr->parent;
+	// ft_printf("\nAFTER LEFT ROTATE:\n");
+	// rb_print(tr, 1);
 }
 
-void			rb_rotate_right(t_rb_tree **root)
+void			rb_rotate_right(t_rb_tree *tr)
 {
-	t_rb_tree	*tr;
-
-	if (!*root || !(*root)->left)
+	// ft_printf("\nBEFORE RIGHT ROTATE:\n");
+	// rb_print(tr, 1);
+	if (!tr || !tr->left)
 		return ;
-	tr = *root;
 	if (tr->parent)
 	{
 		if (tr->parent->left == tr)
@@ -73,36 +92,98 @@ void			rb_rotate_right(t_rb_tree **root)
 	tr->parent->right = tr;
 	if (tr->left)
 		tr->left->parent = tr;
-	(*root) = tr->parent;
+	// ft_printf("\nAFTER RIGHT ROTATE:\n");
+	// rb_print(tr, 1);
 }
 
-
-void			rb_balance(t_rb_tree **root, t_rb_tree *t)
+t_rb_tree	*rb_left(t_rb_tree *t)
 {
-	(void)t;(void)root;
-	// t_rb_tree	*uncle;
-	//
-	// while (t->parent->clr == B)
+	return (t ? t->left : NULL);
+}
+
+t_rb_tree	*rb_right(t_rb_tree *t)
+{
+	return (t ? t->right : NULL);
+}
+
+t_rb_tree	*rb_parent(t_rb_tree *t)
+{
+	return (t ? t->parent : NULL);
+}
+
+int			rb_is_red(t_rb_tree *t)
+{
+	return (t ? t->clr == R : 0);
+}
+
+void			rb_fix_insertion(t_rb_tree *t)
+{
+	t_rb_tree	*uncle;
+	t_rb_tree	*gr;
+(void)gr;
+	//rm
+	// if (t == *root)
 	// {
-	// 	uncle = rb_uncle(child);
-	// 	if (uncle && uncle->clr == R)
-	// 	{
-	// 		uncle->clr = B;
-	// 		child->parent->clr = B;
-	// 		t = rb_grandparent(t);
-	// 		t->clr = R;
-	// 	}
-	// 	else
-	// 	{
-	// 		if (t == t->parent->left)
-	// 		{
-	//
-	// 		}
-	// 		else
-	// 		{
-	//
-	// 		}
-	// 	}
+	// 	t->clr = B;
+	// 	return ;
 	// }
-	// (*root)->clr = B;
+	//
+	while (rb_is_red(rb_parent(t)))
+	{
+		if (rb_parent(t) == rb_left(rb_grandparent(t)))
+		{
+			if (rb_is_red(uncle = rb_uncle(t)))
+			{
+				uncle->clr = B;
+				t->parent->clr = B;
+				t = rb_grandparent(t);
+				t->clr = R;
+			}
+			else
+			{
+				if (t == rb_right(rb_parent(t)))
+				{
+					t = t->parent;
+					rb_rotate_left(t);
+				}
+				t->parent->clr = B;
+				if ((gr = rb_grandparent(t)))
+				{
+					gr->clr = R;
+					rb_rotate_right(gr);
+				}
+			}
+		}
+		else
+		{
+			if (rb_is_red(uncle = rb_uncle(t)))
+			{
+				uncle->clr = B;
+				t->parent->clr = B;
+				t = rb_grandparent(t);
+				t->clr = R;
+			}
+			else
+			{
+				if (t == rb_left(rb_parent(t)))
+				{
+					t = t->parent;
+					rb_rotate_right(t);
+				}
+				t->parent->clr = B;
+				if ((gr = rb_grandparent(t)))
+				{
+					gr->clr = R;
+					rb_rotate_left(gr);
+				}
+			}
+		}
+	}
+}
+
+void			rb_fix_root(t_rb_tree **root)
+{
+	while((*root)->parent)
+		(*root) = (*root)->parent;
+	(*root)->clr = B;
 }

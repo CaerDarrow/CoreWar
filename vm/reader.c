@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/12 16:06:05 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/15 20:40:44 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,28 @@ static int			set_flags(int argc, const char *argv[],
 	{
 		++*i;
 		if (*i >= argc)
-			error("Invalid flag");
+			error("Invalid flag (-v)");
 		g_verbose = atoi(argv[*i]);
+		return (1);
+	}
+	else if (ft_strcmp(argv[*i], "-dump") == 0)
+	{
+		++*i;
+		if (*i >= argc)
+			error("Invalid flag (-dump)");
+		g_dump_flag = atoi(argv[*i]);
+		if (g_dump_flag < 0)
+			error("Invalid flag (-dump)");
+		return (1);
+	}
+	else if (ft_strcmp(argv[*i], "-d") == 0)
+	{
+		++*i;
+		if (*i >= argc)
+			error("Invalid flag (-d)");
+		g_d_flag = atoi(argv[*i]);
+		if (g_d_flag < 0)
+			error("Invalid flag (-d)");
 		return (1);
 	}
 	else
@@ -69,7 +89,7 @@ static int			count_players(int argc, const char *argv[])
 	{
 		if (argv[argc][0] != '-')
 			res++;
-		else if (ft_strcmp(argv[argc], "-v") == 0)
+		else if (ft_strcmp(argv[argc], "-v") == 0 || ft_strcmp(argv[argc], "-d") == 0 || ft_strcmp(argv[argc], "-dump") == 0)
 			res--;
 	}
 	return (res);
@@ -88,7 +108,6 @@ void				read_champs(int argc, const char *argv[],
 	entity->n_players = count_players(argc, argv);
 	if (entity->n_players > MAX_PLAYERS || entity->n_players <= 0)
 		error("Invalid quantity of champions");
-	ft_printf("Players: %d\n", entity->n_players);//////////
 	ft_printf("Introducing contestants...\n");
 	i = 0;
 	n = 1;

@@ -1,12 +1,13 @@
 NAME = libft.a
-SRC = mem/ft_*.c math/*.c str/ft_*.c print/ft_*.c vec/*.c gnl/get_next_line.c \
-ADT/stack/*.c  ADT/list/*.c ADT/queue/*.c ADT/rb_tree/*.c
-OBJ = *.o
-GCCFLAGS = -Wall -Wextra -Werror -g -I ./includes/ -c
+SRC = $(wildcard mem/ft_*.c math/*.c str/ft_*.c print/ft_*.c vec/*.c gnl/get_next_line.c \
+ADT/stack/*.c  ADT/list/*.c ADT/queue/*.c ADT/rb_tree/*.c)
+OBJ = $(SRC:.c=.o)
+GCCFLAGS = -Wall -Wextra -Werror -g -I ./includes/
 .SILENT:
 all: $(NAME)
-$(NAME): $(SRC)
-	gcc $(GCCFLAGS) $(SRC)
+$(OBJ): %.o:%.c
+	gcc $(GCCFLAGS) -c $< -o $@
+$(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 clean:
 	/bin/rm -f $(OBJ)
