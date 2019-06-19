@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:47:50 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 12:59:10 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:37:17 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,82 @@
 void				and(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
-	int				num;
+	int				arg[2];
 
-	(void)entity;(void)argc;
-	num = ARG(1) & ARG(2);
-	set_reg_num(cursor, ARG(3), num);
-	set_carry(&cursor->carry, num);
+	(void)entity;
+	if (arg_code(argc, 1) == REG_CODE)
+		arg[0] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[0] = ARG(1);
+	if (arg_code(argc, 2) == REG_CODE)
+		arg[1] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[1] = ARG(2);
+	set_reg_num(cursor, ARG(3), arg[0] & arg[1]);
+	set_carry(&cursor->carry, arg[0] & arg[1]);
 	if (VERBOSE_LVL(4))
-		ft_printf("and %d %d %d\n", ARG(1), ARG(2), ARG(3));
+	{
+		ft_printf("and %d", arg[0]);
+		ft_printf(" %d", arg[1]);
+		if (arg_code(argc, 3) == REG_CODE)
+			ft_printf(" r%d\n", ARG(3));
+		else
+			ft_printf(" %d\n", ARG(3));
+	}
 }
 
 void				or(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
-	int				num;
+	int				arg[2];
 
-	(void)entity;(void)argc;
-
-	num = ARG(1) | ARG(2);
-	set_reg_num(cursor, ARG(3), num);
-	set_carry(&cursor->carry, num);
+	(void)entity;
+	if (arg_code(argc, 1) == REG_CODE)
+		arg[0] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[0] = ARG(1);
+	if (arg_code(argc, 2) == REG_CODE)
+		arg[1] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[1] = ARG(2);
+	set_reg_num(cursor, ARG(3), arg[0] | arg[1]);
+	set_carry(&cursor->carry, arg[0] | arg[1]);
 	if (VERBOSE_LVL(4))
-		ft_printf("or %d %d %d\n", ARG(1), ARG(2), ARG(3));
+	{
+		ft_printf("or %d", arg[0]);
+		ft_printf(" %d", arg[1]);
+		if (arg_code(argc, 3) == REG_CODE)
+			ft_printf(" r%d\n", ARG(3));
+		else
+			ft_printf(" %d\n", ARG(3));
+	}
 }
 
 void				xor(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
-	int				num;
+	int				arg[2];
 
-	(void)entity;(void)argc;
-
-	num = XOR(ARG(1), ARG(2));
-	set_reg_num(cursor, ARG(3), num);
-	set_carry(&cursor->carry, num);
+	(void)entity;
+	if (arg_code(argc, 1) == REG_CODE)
+		arg[0] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[0] = ARG(1);
+	if (arg_code(argc, 2) == REG_CODE)
+		arg[1] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[1] = ARG(2);
+	set_reg_num(cursor, ARG(3), XOR(arg[0], arg[1]));
+	set_carry(&cursor->carry, XOR(arg[0], arg[1]));
 	if (VERBOSE_LVL(4))
-		ft_printf("xor %d %d %d\n", ARG(1), ARG(2), ARG(3));
+	{
+		ft_printf("xor %d", arg[0]);
+		ft_printf(" %d", arg[1]);
+		if (arg_code(argc, 3) == REG_CODE)
+			ft_printf(" r%d\n", ARG(3));
+		else
+			ft_printf(" %d\n", ARG(3));
+	}
 }
 
 void				zjmp(t_game_entity *entity, t_cursor *cursor,

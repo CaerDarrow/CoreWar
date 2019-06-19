@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:46:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 13:01:08 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:32:12 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void				live(t_game_entity *entity, t_cursor *cursor,
 {
 	(void)entity;(void)argc;
 	cursor->last_live_call = entity->cycle;
-	entity->last_alive_player = ARG(1);
+	if (is_valid_player(entity, ARG(1)))
+		entity->last_alive_player = ARG(1);
 	if (VERBOSE_LVL(4))
 		ft_printf("live %d\n", ARG(1));
 }
@@ -66,25 +67,53 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 void				add(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
-	int				num;
+	int				arg[2];
 
-	(void)entity;(void)argc;
-	num = ARG(1) + ARG(2);
-	set_reg_num(cursor, ARG(3), num);
-	set_carry(&cursor->carry, num);
+	(void)entity;
+	if (arg_code(argc, 1) == REG_CODE)
+		arg[0] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[0] = ARG(1);
+	if (arg_code(argc, 2) == REG_CODE)
+		arg[1] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[1] = ARG(2);
+	set_reg_num(cursor, ARG(3), arg[0] + arg[1]);
+	set_carry(&cursor->carry, arg[0] + arg[1]);
 	if (VERBOSE_LVL(4))
-		ft_printf("add %d %d %d\n", ARG(1), ARG(2), ARG(3));
+	{
+		ft_printf("add %d", arg[0]);
+		ft_printf(" %d", arg[1]);
+		if (arg_code(argc, 3) == REG_CODE)
+			ft_printf(" r%d\n", ARG(3));
+		else
+			ft_printf(" %d\n", ARG(3));
+	}
 }
 
 void				sub(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
-	int				num;
-	(void)entity;(void)argc;
+	int				arg[2];
 
-	num = ARG(1) - ARG(2);
-	set_reg_num(cursor, ARG(3), num);
-	set_carry(&cursor->carry, num);
+	(void)entity;
+	if (arg_code(argc, 1) == REG_CODE)
+		arg[0] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[0] = ARG(1);
+	if (arg_code(argc, 2) == REG_CODE)
+		arg[1] = uchar_to_int(get_reg_num(cursor, ARG(1)), REG_SIZE);
+	else
+		arg[1] = ARG(2);
+	set_reg_num(cursor, ARG(3), arg[0] - arg[1]);
+	set_carry(&cursor->carry, arg[0] - arg[1]);
 	if (VERBOSE_LVL(4))
-		ft_printf("sub %d %d %d\n", ARG(1), ARG(2), ARG(3));
+	{
+		ft_printf("sub %d", arg[0]);
+		ft_printf(" %d", arg[1]);
+		if (arg_code(argc, 3) == REG_CODE)
+			ft_printf(" r%d\n", ARG(3));
+		else
+			ft_printf(" %d\n", ARG(3));
+	}
 }

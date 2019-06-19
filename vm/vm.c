@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/15 20:13:08 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:41:23 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void					init_cursors(t_game_entity *entity)
 		ld_push_front(&entity->cursors, cursor_create(entity, i));
 		i--;
 	}
+	entity->last_alive_player = -entity->n_players;
 }
 
 void					init_game_entity(t_game_entity *entity)

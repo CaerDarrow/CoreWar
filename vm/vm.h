@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/15 20:40:38 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/19 16:32:31 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ int						is_valid_op(char op_code);
 int						is_live_op(char op_code);
 int						is_valid_argc(t_uchar argc, int op_code);
 int						is_proper_argc(t_uchar argc, int op_code);
+int						is_valid_player(t_game_entity *game, int p);
 /*
 **						read_args.c
 */

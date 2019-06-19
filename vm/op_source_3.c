@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:48:20 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 13:10:30 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:20:26 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,8 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	if (VERBOSE_LVL(4))
 	{
 		ft_printf("sti r%d", ARG(1));
-		if (arg_code(argc, 2) == REG_CODE)
-			ft_printf(" r%d", ARG(2));
-		else
-			ft_printf(" %d", ARG(2));
-		if (arg_code(argc, 3) == REG_CODE)
-			ft_printf(" r%d\n", ARG(3));
-		else
-			ft_printf(" %d\n", ARG(3));
+		ft_printf(" %d", ARG(2));
+		ft_printf(" %d\n", ARG(3));
 		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", ARG(2), ARG(3), ARG(2) + ARG(3), correct_position(addr));
 	}
 }
@@ -55,7 +49,7 @@ void				clone(t_game_entity *entity, t_cursor *cursor,
 	//something more?
 	ld_push_front(&entity->cursors, new_cursor);// push back?
 	if (VERBOSE_LVL(4))
-		ft_printf("fork %d\n", ARG(1));
+		ft_printf("fork %d (%d)\n", ARG(1), new_cursor->position);
 }
 
 void				lld(t_game_entity *entity, t_cursor *cursor,
@@ -101,5 +95,6 @@ void				lclone(t_game_entity *entity, t_cursor *cursor,
 	//something more?
 	ld_push_front(&entity->cursors, new_cursor);// push back?
 	if (VERBOSE_LVL(4))
-		ft_printf("\tFork to %d addr\n", new_cursor->position);
+		ft_printf("lfork %d (%d)\n", ARG(1), new_cursor->position);
+
 }
