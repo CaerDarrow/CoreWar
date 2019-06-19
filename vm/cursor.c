@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:19:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/12 16:51:14 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/19 15:10:45 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_cursor		*cursor_create(t_game_entity *entity, int id)
 		if (!(c->reg[i] = (t_uchar *)malloc(REG_SIZE * sizeof(t_uchar))))
 			error("Malloc error");
 		ft_bzero(c->reg[i], REG_SIZE);
-		set_reg_num(c, 1, -id);
 	}
+	set_reg_num(c, 1, -id);
 	c->reg[i] = 0;
 	c->id = id;
 	c->index = ++entity->alive_cursors;
