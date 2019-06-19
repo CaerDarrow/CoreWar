@@ -6,13 +6,13 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/13 18:29:48 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/19 22:22:59 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	printtoken(t_list **parsed)
+void	printtoken(t_list **parsed)
 {
 	t_token		*token;
 	t_list		*ptr;
@@ -26,7 +26,7 @@ static void	printtoken(t_list **parsed)
 		ft_printf("{[%s][%03d:%03d]}%s",
 		type[token->type], token->pos[0], token->pos[1], token->token);
 	else
-		ft_printf("{[%s][%03d:%03d]\"%s\"}",
+		ft_printf("{[%s][%03d:%03d]\"%s\"}\n",
 		type[token->type], token->pos[0], token->pos[1], token->token);
 }
 
@@ -59,7 +59,7 @@ int			main(int argc, char **argv)
 				writechamp(unit, argv[argc - 1]);
 				free(unit);
 			}
-			l_iter(&parsed, printtoken);
+			// l_iter(&parsed, printtoken);
 			l_delall(&parsed, lcondel);
 		}
 		free(readed);

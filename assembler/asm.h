@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/13 17:08:18 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/19 23:07:06 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct		s_token
 {
 	int				pos[2];
 	int				type;
+	t_arg_type		value;
 	char			*token;
 }					t_token;
 
@@ -98,5 +99,5 @@ int					match(char *regexp, char *text);
 int					matchstar(int c, char *regexp, char *text);
 int					matchhere(char *regexp, char *text);
 char				*lexer(char *s, const char *delim, char **save_ptr);
-
+void				printtoken(t_list **parsed);
 #endif
