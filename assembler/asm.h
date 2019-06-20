@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 19:58:38 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 20:39:01 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,17 @@ void				check_command(t_list **lst);
 void				check_label(t_list **lst);
 void				check_instruction(t_list **lst);
 void				check_newline(t_list **lst);
-void				f_error(t_list **lst);
 int					syntax(t_list *lst);
 void				printtoken(t_list **parsed);
+
+enum				error_code {
+	SYNTAX,
+	NAMELEN,
+	COMMENTLEN,
+	ARG
+};
+
+void				f_error(t_list **lst, char err);
 
 /*
 ** write/read

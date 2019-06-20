@@ -6,17 +6,27 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:14:54 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 18:43:10 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 20:36:50 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	f_error(t_list **lst)
+void	f_error(t_list **lst, char err)
 {
-	//Champion name too long (Max length 128)
-	//Champion coment too long (Max length 2048)
-	ft_printf("Syntax error at token: ");
-	printtoken(lst);
+	if (err == SYNTAX)
+	{
+		ft_printf("Syntax error at token: ");
+		printtoken(lst);
+	}
+	if (err == NAMELEN)
+		ft_printf("Champion name too long (Max length %d)", PROG_NAME_LENGTH);
+	if (err == COMMENTLEN)
+		ft_printf("Champion coment too long (Max length %d)", COMMENT_LENGTH);
+	if (err == ARG)
+	{
+		ft_printf("Wrong argument type at token: ");
+		printtoken(lst);
+	}
 	exit(1);
 }

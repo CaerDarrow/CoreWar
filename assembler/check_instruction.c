@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:12:16 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 19:31:31 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 20:37:30 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void			check_instruction(t_list **lst)
 	i = 0;
 	op = check_opname(TOK->token);
 	if (op == &g_op_tab[0])
-		f_error(lst);
+		f_error(lst, SYNTAX);
 	while (i < (op->argc * 2))
 	{
 		*lst = (*lst)->next;
 		if ((!(i & 1) && (!(TOK->type & op->argv[i / 2]))) || (i != op->argc *
 		2 - 1 && (i & 1) && TOK->type != SEP) || (i == op->argc * 2 - 1 &&
 		!(TOK->type == NEWLINE || TOK->type == COMMENT)))
-			f_error(lst);
+			f_error(lst, (i & 1) ? SYNTAX : ARG);
 		i++;
 	}
 }

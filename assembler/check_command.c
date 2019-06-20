@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:10:39 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 18:35:08 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 20:31:15 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ void	check_command(t_list **lst)
 		counter |= 1;
 		*lst = (*lst)->next;
 		if (TOK->type != STRING)
-			f_error(lst);
+			f_error(lst, SYNTAX);
 		if (ft_strlen(TOK->token) > PROG_NAME_LENGTH)
-			f_error(lst);
+			f_error(lst, NAMELEN);
 	}
 	else if (ft_strequ(TOK->token, COMMENT_CMD_STRING) && !(counter & 2))
 	{
 		counter |= 2;
 		*lst = (*lst)->next;
 		if (TOK->type != STRING)
-			f_error(lst);
+			f_error(lst, SYNTAX);
 		if (ft_strlen(TOK->token) > COMMENT_LENGTH)
-			f_error(lst);
+			f_error(lst, COMMENTLEN);
 	}
 	else
-		f_error(lst);
+		f_error(lst, SYNTAX);
 	*lst = (*lst)->next;
 	if (TOK->type != NEWLINE || TOK->type == COMMENT)
-		f_error(lst);
+		f_error(lst, SYNTAX);
 }
