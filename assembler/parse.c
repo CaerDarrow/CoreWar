@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:46:07 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/19 21:29:47 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:07:02 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 int		g_readed = 0;
 int		g_line = 0;
 
-void	(*g_get[6])(char *rd, int *i, t_list **lst) = {
-	get_sep,
+void	(*g_get[11])(char *rd, int *i, t_list **lst) = {
 	get_commandname,
-	get_string,
-	get_label,
 	get_comment,
-	get_direct
+	get_label,
+	NULL,
+	get_sep,
+	get_string,
+	get_direct,
+	NULL,
+	NULL,
+	NULL,
+	NULL
 };
 
 t_list	*parse(char *rd)

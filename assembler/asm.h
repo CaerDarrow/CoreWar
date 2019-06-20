@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/19 23:07:06 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 18:39:43 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define ASM_H
 # include "op.h"
 # include "libft.h"
-
-/*
-** read
-*/
-
-char				*read_s(char *fname);
 
 /*
 ** parse (lexer)
@@ -49,13 +43,24 @@ int					g_readed;
 int					g_line;
 
 enum				e_type {
-	SEP, COMMAND_NAME, STRING, LABEL, COMMENT, DIRECT, DIRECT_LABEL,
-	INSTRUCTION, REGISTER, INDERECT, NEWLINE
+	COMMAND_NAME,
+	COMMENT,
+	LABEL,
+	INSTRUCTION,
+	SEP,
+	STRING,
+	DIRECT,
+	NEWLINE,
+	DIRECT_LABEL,
+	REGISTER,
+	INDERECT
 };
 
 /*
 ** syntax
 */
+
+# define TOK ((t_token *)(*lst)->data)
 
 typedef struct		s_op
 {
@@ -71,10 +76,17 @@ typedef struct		s_op
 
 t_op				g_op_tab[17];
 
+void				check_comment(t_list **lst);
+void				check_command(t_list **lst);
+void				check_label(t_list **lst);
+void				check_instruction(t_list **lst);
+void				check_newline(t_list **lst);
+void				f_error(t_list **lst);
 int					syntax(t_list *lst);
+void				printtoken(t_list **parsed);
 
 /*
-** write
+** write/read
 */
 
 typedef struct		s_unit
@@ -83,6 +95,7 @@ typedef struct		s_unit
 	unsigned char	exec[];
 }					t_unit;
 
+char				*read_s(char *fname);
 void				set_magic(t_unit *unit);
 void				set_name(char *name, t_unit *unit);
 void				set_prog_size(int size, t_unit *unit);
@@ -91,13 +104,4 @@ void				set_exec(unsigned char *exec, int size, t_unit *unit);
 t_unit				*initchamp(void);
 void				writechamp(t_unit *unit, char *fname);
 
-/*
-** garbage
-*/
-
-int					match(char *regexp, char *text);
-int					matchstar(int c, char *regexp, char *text);
-int					matchhere(char *regexp, char *text);
-char				*lexer(char *s, const char *delim, char **save_ptr);
-void				printtoken(t_list **parsed);
 #endif

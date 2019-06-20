@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_comment.c                                      :+:      :+:    :+:   */
+/*   check_label.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 18:14:44 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 17:57:11 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/20 18:11:14 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/20 18:35:23 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_comment(char *rd, int *i, t_list **lst)
+void	check_label(t_list **lst)
 {
-	t_token	*token;
-	int		j;
-
-	j = *I;
-	token = inittoken(*i, COMMENT);
-	while (!(rd[*I] == '\n' || rd[*I] == '\0'))
-		(*i)++;
-	token->token = ft_strsub(rd, j, (*I - j));
-	ld_push_back(lst, token);
+	*lst = (*lst)->next;
+	if (!(TOK->type == NEWLINE || TOK->type == INSTRUCTION ||
+		TOK->type == COMMENT))
+		f_error(lst);
 }
