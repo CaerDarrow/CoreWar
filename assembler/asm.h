@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 20:39:01 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 21:25:50 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ enum				error_code {
 	ARG
 };
 
-void				f_error(t_list **lst, char err);
+void				c_error(t_list **lst, char err);
 
 /*
 ** write/read
