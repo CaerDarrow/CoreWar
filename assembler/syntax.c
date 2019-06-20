@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 17:35:12 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 18:40:29 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:59:04 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 void	(*g_check[11])(t_list **lst) = {
 	check_command,
+	NULL,
+	NULL,
 	check_comment,
-	check_label,
+	NULL,
 	check_instruction,
 	NULL,
 	NULL,
 	NULL,
-	check_newline,
-	NULL,
-	NULL,
-	NULL
+	check_label,
+	check_newline
 };
-
 
 int	syntax(t_list *lst)
 {

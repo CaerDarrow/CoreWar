@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:19:10 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/19 23:03:30 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:40:00 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	get_direct(char *rd, int *i, t_list **lst)
 			(*i)++;
 		token->type = DIRECT;
 	}
-	token->value = T_DIR;
 	token->token = ft_strsub(rd, j, (*I - j));
 	ld_push_back(lst, token);
 }

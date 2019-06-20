@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 18:39:43 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:58:38 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ int					g_line;
 
 enum				e_type {
 	COMMAND_NAME,
+	REGISTER,
+	DIRECT,
 	COMMENT,
-	LABEL,
+	INDERECT,
 	INSTRUCTION,
 	SEP,
 	STRING,
-	DIRECT,
-	NEWLINE,
 	DIRECT_LABEL,
-	REGISTER,
-	INDERECT
+	LABEL,
+	NEWLINE
 };
 
 /*

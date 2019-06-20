@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:12:16 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 18:35:18 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:31:31 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static	t_op	*check_opname(char *opname)
 	return (&g_op_tab[0]);
 }
 
-void		check_instruction(t_list **lst)
+void			check_instruction(t_list **lst)
 {
 	t_op		*op;
 	int			i;
@@ -38,7 +38,7 @@ void		check_instruction(t_list **lst)
 	while (i < (op->argc * 2))
 	{
 		*lst = (*lst)->next;
-		if ((!(i & 1) && (!(TOK->value & op->argv[i / 2]))) || (i != op->argc *
+		if ((!(i & 1) && (!(TOK->type & op->argv[i / 2]))) || (i != op->argc *
 		2 - 1 && (i & 1) && TOK->type != SEP) || (i == op->argc * 2 - 1 &&
 		!(TOK->type == NEWLINE || TOK->type == COMMENT)))
 			f_error(lst);

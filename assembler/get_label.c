@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:15:47 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 18:08:05 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/20 19:34:10 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,9 @@ void		get_label(char *rd, int *i, t_list **lst)
 	if (issep(rd[*I]))
 	{
 		if (rd[j] == 'r' && (*I - (j + 1)) < 3)
-		{
-			token->value = T_REG;
 			token->type = REGISTER;
-		}
 		else if (ft_isdigit(rd[j]) || rd[j] == '-')
-		{
-			token->value = T_IND;
 			token->type = INDERECT;
-		}
 	}
 	else
 	{
