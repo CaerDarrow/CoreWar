@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-# define BUFF_SIZE 42
+# define BUFF_SIZE 300000
 # define GNL_SUCCESS 1
 # define GNL_ERROR -1
 # define GNL_EOF 0

@@ -18,6 +18,7 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	t_uchar			*reg_num;
 	int				addr;
 	int				i;
+	int				position;
 	(void)entity;(void)argc;
 
 	addr = cursor->position + (ARG(2) + ARG(3)) % IDX_MOD;
@@ -25,7 +26,12 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	//set_num_by_addr?
 	i = -1;
 	while (++i < REG_SIZE)
+	{
+		position = correct_position(addr + i);
 		entity->bg[correct_position(addr + i)] = reg_num[i];
+		SQ->num_sq = position;
+		draw_square(entity, cursor->id - 1);
+	}
 	if (VERBOSE_LVL(4))
 	{
 		ft_printf("sti r%d", ARG(1));

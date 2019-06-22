@@ -59,7 +59,7 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 
 	if (!(f = get_op_by_code(cursor->op_code)))
 	{
-		move_cursor(cursor, 1);
+		move_cursor(entity, cursor, 1);
 		return (-1);
 	}
 	argc = DIR_CODE << 6;
@@ -68,19 +68,19 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 	if (!is_valid_argc(argc, cursor->op_code))
 	{
 		// error("Invalid argv type");////////////////tmp
-		move_cursor(cursor, 1);
+		move_cursor(entity, cursor, 1);
 		return (-1);
 	}
 	else if (!is_proper_argc(argc, cursor->op_code))
 	{
 		// error("Invalid argv type");////////////////tmp
-		move_cursor(cursor, get_step(cursor->op_code, argc));
+		move_cursor(entity, cursor, get_step(cursor->op_code, argc));
 		return (-1);
 	}
 
 	if (!(argv = read_args(cursor, entity->bg, argc)))
 	{
-		move_cursor(cursor, get_step(cursor->op_code, argc));
+		move_cursor(entity, cursor, get_step(cursor->op_code, argc));
 		return (-1);
 	}
 	if (VERBOSE_LVL(4))
@@ -89,6 +89,6 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 	f(entity, cursor, argc, argv);
 	l_destroy(&argv);
 	if ((f == zjmp && !carry) || (f != zjmp))
-		move_cursor(cursor, get_step(cursor->op_code, argc));
+		move_cursor(entity, cursor, get_step(cursor->op_code, argc));
 	return (cursor->op_code);
 }

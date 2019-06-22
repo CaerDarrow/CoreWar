@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-void			choose_winner(t_game_entity *entity)
+int			choose_winner(t_game_entity *entity)
 {
 	int			i;
 	t_list		*p;
@@ -20,7 +20,7 @@ void			choose_winner(t_game_entity *entity)
 	if (entity->n_players < -entity->last_alive_player || -entity->last_alive_player <= 0)//
 	{
 		ft_printf("No winner !\n");///
-		return;
+		return (-1);
 	}
 	p = entity->players;
 	i = 0;
@@ -28,17 +28,19 @@ void			choose_winner(t_game_entity *entity)
 		p = p->next;
 	ft_printf("Consestant %d, \"%s\", has won !\n", i,
 		((t_header *)p->data)->prog_name);
+	return (i);
 }
 
-void			game_loop(t_game_entity *entity)
+int			game_loop(t_game_entity *entity)
 {
 	t_list		*cursor_ptr;
 	t_cursor	*cursor;
 	long long	i;
 
-	while (entity->cursors)
+	if (entity->cycle == 100)
+		return (1);
+	if (entity->cursors != NULL)
 	{
-		/// check_flags()
 		if (g_d_flag == entity->cycle - 1)
 		{
 			print_bg(entity, 64);
@@ -51,9 +53,6 @@ void			game_loop(t_game_entity *entity)
 		}
 		if (VERBOSE_LVL(2))
 			ft_printf("It is now cycle %d\n", entity->cycle);
-		////
-		// if (entity->cycle == 9720)
-		// 	ft_printf("BREAK\n");
 		cursor_ptr = entity->cursors;
 		i = 0;
 		while (cursor_ptr)
@@ -70,11 +69,10 @@ void			game_loop(t_game_entity *entity)
 			i++;
 		}
 		check_cursors(entity);
+		go_on(entity);
 		entity->cycle++;
-
 	}
-	choose_winner(entity);
-	////
-	print_bg(entity, 64);
-	ft_printf("\nGame end at %d, last alive player %d, cursors %d\n", entity->cycle - 1, -entity->last_alive_player, entity->alive_cursors);
+	else
+		return (1);
+	return (0);
 }

@@ -63,7 +63,7 @@ void				zjmp(t_game_entity *entity, t_cursor *cursor,
 	{
 		if (VERBOSE_LVL(4))
 			ft_printf("zjmp %d OK\n", ((short)ARG(1)) % IDX_MOD);
-		move_cursor(cursor, ((short)ARG(1)) % IDX_MOD);
+		move_cursor(entity, cursor, ((short)ARG(1)) % IDX_MOD);
 	}
 	else if (VERBOSE_LVL(4))
 		ft_printf("zjmp %d FAILED\n", ((short)ARG(1)) % IDX_MOD);

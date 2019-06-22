@@ -13,8 +13,9 @@
 #ifndef VM_H
 # define VM_H
 
-# include				"libft.h"
-# include				"op.h"
+# include			"visualizer.h"
+# include			"libft.h"
+# include			"op.h"
 
 # define BYTE(n)		n
 # define XOR(x, y)		((x + y) % 2)
@@ -50,6 +51,7 @@ typedef struct			s_game_entity
 	int					last_check;
 	int					live_calls;
 	int					alive_cursors;
+	t_visualizer		*vis;
 }						t_game_entity;
 
 typedef struct			op_s
@@ -70,8 +72,53 @@ int						g_dump_flag;
 int						g_d_flag;
 t_op					g_op_tab[17];
 
+/*
+**					visualizer
+*/
+void				init_field(t_game_entity *entity);
+t_visualizer		*inicialization_vis(t_game_entity *entity);
+void				visualizer_loop(t_game_entity *entity);
+void				draw_menu(t_game_entity *entity);
+void				draw_frame(t_game_entity *entity);
+void				draw_legend(t_game_entity *entity);
+void				draw_cycle(t_game_entity *entity);
+void				draw_square(t_game_entity *entity, int num_player);
+void				draw_log_scale(t_game_entity *entity, int move);
+void				draw_end_pixels_forvard(t_game_entity *entity, int color);
+void				draw_cursor(t_game_entity *entity, int position, int id);
+int				draw_winner(t_game_entity *entity, int winer);
+void				draw_press_enter(t_game_entity *entity);
+int					*get_final_picture(int player);
+int					rand_put_pixel(t_game_entity *entity, int *picture);
+void				wipe_off_cursor(t_game_entity *entity, int position);
+void				clear_area(t_game_entity *entity, int x, int y);
+void				draw_horizontal_line(t_game_entity *entity, int x_y[2],
+						int length, int color);
+void				draw_vertical_line(t_game_entity *entity, int x_y[2],
+						int length, int color);
+void				draw_percent(t_game_entity *entity);
+void				draw_instructions(t_game_entity *entity);
+void				x_y_square(t_game_entity *entity, int num_sq);
+int					get_num_player(t_game_entity *entity, int x, int y);
+int					*get_picture(t_game_entity *entity, int num_player);
+int					get_num_pixel(t_game_entity *entity, int x, int y);
+void				move_log_back(t_game_entity *entity);
+void				move_log_front(t_game_entity *entity);
+void				go_on(t_game_entity *entity);
+void			 	add_log(t_game_entity *entity);
+int					*get_player1(t_game_entity *entity);
+int					*get_player2(t_game_entity *entity);
+int					*get_player3(t_game_entity *entity);
+int					*get_player4(t_game_entity *entity);
+//void				shuffle(int *arr, int n);
+/*
+**					basik
+*/
 void					read_champs(int ac, const char *argv[], t_game_entity *ge);
-void					game_loop(t_game_entity *entity);
+int						game_loop(t_game_entity *entity);
+int						choose_winner(t_game_entity *entity);
+void					read_champs(int ac, const char *argv[], t_game_entity *ge);
+int						game_loop(t_game_entity *entity);
 /*
 **						error.c
 */
@@ -97,7 +144,8 @@ void					destroy_cur(t_list **t);
 void					set_reg_num(t_cursor *c, int n, int value);
 void					destroy_cursors(t_game_entity *entity);
 int						cursor_should_die(t_list *c, t_game_entity *entity);
-void					move_cursor(t_cursor *cursor, int b);
+void					move_cursor(t_game_entity *entity, t_cursor *cursor,
+							int b);
 void					shift_cycle(t_cursor *cursor);
 t_cursor				*cursor_create(t_game_entity *entity, int id);
 void					live(t_game_entity * entity, t_cursor *cursor,
@@ -197,48 +245,5 @@ void					check_cursors(t_game_entity *entity);
 **						cursor.c
 */
 void					copy_reg(t_uchar **dest, t_uchar **src);
-/*
-TODO: move if invalid func args or all valid;
-all funcs implementation;
-welcome,goodbye messages;
-flag managment;
-set\get reg
-check if regsize = 5 ; reg_num type?
-dir size carefull
-GET_ARG{1,2,3} macros
-**	Features:
-**	Game progress in procents
-** test.cor 156018 cycles;
-** % IDX_MODE check or special function for this purpose
 
-aff
-
-better flag managment
-
-P   33 | live -1
-P   31 | zjmp -5 OK
-P   30 | zjmp -5 OK
-P   29 | zjmp -5 OK
-P   28 | zjmp -5 OK
-P   15 | zjmp -5 OK
-P   14 | zjmp -5 OK
-P   13 | zjmp -5 OK
-P    7 | zjmp -5 OK
-P    6 | zjmp -5 OK
-P    3 | zjmp -5 OK
-P    1 | live -1
-It is now cycle 27436
-It is now cycle 27437
-It is now cycle 27438
-Cycle to die is now -14
-It is now cycle 27439
-Contestant 1, "stayin' alive", has won !
-max num of cursor > MAX_INT
-
- CYCLE="55";./vm_champs/corewar -d $CYCLE -v 14 helltrain.cor > tt; ./corewar -d $CYCLE -v 14 helltrain.cor > t; diff t tt;
-////////////////////!!!!!!!!!!!!!!
-!!!!!!!!!!!!
-!!!!!!!!!! at cycle 1 apply_op error?
-!!!!!!!!!!
-*/
 #endif

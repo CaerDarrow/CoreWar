@@ -44,6 +44,7 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 	t_uchar			*reg_num;
 	int				addr;
 	int				i;
+	int				position;
 
 	reg_num = get_reg_num(cursor, ARG(1));
 	if (arg_code(argc, 2) == REG_CODE)
@@ -57,7 +58,13 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 		addr = cursor->position + ARG(2);
 		i = -1;
 		while (++i < REG_SIZE)
-			entity->bg[correct_position(addr + i)] = reg_num[i];
+		{
+			position = correct_position(addr + i);
+			entity->bg[position] = reg_num[i];
+			SQ->num_sq = position;
+			draw_square(entity, cursor->id - 1);
+//			go_on(entity, position, cursor->id);
+		}
 		if (VERBOSE_LVL(4))
 			ft_printf("st r%d %d\n", ARG(1), ARG(2));
 	}
