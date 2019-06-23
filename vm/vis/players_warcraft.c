@@ -14,28 +14,28 @@
 
 static char	g_mini_pictures_pathes[4][200] =
 {
-	"/Users/gleonett/Desktop/CW/vm/vis/mini_orc",
-	"/Users/gleonett/Desktop/CW/vm/vis/mini_human",
-	"/Users/gleonett/Desktop/CW/vm/vis/mini_undead",
-	"/Users/gleonett/Desktop/CW/vm/vis/mini_elf"
+	"/Users/gleonett/Desktop/CW/vm/vis/textures/mini_orc",
+	"/Users/gleonett/Desktop/CW/vm/vis/textures/mini_human",
+	"/Users/gleonett/Desktop/CW/vm/vis/textures/mini_undead",
+	"/Users/gleonett/Desktop/CW/vm/vis/textures/mini_elf"
 };
 
 static int	*read_mini_picture(int player)
 {
 	const int	fd = open(g_mini_pictures_pathes[player - 1], O_RDONLY);
-	char		line[3000];
+	char		line[NUM_SMBLS_MINI];
 	int			*picture;
 	int			i;
 	int			j;
 
 	if (!(picture = (int *)malloc(sizeof(int) * 324)))
 		error("Malloc error");
-	ft_bzero(line, sizeof(char) * 3000);
-	read(fd, line, 30000);
+	ft_bzero(line, sizeof(char) * NUM_SMBLS_MINI);
+	read(fd, line, NUM_SMBLS_MINI);
 	close(fd);
 	i = -1;
 	j = 0;
-	while (j < 324)
+	while (j < WARCRAFT_SQUARE * WARCRAFT_SQUARE)
 	{
 		picture[j++] = ft_atoi(line + i + 1);
 		while (line[++i] != '\0' && line[i] != ',')

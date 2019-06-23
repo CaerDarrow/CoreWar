@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-int	get_num_pixel(t_game_entity *entity, int x, int y)
+int	get_num_pixel(t_visualizer *vis, int x, int y)
 {
 	return (y * SIZE_FIELD_X + x);
 }

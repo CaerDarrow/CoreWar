@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-void			x_y_square(t_game_entity *entity, int num_sq)
+void			x_y_square(t_visualizer *vis, int num_sq)
 {
 	const int x = num_sq % FIELD_SIDE;
 	const int y = num_sq / FIELD_SIDE;

@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
-
-#include "vm.h"
+#include "visualizer.h"
 
 static void	shuffle(int *arr, int n)
 {
@@ -48,13 +46,13 @@ static int	*get_rund_num(void)
 	return (rand_num);
 }
 
-static void	set_color(t_game_entity *entity, int *picture, int i)
+static void	set_color(t_visualizer *vis, int *picture, int i)
 {
 	WIN->data[i / SIDE_PICTURE * SIZE_FIELD_X +
 			i % SIDE_PICTURE] = picture[i];
 }
 
-int			rand_put_pixel(t_game_entity *entity, int *picture)
+int			rand_put_pixel(t_visualizer *vis, int *picture)
 {
 	const int	n = SIDE_PICTURE * SIDE_PICTURE;
 	static int	*rand_num;
@@ -73,12 +71,12 @@ int			rand_put_pixel(t_game_entity *entity, int *picture)
 			mlx_put_image_to_window(WIN->mlx, WIN->win, WIN->image, 0, 0);
 			return (1);
 		}
-		set_color(entity, picture, rand_num[i]);
+		set_color(vis, picture, rand_num[i]);
 		i++;
 	}
 	if (i > n)
 		return (1);
-	set_color(entity, picture, rand_num[i]);
+	set_color(vis, picture, rand_num[i]);
 	mlx_put_image_to_window(WIN->mlx, WIN->win, WIN->image, 0, 0);
 	return (0);
 }

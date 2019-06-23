@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-static void	isolate_or(t_game_entity *entity, const char inst[11][14], int *j,
+static void	isolate_or(t_visualizer *vis, const char inst[11][14], int *j,
 			int interval)
 {
 	mlx_string_put(WIN->mlx, WIN->win,
@@ -30,7 +30,7 @@ static void	isolate_or(t_game_entity *entity, const char inst[11][14], int *j,
 	*j += 2;
 }
 
-void		draw_instructions(t_game_entity *entity)
+void		draw_instructions(t_visualizer *vis)
 {
 	const char	inst[11][14] = {
 								"auto pilot : ", "ENTER",
@@ -53,7 +53,7 @@ void		draw_instructions(t_game_entity *entity)
 			interval, RGB_LIGHT_GREEN, (char *)inst[j + 1]);
 		j += 2;
 		if (j == 4)
-			isolate_or(entity, inst, &j, interval);
+			isolate_or(vis, inst, &j, interval);
 		interval += LINE_WIDTH;
 	}
 }

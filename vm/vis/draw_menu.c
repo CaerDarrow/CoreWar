@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-void	draw_menu(t_game_entity *entity)
+void	draw_menu(t_visualizer *vis)
 {
 	const int x = LOG_SCALE_X;
 	const int y = LINE_WIDTH * 8 - 13;
@@ -20,9 +20,9 @@ void	draw_menu(t_game_entity *entity)
 	if (SIDE_SQUARE > 4)
 	{
 		mlx_string_put(WIN->mlx, WIN->win, x, y, RGB_WHITE, "LOG SCALE");
-		draw_percent(entity);
-		draw_legend(entity);
-		draw_instructions(entity);
-		draw_cycle(entity);
+		draw_percent(vis);
+		draw_legend(vis);
+		draw_instructions(vis);
+		draw_cycle(vis);
 	}
 }

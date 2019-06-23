@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-int			get_num_player(t_game_entity *entity, int x, int y)
+int			get_num_player(t_visualizer *vis, int x, int y)
 {
-	const int num_pixel = get_num_pixel(entity, x, y);
+	const int num_pixel = get_num_pixel(vis, x, y);
 
 	if (ft_memcmp(WIN->data + num_pixel, PICTURES.player1,
 			sizeof(int) * SIDE_SQUARE) == 0)

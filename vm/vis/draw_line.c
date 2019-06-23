@@ -10,24 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-void	draw_horizontal_line(t_game_entity *entity, int x_y[2], int length,
+void	draw_horizontal_line(t_visualizer *vis, int x_y[2], int length,
 			int color)
 {
-	const int	num_pxl = get_num_pixel(entity, x_y[0], x_y[1]);
+	const int	num_pxl = get_num_pixel(vis, x_y[0], x_y[1]);
 
 	ft_intset(WIN->data + num_pxl, color, length);
 }
 
-void	draw_vertical_line(t_game_entity *entity, int x_y[2], int length,
+void	draw_vertical_line(t_visualizer *vis, int x_y[2], int length,
 			int color)
 {
 	int	num_pxl;
 	int	i;
 
 	i = -1;
-	num_pxl = get_num_pixel(entity, x_y[0], x_y[1]);
+	num_pxl = get_num_pixel(vis, x_y[0], x_y[1]);
 	while (++i < length)
 	{
 		WIN->data[num_pxl] = color;

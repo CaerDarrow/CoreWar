@@ -10,40 +10,40 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-void	draw_cursor(t_game_entity *entity, int position, int id)
+void	draw_cursor(t_visualizer *vis, int position, int id)
 {
 	const int	len = SIDE_SQUARE + 1;
-	const int	color = VIS->players_colors[id];
+	const int	color = PLAYERS.players_colors[id];
 	int			x_y[2];
 
-	x_y_square(entity, position);
+	x_y_square(vis, position);
 	x_y[0] = SQ->x - 1;
 	x_y[1] = SQ->y - 1;
-	draw_vertical_line(entity, x_y, len, color);
-	draw_horizontal_line(entity, x_y, len, color);
+	draw_vertical_line(vis, x_y, len, color);
+	draw_horizontal_line(vis, x_y, len, color);
 	x_y[1] += len;
-	draw_horizontal_line(entity, x_y, len, color);
+	draw_horizontal_line(vis, x_y, len, color);
 	x_y[1] -= len;
 	x_y[0] += len;
-	draw_vertical_line(entity, x_y, len + 1, color);
+	draw_vertical_line(vis, x_y, len + 1, color);
 }
 
-void	wipe_off_cursor(t_game_entity *entity, int position)
+void	wipe_off_cursor(t_visualizer *vis, int position)
 {
 	const int	len = SIDE_SQUARE + 1;
 	const int	color = RGB_BLACK;
 	int			x_y[2];
 
-	x_y_square(entity, position);
+	x_y_square(vis, position);
 	x_y[0] = SQ->x - 1;
 	x_y[1] = SQ->y - 1;
-	draw_vertical_line(entity, x_y, len, color);
-	draw_horizontal_line(entity, x_y, len, color);
+	draw_vertical_line(vis, x_y, len, color);
+	draw_horizontal_line(vis, x_y, len, color);
 	x_y[1] += len;
-	draw_horizontal_line(entity, x_y, len, color);
+	draw_horizontal_line(vis, x_y, len, color);
 	x_y[1] -= len;
 	x_y[0] += len;
-	draw_vertical_line(entity, x_y, len + 1, color);
+	draw_vertical_line(vis, x_y, len + 1, color);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
 static char	*get_str_player(int i)
 {
@@ -23,7 +23,7 @@ static char	*get_str_player(int i)
 	return (buf);
 }
 
-void		draw_legend(t_game_entity *entity)
+void		draw_legend(t_visualizer *vis)
 {
 	const char	races[4][10] = {"Horde", "Alliance", "Undead", "Sentinels"};
 	int			interval;
@@ -33,9 +33,9 @@ void		draw_legend(t_game_entity *entity)
 	mlx_string_put(WIN->mlx, WIN->win, CYCLE_X, LINE_WIDTH, RGB_WHITE, "CYCLE");
 	i = 0;
 	interval = LINE_WIDTH * 3;
-	while (++i <= entity->n_players)
+	while (++i <= vis->n_players)
 	{
-		if (SIDE_SQUARE != 18)
+		if (SIDE_SQUARE != WARCRAFT_SQUARE)
 			buf = get_str_player(i);
 		else
 			buf = (char *)races[i - 1];
@@ -43,7 +43,7 @@ void		draw_legend(t_game_entity *entity)
 			RGB_WHITE, buf);
 		mlx_string_put(WIN->mlx, WIN->win, INDENT_LEGEND_X + LETER_X * 10,
 			interval, RGB_WHITE, ":");
-		SIDE_SQUARE != 18 ? free(buf) : 0;
+		SIDE_SQUARE != WARCRAFT_SQUARE ? free(buf) : 0;
 		interval += LINE_WIDTH;
 	}
 }

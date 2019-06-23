@@ -12,11 +12,11 @@
 
 #include "vm.h"
 
-int	*get_player1(t_game_entity *entity)
+int	*get_player1(t_visualizer *vis)
 {
 	int	*color_field;
 
-	if (SIDE_SQUARE == 18)
+	if (SIDE_SQUARE == WARCRAFT_SQUARE)
 		return (get_horde());
 	if (!(color_field = (int *)malloc(sizeof(int) * SIDE_SQUARE * SIDE_SQUARE)))
 		error("Malloc error");
@@ -24,11 +24,11 @@ int	*get_player1(t_game_entity *entity)
 	return (color_field);
 }
 
-int	*get_player2(t_game_entity *entity)
+int	*get_player2(t_visualizer *vis)
 {
 	int	*color_field;
 
-	if (SIDE_SQUARE == 18)
+	if (SIDE_SQUARE == WARCRAFT_SQUARE)
 		return (get_alliance());
 	if (!(color_field = (int *)malloc(sizeof(int) * SIDE_SQUARE * SIDE_SQUARE)))
 		error("Malloc error");
@@ -36,11 +36,11 @@ int	*get_player2(t_game_entity *entity)
 	return (color_field);
 }
 
-int	*get_player3(t_game_entity *entity)
+int	*get_player3(t_visualizer *vis)
 {
 	int	*color_field;
 
-	if (SIDE_SQUARE == 18)
+	if (SIDE_SQUARE == WARCRAFT_SQUARE)
 		return (get_undead());
 	if (!(color_field = (int *)malloc(sizeof(int) * SIDE_SQUARE * SIDE_SQUARE)))
 		error("Malloc error");
@@ -48,11 +48,11 @@ int	*get_player3(t_game_entity *entity)
 	return (color_field);
 }
 
-int	*get_player4(t_game_entity *entity)
+int	*get_player4(t_visualizer *vis)
 {
 	int	*color_field;
 
-	if (SIDE_SQUARE == 18)
+	if (SIDE_SQUARE == WARCRAFT_SQUARE)
 		return (get_elf());
 	if (!(color_field = (int *)malloc(sizeof(int) * SIDE_SQUARE * SIDE_SQUARE)))
 		error("Malloc error");

@@ -20,8 +20,11 @@ static int	close_mlx(void *param)
 
 void		visualizer_loop(t_game_entity *entity)
 {
+	t_visualizer *vis;
+
+	vis = entity->vis;
 	mlx_hook(WIN->win, 2, 0, key_press, entity);
 	mlx_hook(WIN->win, 17, 0, close_mlx, NULL);
-	mlx_loop_hook(WIN->mlx, auto_draw_square, entity);
+	mlx_loop_hook(WIN->mlx, auto_draw, entity);
 	mlx_loop(WIN->mlx);
 }

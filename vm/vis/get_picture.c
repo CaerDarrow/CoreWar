@@ -10,12 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-int	*get_picture(t_game_entity *entity, int num_player)
+int	*get_picture(t_visualizer *vis, int num_player)
 {
-	int num;
-
 	if (num_player == 0)
 		return (PICTURES.player1);
 	if (num_player == 1)

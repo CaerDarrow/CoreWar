@@ -14,10 +14,10 @@
 
 static char	g_pictures_pathes[4][200] =
 {
-	"/Users/gleonett/Desktop/CW/vm/vis/orc",
-	"/Users/gleonett/Desktop/CW/vm/vis/human",
-	"/Users/gleonett/Desktop/CW/vm/vis/undead",
-	"/Users/gleonett/Desktop/CW/vm/vis/elf"
+	"/Users/gleonett/Desktop/CW/vm/vis/textures/orc",
+	"/Users/gleonett/Desktop/CW/vm/vis/textures/human",
+	"/Users/gleonett/Desktop/CW/vm/vis/textures/undead",
+	"/Users/gleonett/Desktop/CW/vm/vis/textures/elf"
 };
 
 int			*get_final_picture(int player)
@@ -28,9 +28,11 @@ int			*get_final_picture(int player)
 	int			i;
 	int			j;
 
-	if (!(picture = (int *)malloc(sizeof(int) * 1653796)))
+	if (!(picture = (int *)malloc(sizeof(int) * (SIDE_PICTURE * SIDE_PICTURE))))
 		error("Malloc error");
-	get_next_line(fd, &line);
+	if (!(line = ft_strnew(NUM_SMBLS_PICTURE)))
+		error("Malloc error");
+	read(fd, line, NUM_SMBLS_PICTURE);
 	close(fd);
 	i = -1;
 	j = 0;

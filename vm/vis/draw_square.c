@@ -10,34 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-static void	change_percents(t_game_entity *entity, int cur_player)
+static void	change_percents(t_visualizer *vis, int cur_player)
 {
 	int			num_prev_player;
 
-	num_prev_player = get_num_player(entity, SQ->x, SQ->y);
+	num_prev_player = get_num_player(vis, SQ->x, SQ->y);
 	if (num_prev_player == cur_player)
 		return ;
 	if (cur_player == 4)
 	{
-		VIS->occupied_cells[num_prev_player] -= 1;
+		PLAYERS.occupied_cells[num_prev_player] -= 1;
 		return ;
 	}
 	if (num_prev_player != 4)
-		VIS->occupied_cells[num_prev_player] -= 1;
-	VIS->occupied_cells[cur_player] += 1;
+		PLAYERS.occupied_cells[num_prev_player] -= 1;
+	PLAYERS.occupied_cells[cur_player] += 1;
 }
 
-void		draw_square(t_game_entity *entity, int num_player)
+void		draw_square(t_visualizer *vis, int num_player)
 {
-	const int	*picture = get_picture(entity, num_player);
+	const int	*picture = get_picture(vis, num_player);
 	int			num_pixel;
 	int			i;
 
-	x_y_square(entity, SQ->num_sq);
-	change_percents(entity, num_player);
-	num_pixel = get_num_pixel(entity, SQ->x, SQ->y);
+	x_y_square(vis, SQ->num_sq);
+	change_percents(vis, num_player);
+	num_pixel = get_num_pixel(vis, SQ->x, SQ->y);
 	i = -1;
 	while (++i < SIDE_SQUARE)
 	{

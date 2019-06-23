@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-void	draw_press_enter(t_game_entity *entity)
+void	draw_press_enter(t_visualizer *vis)
 {
 	const int	x = LOG_SCALE_X;
 	const int	y = LINE_WIDTH * 8 - 13;
@@ -26,12 +26,12 @@ void	draw_press_enter(t_game_entity *entity)
 	if (SIDE_SQUARE > 4)
 	{
 		mlx_string_put(WIN->mlx, WIN->win, x, y, RGB_WHITE, "LOG SCALE");
-		draw_percent(entity);
-		draw_legend(entity);
-		draw_cycle(entity);
+		draw_percent(vis);
+		draw_legend(vis);
+		draw_cycle(vis);
 		SQ->x = INDENT_LEGEND_X + LETER_X * 5;
 		SQ->y = LINE_WIDTH * 12 + LETER_Y;
-		clear_area(entity, LETER_X * 12, LETER_Y);
+		clear_area(vis, LETER_X * 12, LETER_Y);
 		mlx_string_put(WIN->mlx, WIN->win, SQ->x, SQ->y, color, "PRESS "
 																"ENTER");
 	}

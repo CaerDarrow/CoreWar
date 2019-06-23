@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "visualizer.h"
 
-void	clear_area(t_game_entity *entity, int x, int y)
+void	clear_area(t_visualizer *vis, int x, int y)
 {
 	int i;
 	int x_y[2];
@@ -22,7 +22,7 @@ void	clear_area(t_game_entity *entity, int x, int y)
 	x_y[1] = SQ->y;
 	while (i-- > 0)
 	{
-		draw_horizontal_line(entity, x_y, x, RGB_BLACK);
+		draw_horizontal_line(vis, x_y, x, RGB_BLACK);
 		x_y[0] += SIZE_FIELD_X;
 	}
 }
