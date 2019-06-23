@@ -29,8 +29,8 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	{
 		position = correct_position(addr + i);
 		entity->bg[correct_position(addr + i)] = reg_num[i];
-		SQ->num_sq = position;
-		draw_square(entity, cursor->id - 1);
+		entity->SQ->num_sq = position;
+		draw_square(entity->vis, cursor->id - 1);
 	}
 	if (VERBOSE_LVL(4))
 	{

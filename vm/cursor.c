@@ -66,11 +66,11 @@ int					cursor_should_die(t_list *c, t_game_entity *entity)
 
 void			move_cursor(t_game_entity *entity, t_cursor *cursor, int bytes)
 {
-	wipe_off_cursor(entity, cursor->position);
+	wipe_off_cursor(entity->vis, cursor->position);
 	if (VERBOSE_LVL(16))
 		ft_printf("Cursor %d: Player's %d cursor moved from %d", cursor->index, cursor->id, cursor->position);
 	cursor->position = correct_position(cursor->position + bytes);
-	draw_cursor(entity, cursor->position, cursor->id - 1);
+	draw_cursor(entity->vis, cursor->position, cursor->id - 1);
 	if (VERBOSE_LVL(16))
 		ft_printf(" to %d\n", cursor->position);
 }

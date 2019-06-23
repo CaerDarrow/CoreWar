@@ -75,45 +75,16 @@ t_op					g_op_tab[17];
 /*
 **					visualizer
 */
-void				init_field(t_game_entity *entity);
-t_visualizer		*inicialization_vis(t_game_entity *entity);
-void				visualizer_loop(t_game_entity *entity);
-void				draw_menu(t_game_entity *entity);
-void				draw_frame(t_game_entity *entity);
-void				draw_legend(t_game_entity *entity);
-void				draw_cycle(t_game_entity *entity);
-void				draw_square(t_game_entity *entity, int num_player);
-void				draw_log_scale(t_game_entity *entity, int move);
-void				draw_end_pixels_forvard(t_game_entity *entity, int color);
-void				draw_cursor(t_game_entity *entity, int position, int id);
-int				draw_winner(t_game_entity *entity, int winer);
-void				draw_press_enter(t_game_entity *entity);
-int					*get_final_picture(int player);
-int					rand_put_pixel(t_game_entity *entity, int *picture);
-void				wipe_off_cursor(t_game_entity *entity, int position);
-void				clear_area(t_game_entity *entity, int x, int y);
-void				draw_horizontal_line(t_game_entity *entity, int x_y[2],
-						int length, int color);
-void				draw_vertical_line(t_game_entity *entity, int x_y[2],
-						int length, int color);
-void				draw_percent(t_game_entity *entity);
-void				draw_instructions(t_game_entity *entity);
-void				x_y_square(t_game_entity *entity, int num_sq);
-int					get_num_player(t_game_entity *entity, int x, int y);
-int					*get_picture(t_game_entity *entity, int num_player);
-int					get_num_pixel(t_game_entity *entity, int x, int y);
-void				move_log_back(t_game_entity *entity);
-void				move_log_front(t_game_entity *entity);
-void				go_on(t_game_entity *entity);
-void			 	add_log(t_game_entity *entity);
-int					*get_player1(t_game_entity *entity);
-int					*get_player2(t_game_entity *entity);
-int					*get_player3(t_game_entity *entity);
-int					*get_player4(t_game_entity *entity);
-//void				shuffle(int *arr, int n);
+t_visualizer			*inicialization_vis(t_game_entity *entity);
+void					init_field(t_game_entity *entity);
+void					visualizer_loop(t_game_entity *entity);
+void					go_on(t_game_entity *entity);
+static void				vis_game_loop(t_game_entity *entity, int *end_game,
+							int **picture, int *winner);
 /*
 **					basik
 */
+
 void					read_champs(int ac, const char *argv[], t_game_entity *ge);
 int						game_loop(t_game_entity *entity);
 int						choose_winner(t_game_entity *entity);

@@ -37,8 +37,8 @@ int			game_loop(t_game_entity *entity)
 	t_cursor	*cursor;
 	long long	i;
 
-	if (entity->cycle == 100)
-		return (1);
+//	if (entity->cycle == 100)
+//		return (1);
 	if (entity->cursors != NULL)
 	{
 		if (g_d_flag == entity->cycle - 1)
