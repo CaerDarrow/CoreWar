@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_direct.c                                       :+:      :+:    :+:   */
+/*   encode.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 18:19:10 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/24 14:00:12 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/24 13:35:51 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/24 20:20:06 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_direct(char *rd, int *i, t_list **lst)
+t_unit	*encode(t_list **lst)
 {
-	t_token	*token;
-	int		j;
+	t_list *head;
 
-	j = *I;
-	token = inittoken((*i)++, 0);
-	if (rd[*I] == ':')
+	head = *lst;
+	while (*lst)
 	{
-		(*i)++;
-		while (islabelchar(rd[*I]))
-			(*i)++;
-		token->type = DIRECT | LABEL;
+		*lst = (*lst)->next;
 	}
-	else
-	{
-		if (rd[*I] == '-' && ft_isdigit(rd[*I + 1]))
-			(*i)++;
-		while (ft_isdigit(rd[*I]))
-			(*i)++;
-		token->type = DIRECT;
-	}
-	token->token = ft_strsub(rd, j, (*I - j));
-	ld_push_back(lst, token);
+	*lst = head;
+	return (NULL);
 }

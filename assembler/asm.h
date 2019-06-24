@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 21:25:50 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:23:13 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define ASM_H
 # include "op.h"
 # include "libft.h"
+
+typedef struct		s_unit
+{
+	t_header		header;
+	unsigned char	exec[];
+}					t_unit;
 
 /*
 ** parse (lexer)
@@ -25,7 +31,7 @@ typedef struct		s_token
 {
 	int				pos[2];
 	int				type;
-	t_arg_type		value;
+	int				value;
 	char			*token;
 }					t_token;
 
@@ -47,13 +53,14 @@ enum				e_type {
 	REGISTER,
 	DIRECT,
 	COMMENT,
-	INDERECT,
+	INDIRECT,
 	INSTRUCTION,
 	SEP,
 	STRING,
-	DIRECT_LABEL,
 	LABEL,
-	NEWLINE
+	NEWLINE,
+	DIRECT_LABEL,
+	INDIRECT_LABEL = 12
 };
 
 /*
@@ -61,6 +68,8 @@ enum				e_type {
 */
 
 # define TOK ((t_token *)(*lst)->data)
+# define TOKEN ((t_token *)(*lst)->data)->token
+# define TTYPE ((t_token *)(*lst)->data)->type
 
 typedef struct		s_op
 {
@@ -81,10 +90,11 @@ void				check_command(t_list **lst);
 void				check_label(t_list **lst);
 void				check_instruction(t_list **lst);
 void				check_newline(t_list **lst);
-int					syntax(t_list *lst);
+int					syntax(t_list **lst);
+t_unit				*encode(t_list **lst);
 void				printtoken(t_list **parsed);
 
-enum				error_code {
+enum				e_error_code {
 	SYNTAX,
 	NAMELEN,
 	COMMENTLEN,
@@ -96,12 +106,6 @@ void				c_error(t_list **lst, char err);
 /*
 ** write/read
 */
-
-typedef struct		s_unit
-{
-	t_header		header;
-	unsigned char	exec[];
-}					t_unit;
 
 char				*read_s(char *fname);
 void				set_magic(t_unit *unit);

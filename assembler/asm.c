@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 19:34:14 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:19:44 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int			main(int argc, char **argv)
 	{
 		if ((parsed = parse(readed)))
 		{
-			if (syntax(parsed))
+			if (syntax(&parsed))
 			{
+				//encode(&parsed);
 				unit = initchamp(/*readed*/);
 				writechamp(unit, argv[argc - 1]);
 				free(unit);
 			}
-			// l_iter(&parsed, printtoken);
+			l_iter(&parsed, printtoken);
 			l_delall(&parsed, lcondel);
 		}
 		free(readed);
