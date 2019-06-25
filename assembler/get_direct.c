@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:19:10 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/19 23:03:30 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/24 14:00:12 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_direct(char *rd, int *i, t_list **lst)
 		(*i)++;
 		while (islabelchar(rd[*I]))
 			(*i)++;
-		token->type = DIRECT_LABEL;
+		token->type = DIRECT | LABEL;
 	}
 	else
 	{
@@ -34,7 +34,6 @@ void	get_direct(char *rd, int *i, t_list **lst)
 			(*i)++;
 		token->type = DIRECT;
 	}
-	token->value = T_DIR;
 	token->token = ft_strsub(rd, j, (*I - j));
 	ld_push_back(lst, token);
 }

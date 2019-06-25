@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_comment.c                                      :+:      :+:    :+:   */
+/*   encode.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/10 18:14:44 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 17:57:11 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/24 13:35:51 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/24 20:20:06 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_comment(char *rd, int *i, t_list **lst)
+t_unit	*encode(t_list **lst)
 {
-	t_token	*token;
-	int		j;
+	t_list *head;
 
-	j = *I;
-	token = inittoken(*i, COMMENT);
-	while (!(rd[*I] == '\n' || rd[*I] == '\0'))
-		(*i)++;
-	token->token = ft_strsub(rd, j, (*I - j));
-	ld_push_back(lst, token);
+	head = *lst;
+	while (*lst)
+	{
+		*lst = (*lst)->next;
+	}
+	*lst = head;
+	return (NULL);
 }

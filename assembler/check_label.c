@@ -1,42 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   check_label.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/05 21:05:17 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/05 21:39:28 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/20 18:11:14 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/06/24 18:27:17 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-char	*lexer(char *s, const char *delim, char **save_ptr)
+void	check_label(t_list **lst)
 {
-	char *end;
-
-	if (s == NULL)
-		s = *save_ptr;
-	if (*s == '\0')
-	{
-		*save_ptr = s;
-		return (NULL);
-	}
-	s += ft_strspn(s, delim);
-	if (*s == '\0')
-	{
-		*save_ptr = s;
-		return (NULL);
-	}
-	end = s + ft_strcspn(s, delim);
-	if (*end == '\0')
-	{
-		*save_ptr = end;
-		return (s);
-	}
-	ft_printf("{%c}\n", *end);
-	*end = '\0';
-	*save_ptr = end + 1;
-	return (s);
+	*lst = (*lst)->next;
+	if (!(TTYPE == NEWLINE || TTYPE == INSTRUCTION ||
+		TTYPE == COMMENT))
+		c_error(lst, SYNTAX);
 }

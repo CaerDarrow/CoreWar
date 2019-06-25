@@ -6,111 +6,95 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 17:35:12 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/19 23:44:37 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/24 20:29:56 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static t_op	*check_opname(char *opname)
+void	(*g_check[10])(t_list **lst) = {
+	check_command,
+	NULL,
+	NULL,
+	check_comment,
+	NULL,
+	check_instruction,
+	NULL,
+	NULL,
+	check_label,
+	check_newline,
+};
+
+static t_op	*check_opname(t_list **lst)
 {
 	int i;
 
 	i = 1;
 	while (i < 17)
 	{
-		if (ft_strequ(g_op_tab[i].name, opname))
+		if (ft_strequ(g_op_tab[i].name, TOKEN))
 			return (&g_op_tab[i]);
 		i++;
 	}
+	c_error(lst, SYNTAX);
 	return (&g_op_tab[0]);
 }
 
-static void	f_error(t_list **lst)
+static int	set_tvalue(int type, int t_dirsize)
 {
-	printtoken(lst);
-	exit(1);
+	if (type == REGISTER)
+		return (1);
+	else if (type == DIRECT || type == DIRECT_LABEL)
+		return ((t_dirsize) ? IND_SIZE : DIR_SIZE);
+	else if (type == INDIRECT || type == INDIRECT_LABEL)
+		return (IND_SIZE);
+	return (0);
 }
 
-static void check_comment(t_list **lst)
+static int	get_size_and_check_op(t_list **lst)
 {
-	t_token *token;
-
-	*lst = (*lst)->next;
-	token = (t_token *)(*lst)->data;
-	if (token->type != NEWLINE)
-		f_error(lst);
-}
-
-static void check_command(t_list **lst)
-{
-	t_token *token;
-
-	*lst = (*lst)->next;
-	token = (t_token *)(*lst)->data;
-	if (token->type != STRING)
-		f_error(lst);
-	//Champion name too long (Max length 128)
-	//Champion coment too long (Max length 2048)
-	*lst = (*lst)->next;
-	token = (t_token *)(*lst)->data;
-	if (token->type != NEWLINE || token->type == COMMENT)
-		f_error(lst);
-}
-
-static void check_label(t_list **lst)
-{
-	t_token *token;
-
-	*lst = (*lst)->next;
-	token = (t_token *)(*lst)->data;
-	if (!(token->type == NEWLINE || token->type == INSTRUCTION ||
-		token->type == COMMENT))
-		f_error(lst);
-}
-
-static void check_instruction(t_list **lst)
-{
-	t_op *o;
-	t_token *token;
-	int i;
+	t_op	*op;
+	int		*k;
+	int		i;
 
 	i = 0;
-	token = (t_token *)(*lst)->data;
-	o = check_opname(token->token);
-	if (o == &g_op_tab[0])
-		f_error(lst);
-	while (i < (o->argc * 2))
+	op = check_opname(lst);
+	k = &TOK->value;
+	*k = 1 + op->argtypes;
+	while (i < op->argc)
 	{
 		*lst = (*lst)->next;
-		token = (t_token *)(*lst)->data;
-		if ((!(i & 1) && (!(token->value & o->argv[i / 2]))) || (i != o->argc *
-		2 - 1 && (i & 1) && token->type != SEP) || (i == o->argc * 2 - 1 &&
-		!(token->type == NEWLINE || token->type == COMMENT)))
-			f_error(lst);
+		if (TTYPE & op->argv[i])
+			TOK->value = set_tvalue(TTYPE, op->t_dirsize);
+		else
+			c_error(lst, ARG);
+		*k += TOK->value;
+		*lst = (*lst)->next;
 		i++;
 	}
+	if (!(TTYPE == NEWLINE || TTYPE == COMMENT))
+		c_error(lst, SYNTAX);
+	return (*k);
 }
 
-int	syntax(t_list *lst)
+int			syntax(t_list **lst)
 {
-	t_token *token;
+	t_list	*head;
+	int		size;
 
-	while (lst)
+	size = 0;
+	head = *lst;
+	while (*lst)
+		g_check[TTYPE](lst);
+	*lst = head;
+	while (*lst)
 	{
-		token = (t_token *)lst->data;
-		if (token->type == NEWLINE)
-			lst = lst->next;
-		else if (token->type == COMMENT)
-			check_comment(&lst);
-		else if (token->type == COMMAND_NAME)
-			check_command(&lst);
-		else if (token->type == LABEL)
-			check_label(&lst);
-		else if (token->type == INSTRUCTION)
-			check_instruction(&lst);
-		else
-			lst = lst->next;
+		if (TTYPE == LABEL)
+			TOK->value = size;
+		if (TTYPE == INSTRUCTION)
+			size += get_size_and_check_op(lst);
+		*lst = (*lst)->next;
 	}
+	*lst = head;
 	return (1);
 }
