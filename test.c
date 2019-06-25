@@ -31,7 +31,7 @@ int	main()
 	srand(time(NULL));
 	t = 0;
 	i = -1;
-	while (++i < 100)
+	while (++i < 3)
 	{
 		index = rand() % 1000;
 		data = ft_int_get_mass(index);

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:55:28 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 12:43:56 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:30:23 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int					uchar_to_int(t_uchar *s, int size)
 	return (res);
 }
 
-int					get_arg(t_list *argv, int argc, int n, int flag)
+int					get_raw_arg(t_list *argv, int argc, int n, int flag)
 {
 	// to type func ;get size and override num
 	if (get_arg_size(argc, flag, n) == 2)///// rm
@@ -79,4 +79,12 @@ int					get_num_by_addr(unsigned char *bg, int addr, int size)
 int					arg_code(t_uchar argc, int n)
 {
 	return ((argc >> (6 - (n - 1) * 2)) & 0b11);
+}
+int					get_arg(t_uchar *bg, t_cursor *cursor, int arg, int code)
+{
+	if (code == REG_CODE)
+		return (uchar_to_int(get_reg_num(cursor, arg), REG_SIZE));
+	else if (code == DIR_CODE)
+		return (arg);
+	return (get_num_by_addr(bg, cursor->position + arg, REG_SIZE));
 }

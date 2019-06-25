@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/19 16:32:31 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/25 16:30:21 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 
 # define BYTE(n)		n
 # define XOR(x, y)		((x + y) % 2)
+# define PAIR(x, y)		((t_pair){x, y})
 # define REG_NUM		16
 # define VERBOSE_LVL(n)	(g_verbose & n)
-# define ARG(n)			get_arg(argv, argc, n, g_op_tab[cursor->op_code].dir)
+# define RAW_ARG(n)			get_raw_arg(argv, argc, n, g_op_tab[cursor->op_code].dir)
 # define CURSOR(x)		 ((t_cursor*)x->data)
 typedef unsigned char	t_uchar;
 
@@ -152,10 +153,11 @@ void					aff(t_game_entity *entity, t_cursor *cursor,
 /*
 **						op_service.c
 */
+int						get_arg(t_uchar *bg, t_cursor *cursor, int arg, int code);
 void					set_carry(char *carry, int num);
 int						get_arg_size(t_uchar argc, int flag, int n);
 int						uchar_to_int(t_uchar *s, int size);
-int						get_arg(t_list *argv, int argc, int n, int flag);
+int						get_raw_arg(t_list *argv, int argc, int n, int flag);
 int						arg_code(t_uchar argc, int n);
 int						get_num_by_addr(unsigned char *bg, int addr, int size);
 /*
