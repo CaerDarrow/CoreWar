@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:39:00 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/20 16:22:16 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:10:14 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ struct						s_rb_tree
 };
 
 int							rb_size(t_rb_tree *t);
-void						rb_remove(t_rb_tree *t);
+int							rb_remove(t_rb_tree **root, int index, void (*f)(void *));
 t_rb_tree					*rb_node_create(void *data, long long index,
 								t_rb_tree *parent);
 int							rb_push(t_rb_tree **t, void *data, long long index);

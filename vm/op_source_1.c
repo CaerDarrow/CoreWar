@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:46:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/25 16:30:50 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:17:47 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void				live(t_game_entity *entity, t_cursor *cursor,
 	if (is_valid_player(entity, RAW_ARG(1)))
 		entity->last_alive_player = RAW_ARG(1);
 	if (VERBOSE_LVL(4))
-		ft_printf("live %d\n", RAW_ARG(1));
+		ft_printf("P%5ld | live %d\n", cursor->index, RAW_ARG(1));
 }
 
 void				ld(t_game_entity *entity, t_cursor *cursor,
@@ -33,7 +33,7 @@ void				ld(t_game_entity *entity, t_cursor *cursor,
 	set_reg_num(cursor, value[1], value[0]);
 	set_carry(&cursor->carry, value[0]);
 	if (VERBOSE_LVL(4))
-		ft_printf("ld %d r%d\n", value[0], value[1]);
+		ft_printf("P%5ld | ld %d r%d\n", cursor->index, value[0], value[1]);
 }
 
 void				st(t_game_entity *entity, t_cursor *cursor,
@@ -59,7 +59,7 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 			entity->bg[correct_position(addr + i)] = reg_num[i];
 	}
 	if (VERBOSE_LVL(4))
-		ft_printf("st r%d %d\n", value[0], value[1]);
+		ft_printf("P%5ld | st r%d %d\n", cursor->index, value[0], value[1]);
 }
 
 void				add(t_game_entity *entity, t_cursor *cursor,
@@ -76,7 +76,7 @@ void				add(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("add r%d r%d r%d\n", value[0], value[1], value[2]);
+		ft_printf("P%5ld | add r%d r%d r%d\n", cursor->index, value[0], value[1], value[2]);
 	}
 }
 
@@ -94,6 +94,6 @@ void				sub(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("sub r%d r%d r%d\n", value[0], value[1], value[2]);
+		ft_printf("P%5ld | sub r%d r%d r%d\n", cursor->index, value[0], value[1], value[2]);
 	}
 }

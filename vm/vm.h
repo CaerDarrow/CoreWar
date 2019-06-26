@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/25 16:30:21 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/26 13:07:59 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define PAIR(x, y)		((t_pair){x, y})
 # define REG_NUM		16
 # define VERBOSE_LVL(n)	(g_verbose & n)
-# define RAW_ARG(n)			get_raw_arg(argv, argc, n, g_op_tab[cursor->op_code].dir)
+# define RAW_ARG(n)		get_raw_arg(argv, argc, n, g_op_tab[cursor->op_code].dir)
 # define CURSOR(x)		 ((t_cursor*)x->data)
 typedef unsigned char	t_uchar;
 
@@ -51,6 +51,7 @@ typedef struct			s_game_entity
 	int					last_check;
 	int					live_calls;
 	int					alive_cursors;
+	char				print_aff;
 }						t_game_entity;
 
 typedef struct			op_s
@@ -216,32 +217,7 @@ GET_ARG{1,2,3} macros
 
 aff
 
-better flag managment
-
-P   33 | live -1
-P   31 | zjmp -5 OK
-P   30 | zjmp -5 OK
-P   29 | zjmp -5 OK
-P   28 | zjmp -5 OK
-P   15 | zjmp -5 OK
-P   14 | zjmp -5 OK
-P   13 | zjmp -5 OK
-P    7 | zjmp -5 OK
-P    6 | zjmp -5 OK
-P    3 | zjmp -5 OK
-P    1 | live -1
-It is now cycle 27436
-It is now cycle 27437
-It is now cycle 27438
-Cycle to die is now -14
-It is now cycle 27439
-Contestant 1, "stayin' alive", has won !
-max num of cursor > MAX_INT
-
- CYCLE="55";./vm_champs/corewar -d $CYCLE -v 14 helltrain.cor > tt; ./corewar -d $CYCLE -v 14 helltrain.cor > t; diff t tt;
-////////////////////!!!!!!!!!!!!!!
-!!!!!!!!!!!!
-!!!!!!!!!! at cycle 1 apply_op error?
-!!!!!!!!!!
+reg -> static
+C="test.cor";make corewar && ./corewar -v 14  $C > t;./vm_champs/corewar -v 14 $C > tt; diff t tt | head -n 50
 */
 #endif
