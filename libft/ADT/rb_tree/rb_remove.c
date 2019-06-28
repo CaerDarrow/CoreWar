@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:57:32 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/28 14:49:20 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/28 16:54:42 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,75 @@ static void			rb_move_node(t_rb_tree **from, t_rb_tree *to, void (*f)(void *))
 	ft_memdel((void**)from);
 }
 
-static void			rb_fix_remove(t_rb_tree *t)
+static void			rb_fix_remove(t_rb_tree *node)
 {
-	(void)t;
+	t_rb_tree		*bro;
+
+	while (node && node->parent && node->clr == B)
+	{
+		if (node == node->parent->left)
+		{
+			bro = node->parent->right;
+			if (rb_is_red(bro))
+			{
+				bro->clr = B;
+				node->parent->clr = R;
+				rb_rotate_left(node->parent);
+				bro = node->parent->right;
+			}
+			if (rb_is_black(rb_left(bro)) && rb_is_black(rb_right(bro)))
+			{
+				bro->clr = R;
+				node = node->parent;
+			}
+			else
+			{
+				if (rb_is_black(rb_right(bro)))
+				{
+					bro->left->clr = B;
+					bro->clr = R;
+					rb_rotate_right(bro);
+					bro = node->parent->right;
+				}
+				bro->clr = node->parent->clr;
+				node->parent->clr = B;
+				bro->right->clr = B;
+				rb_rotate_left(node->parent);
+				break;
+			}
+		}
+		else
+		{
+			bro = node->parent->left;
+			if (rb_is_red(bro))
+			{
+				bro->clr = B;
+				node->parent->clr = R;
+				rb_rotate_right(node->parent);
+				bro = node->parent->left;
+			}
+			if (rb_is_black(rb_left(bro)) && rb_is_black(rb_right(bro)))
+			{
+				bro->clr = R;
+				node = node->parent;
+			}
+			else
+			{
+				if (rb_is_black(rb_left(bro)))
+				{
+					bro->right->clr = B;
+					bro->clr = R;
+					rb_rotate_left(bro);
+					bro = node->parent->left;
+				}
+				bro->clr = node->parent->clr;
+				node->parent->clr = B;
+				bro->left->clr = B;
+				rb_rotate_right(node->parent);
+				break;
+			}
+		}
+	}
 }
 
 int				rb_remove(t_rb_tree **root, int index, void (*f)(void *))

@@ -6,24 +6,32 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 19:09:58 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/28 14:49:46 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/28 16:33:45 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		rb_print(t_rb_tree *t, int iter)
+static void		rb_recursive_print(t_rb_tree *t, int iter)
 {
 	if (t)
 	{
-		iter += 2;
-		rb_print(t->right, iter);
+		iter += 1;
+		rb_recursive_print(t->right, iter);
+		int i = iter;
+		while (i--)
+			write(1, "      ", 5);
 		if (t->clr == R)
-			ft_printf(RED"%*d\n"RESET, iter + 2, *(int*)t->data);
+			ft_printf(RED"%d\n"RESET,*(int*)t->data);
 		else
-			ft_printf("%*d\n", iter + 2, *(int*)t->data);
-		rb_print(t->left, iter);
+			ft_printf("%d\n", *(int*)t->data);
+		rb_recursive_print(t->left, iter);
 	}
+}
+
+void		rb_print(t_rb_tree *t)
+{
+	rb_recursive_print(t, 0);
 }
 
 void			rb_set_left(t_rb_tree *t, t_rb_tree *l)
@@ -59,6 +67,11 @@ t_rb_tree	*rb_right(t_rb_tree *t)
 int			rb_is_red(t_rb_tree *t)
 {
 	return (t ? t->clr == R : 0);
+}
+
+int			rb_is_black(t_rb_tree *t)
+{
+	return (t ? t->clr == B : 0);
 }
 
 void			rb_backtrack(t_rb_tree **root)

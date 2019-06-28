@@ -56,7 +56,7 @@ int	main()
 	add(&t, 42);
 	add(&t, 33);
 
-	rb_print(t, 1);
+	rb_print(t);
 	ft_printf("\n~~~~~~~~~~~~\n");
 
 	// rb_print(t, 1);
@@ -65,18 +65,17 @@ int	main()
 		ft_printf(RED"YES\n"RESET);
 	else
 		ft_printf(CYN"NO\n"RESET);
-	ft_printf("\n~~~~~~~~~~~~\n");
 	rb_remove(&t, 142, &int_destructor);
 	rb_remove(&t, 42, &int_destructor);
-	// rb_remove(&t, 2, &int_destructor);
-	// rb_remove(&t, 33, &int_destructor);
-	// rb_remove(&t, 1, &int_destructor);
-	// rb_remove(&t, 242, &int_destructor);
-	// rb_remove(&t, 1, &int_destructor);
-	// rb_remove(&t, 1, &int_destructor);
-	// rb_remove(&t, 342, &int_destructor);
-	// rb_remove(&t, 3, &int_destructor);
-	rb_print(t, 1);
+	rb_remove(&t, 2, &int_destructor);
+	rb_remove(&t, 33, &int_destructor);
+	rb_remove(&t, 1, &int_destructor);
+	rb_remove(&t, 242, &int_destructor);
+	rb_remove(&t, 1, &int_destructor);
+	rb_remove(&t, 1, &int_destructor);
+	rb_remove(&t, 342, &int_destructor);
+	rb_remove(&t, 3, &int_destructor);
+	rb_remove(&t, 3, &int_destructor);
 
 	ft_printf("\n~~~~~~~~~~~~\n");
 

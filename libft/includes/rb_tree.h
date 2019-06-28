@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:39:00 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/28 14:50:20 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/28 16:10:47 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int							rb_is_red(t_rb_tree *t);
 void						rb_set_left(t_rb_tree *t, t_rb_tree *l);
 void						rb_set_right(t_rb_tree *t, t_rb_tree *r);
 int							rb_set_parent_link(t_rb_tree *t, t_rb_tree *ptr);
-void						rb_print(t_rb_tree *t, int i);
+void						rb_print(t_rb_tree *t);
+int							rb_is_black(t_rb_tree *t);
 /*
 **							rb_remove.c
 */

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:46:15 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/28 14:41:55 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/28 16:47:16 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,35 @@ t_rb_tree			*rb_node_create(void *data, int index, t_rb_tree *parent)
 	return (tr);
 }
 
+static t_rb_tree			*rb_left_fix(t_rb_tree *t)
+{
+	t_rb_tree		*grandparent;
+
+	if (t == rb_right(rb_parent(t)))
+		rb_rotate_left((t = t->parent));
+	t->parent->clr = B;
+	grandparent = rb_grandparent(t);
+	grandparent->clr = R;
+	rb_rotate_right(grandparent);
+	return (grandparent);
+}
+
+static t_rb_tree			*rb_right_fix(t_rb_tree *t)
+{
+	t_rb_tree		*grandparent;
+
+	if (t == rb_left(rb_parent(t)))
+		rb_rotate_right((t = t->parent));
+	t->parent->clr = B;
+	grandparent = rb_grandparent(t);
+	grandparent->clr = R;
+	rb_rotate_left(grandparent);
+	return (grandparent);
+}
+
 static void			rb_fix_insert(t_rb_tree *t)
 {
-	t_rb_tree	*uncle;
-	t_rb_tree	*gr;
+	t_rb_tree		*uncle;
 
 	while (rb_is_red(rb_parent(t)))
 	{
@@ -45,33 +70,9 @@ static void			rb_fix_insert(t_rb_tree *t)
 			t->clr = R;
 		}
 		else if (rb_parent(t) == rb_left(rb_grandparent(t)))
-		{
-			if (t == rb_right(rb_parent(t)))
-			{
-				t = t->parent;
-				rb_rotate_left(t);
-			}
-			t->parent->clr = B;
-			if ((gr = rb_grandparent(t)))
-			{
-				gr->clr = R;
-				rb_rotate_right(gr);
-			}
-		}
+			t = rb_left_fix(t);
 		else
-		{
-			if (t == rb_left(rb_parent(t)))
-			{
-				t = t->parent;
-				rb_rotate_right(t);
-			}
-			t->parent->clr = B;
-			if ((gr = rb_grandparent(t)))
-			{
-				gr->clr = R;
-				rb_rotate_left(gr);
-			}
-		}
+			t = rb_right_fix(t);
 	}
 }
 
