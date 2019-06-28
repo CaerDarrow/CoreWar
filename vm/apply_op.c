@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/26 13:11:08 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:22:20 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,11 @@ int						apply_op(t_game_entity *entity, t_cursor *cursor)
 		move_cursor(cursor, get_step(cursor->op_code, argc));
 		return (-1);
 	}
-
 	if (!(argv = read_args(cursor, entity->bg, argc)))
 	{
 		move_cursor(cursor, get_step(cursor->op_code, argc));
 		return (-1);
 	}
-		// ft_printf("Cursor %d: %s at cycle %d by %d player's cursor; cycles to die: %d; live calls: %d; cursor position: %d\n",cursor->index, g_op_tab[cursor->op_code].name, entity->cycle, cursor->id, entity->cycles_to_die, entity->live_calls, cursor->position);
 	f(entity, cursor, argc, argv);
 	l_destroy(&argv);
 	if ((f == zjmp && !carry) || (f != zjmp))

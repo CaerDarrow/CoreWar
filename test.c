@@ -20,39 +20,67 @@ int	is_valid_rb(t_rb_tree *t)
 	}
 	return (1);
 }
+void		int_destructor(void *t)
+{
+	free(t);
+}
+void		add_n(t_rb_tree **t, int n)
+{
+	int			index;
+	int			*data;
+	int			i;
+
+	i = -1;
+	while (++i < n)
+	{
+		index = rand() % 1000;
+		data = ft_int_get_mass(index);
+		rb_push(t, data, index);
+	}
+}
 
 int	main()
 {
 	t_rb_tree	*t;
-	int			*data;
-	int			i;
-	int			index;
 
 	srand(time(NULL));
 	t = 0;
-	i = -1;
-	while (++i < 3)
-	{
-		index = rand() % 1000;
-		data = ft_int_get_mass(index);
-		// ft_printf("%d ", index);
-		// ft_printf("before (add %d):\n", index);
-		// rb_print(t, 1);
-		rb_push(&t, data, index);
-		// ft_printf("after (add %d):\n", index);
-		// rb_print(t, 1);
-	}
-	rb_print(t, 1);
 
-	int *res = rb_find(t, 42);
-	if (res)
-		ft_printf(RED"%d\n"RESET, *res);
+	// add_n(&t, 5);
+	add(&t, 142);
+	add(&t, 242);
+	add(&t, 342);
+	add(&t, 1);
+	add(&t, 2);
+	add(&t, 3);
+	add(&t, 42);
+	add(&t, 33);
+
+	rb_print(t, 1);
+	ft_printf("\n~~~~~~~~~~~~\n");
+
+	// rb_print(t, 1);
+
+	if (rb_find(t, 42))
+		ft_printf(RED"YES\n"RESET);
 	else
 		ft_printf(CYN"NO\n"RESET);
+	ft_printf("\n~~~~~~~~~~~~\n");
+	rb_remove(&t, 142, &int_destructor);
+	rb_remove(&t, 42, &int_destructor);
+	// rb_remove(&t, 2, &int_destructor);
+	// rb_remove(&t, 33, &int_destructor);
+	// rb_remove(&t, 1, &int_destructor);
+	// rb_remove(&t, 242, &int_destructor);
+	// rb_remove(&t, 1, &int_destructor);
+	// rb_remove(&t, 1, &int_destructor);
+	// rb_remove(&t, 342, &int_destructor);
+	// rb_remove(&t, 3, &int_destructor);
+	rb_print(t, 1);
 
 	ft_printf("\n~~~~~~~~~~~~\n");
 
-	if (t->parent)
+	if (t &&t->parent)
 		ft_printf("\nWWWWWhat\n");
 	if (!is_valid_rb(t))
 	{
@@ -66,6 +94,7 @@ int	main()
 	// ft_printf("**********\n");
 	// rb_print(t, 1);
 	// ft_printf("\nsize: %d\n", rb_size(t));
+	rb_destroy(&t, &free);
 	return (0);
 }
 //gcc -Ilibft/includes libft/libft.a  libft/printf/libftprintf.a test.c

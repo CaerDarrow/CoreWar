@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/15 20:40:44 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/26 14:07:02 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ static int			set_flags(int argc, const char *argv[],
 		g_d_flag = atoi(argv[*i]);
 		if (g_d_flag < 0)
 			error("Invalid flag (-d)");
+		return (1);
+	}
+	else if (ft_strcmp(argv[*i], "-a") == 0)
+	{
+		entity->print_aff = 1;
 		return (1);
 	}
 	else
