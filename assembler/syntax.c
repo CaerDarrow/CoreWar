@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 17:35:12 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/24 20:29:56 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/27 17:38:34 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,14 @@ int			syntax(t_list **lst)
 	while (*lst)
 	{
 		if (TTYPE == LABEL)
+		{
 			TOK->value = size;
+
+		}
 		if (TTYPE == INSTRUCTION)
 			size += get_size_and_check_op(lst);
 		*lst = (*lst)->next;
 	}
 	*lst = head;
-	return (1);
+	return (size);
 }
