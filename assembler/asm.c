@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/27 17:40:54 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/28 20:59:59 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int			main(int argc, char **argv)
 		{
 			if ((psize = syntax(&parsed)))
 			{
-				//encode(&parsed);
-				unit = initchamp(/*readed*/);
+				unit = encode(&parsed, psize);
 				writechamp(unit, argv[argc - 1]);
 				free(unit);
 			}

@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/26 20:47:27 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/06/28 20:55:51 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void				check_label(t_list **lst);
 void				check_instruction(t_list **lst);
 void				check_newline(t_list **lst);
 int					syntax(t_list **lst);
-t_unit				*encode(t_list **lst);
+t_unit				*encode(t_list **lst, size_t psize);
 void				printtoken(t_list **parsed);
 
 enum				e_error_code {
@@ -111,9 +111,8 @@ char				*read_s(char *fname);
 void				set_magic(t_unit *unit);
 void				set_name(char *name, t_unit *unit);
 void				set_prog_size(int size, t_unit *unit);
-void				set_comment(char *comment, t_unit *unit);
+void				set_comment_name(char *name, t_unit *unit, char *token);
 void				set_exec(unsigned char *exec, int size, t_unit *unit);
-t_unit				*initchamp(void);
 void				writechamp(t_unit *unit, char *fname);
 
 #endif
