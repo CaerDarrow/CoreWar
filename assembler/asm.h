@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/28 20:55:51 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:16:43 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ typedef struct		s_unit
 
 typedef struct		s_token
 {
-	int				pos[2];
+	int				pos[3];
 	int				type;
-	int				value;
+	int				argsize;
 	char			*token;
 }					t_token;
 
@@ -91,6 +91,7 @@ void				check_label(t_list **lst);
 void				check_instruction(t_list **lst);
 void				check_newline(t_list **lst);
 int					syntax(t_list **lst);
+void				translate_labels(t_list **lst);
 t_unit				*encode(t_list **lst, size_t psize);
 void				printtoken(t_list **parsed);
 
@@ -98,8 +99,15 @@ enum				e_error_code {
 	SYNTAX,
 	NAMELEN,
 	COMMENTLEN,
-	ARG
+	ARG,
+	LBL
 };
+
+typedef struct		s_label
+{
+	char			*name;
+	int				pos;
+}					t_label;
 
 void				c_error(t_list **lst, char err);
 

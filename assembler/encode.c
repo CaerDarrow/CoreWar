@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 13:35:51 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/28 22:37:46 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:42:11 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,23 @@ t_unit	*encode(t_list **lst, size_t psize)
 	set_prog_size(psize, unit);
 	while (*lst)
 	{
-		if (TTYPE == COMMAND_NAME)
-		{
-			*lst = (*lst)->next;
-			set_comment_name(TOKEN, unit, ((t_token *)(*lst)->prev->data)->token);
-		}
-		if (TTYPE == REGISTER)
-		{
-			int encoded =0;
-
-			encoded = ft_atoi(TOKEN + 1);
-			code = ft_memcpy(code, (void *)&encoded, 1);
-			code++;
-		}
+		// if (TTYPE == COMMAND_NAME)
+		// {
+		// 	*lst = (*lst)->next;
+		// 	set_comment_name(TOKEN, unit, ((t_token *)(*lst)->prev->data)->token);
+		// }
+		// if (TTYPE == REGISTER)
+		// {
+		// 	int encoded =0;
+		//
+		// 	encoded = ft_atoi(TOKEN + 1);
+		// 	code = ft_memcpy(code, (void *)&encoded, 1);
+		// 	code++;
+		// }
 		*lst = (*lst)->next;
 	}
 	set_exec(codes, psize, unit);
+	free(codes);
 	*lst = head;
 	return (unit);
 }

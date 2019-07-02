@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 17:05:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/24 16:50:12 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:33:40 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	printtoken(t_list **lst)
 				TOK->pos[0], TOK->pos[1], type[TOK->type]);
 	if (TOK->type != NEWLINE)
 		ft_printf(" \"%s\"", TOK->token);
-	ft_printf("{%d}\n", TOK->value);
+	ft_printf("{%d, %d}\n", TOK->pos[2], TOK->argsize);
 }

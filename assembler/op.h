@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2019/06/28 20:41:38 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/02 22:18:31 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ typedef char					t_arg_type;
 # define T_LAB					8
 
 /*
-** valgrind --suppressions=/Users/ajon-hol/macos.supp --leak-check=full
-** ./asm vm_champs/champs/42.s
+** make asm && valgrind --leak-check=full --suppressions=/Users/ajon-hol/macos.supp ./asm vm_champs/champs/42.s
 */
 
 # define PROG_NAME_LENGTH		(128)
