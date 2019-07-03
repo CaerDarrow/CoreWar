@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:01:26 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/27 17:37:49 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:30:10 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void			writechamp(t_unit *unit, char *fname)
 	int				fd;
 
 	name = ft_strsub(fname, 0, (ft_strlen(fname) - 2)); //malloc
-	newfile = ft_strfjoin(&name, ".cor"); // malloc
+	newfile = ft_strfjoin(&name, "2.cor"); // malloc
 	fd = open(newfile, O_RDWR | O_CREAT | O_TRUNC, 0755);
 	ptr = (unsigned char *)unit;
 	i = 0;
