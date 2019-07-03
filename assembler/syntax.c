@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 17:35:12 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/02 21:30:17 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/03 16:28:26 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static t_op	*check_opname(t_list **lst)
 	return (&g_op_tab[0]);
 }
 
-static int	set_tvalue(int type, int t_dirsize)
+static int	getargsize(int type, int t_dirsize)
 {
 	if (type == REGISTER)
 		return (1);
@@ -67,7 +67,7 @@ static void	get_size_and_check_op(t_list **lst, int *size)
 		if (TTYPE & op->argv[i])
 		{
 			TOK->pos[2] = -(*k);
-			TOK->argsize = set_tvalue(TTYPE, op->t_dirsize);
+			TOK->argsize = getargsize(TTYPE, op->t_dirsize);
 			*size += TOK->argsize;
 		}
 		else
