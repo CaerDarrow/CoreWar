@@ -6,11 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 13:35:51 by ajon-hol          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/07/03 18:58:07 by ajon-hol         ###   ########.fr       */
-=======
-/*   Updated: 2019/07/03 18:56:21 by ajon-hol         ###   ########.fr       */
->>>>>>> b0957ce70326e5f0ca273d512d2600ff0c018bcf
+/*   Updated: 2019/07/03 19:02:02 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +118,7 @@ t_unit	*encode(t_list **lst, size_t psize)
 		*lst = (*lst)->next;
 	}
 	set_exec(codes, psize, unit);
-	//free(codes);
+	free(codes);
 	*lst = head;
 	return (unit);
 }
