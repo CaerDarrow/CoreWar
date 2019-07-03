@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 17:35:12 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/03 16:28:26 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/03 19:31:04 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ void	(*g_check[10])(t_list **lst) = {
 	check_label,
 	check_newline,
 };
-
-static t_op	*check_opname(t_list **lst)
-{
-	int i;
-
-	i = 1;
-	while (i < 17)
-	{
-		if (ft_strequ(g_op_tab[i].name, TOKEN))
-			return (&g_op_tab[i]);
-		i++;
-	}
-	c_error(lst, SYNTAX);
-	return (&g_op_tab[0]);
-}
 
 static int	getargsize(int type, int t_dirsize)
 {

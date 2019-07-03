@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/03 16:27:56 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:26:01 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			main(int argc, char **argv)
 
 	psize = 0;
 	if (argc < 2)
-		ft_printf("Usage: ./asm [possible flags] <sourcefile.s>\n");
+		ft_printf("Usage: ./asm <sourcefile.s>\n");
 	else if ((readed = read_s(argv[argc - 1])))
 	{
 		if ((parsed = parse(readed)))
@@ -40,11 +40,10 @@ int			main(int argc, char **argv)
 			if ((psize = syntax(&parsed)))
 			{
 				translate_labels(&parsed);
-				unit = encode(&parsed, psize);
+				unit = encodechamp(&parsed, psize);
 				writechamp(unit, argv[argc - 1]);
 				free(unit);
 			}
-			//l_iter(&parsed, printtoken);
 			l_delall(&parsed, lcondel);
 		}
 		free(readed);

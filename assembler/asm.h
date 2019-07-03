@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/02 20:16:43 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/03 19:47:39 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct		s_unit
 }					t_unit;
 
 /*
-** parse (lexer)
+** parse(lexer)
 */
 
 # define I i + g_readed
@@ -64,7 +64,7 @@ enum				e_type {
 };
 
 /*
-** syntax
+** syntax/encode
 */
 
 # define TOK ((t_token *)(*lst)->data)
@@ -90,9 +90,11 @@ void				check_command(t_list **lst);
 void				check_label(t_list **lst);
 void				check_instruction(t_list **lst);
 void				check_newline(t_list **lst);
+t_op				*check_opname(t_list **lst);
 int					syntax(t_list **lst);
 void				translate_labels(t_list **lst);
-t_unit				*encode(t_list **lst, size_t psize);
+t_unit				*encodechamp(t_list **lst, size_t psize);
+unsigned char		*encode(t_list **lst, size_t psize);
 void				printtoken(t_list **parsed);
 
 enum				e_error_code {
