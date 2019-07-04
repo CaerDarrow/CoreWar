@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:46:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 17:38:20 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:14:46 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 	else
 	{
 		addr = cursor->position +
-			(b[1] = RAW_ARG(2));
+			(b[1] = RAW_ARG(2)) % IDX_MOD;
 		i = -1;
 		while (++i < REG_SIZE)
 			entity->bg[correct_position(addr + i)] = reg_num[i];

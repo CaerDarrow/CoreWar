@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:47:50 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 17:39:33 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:18:33 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,18 @@ void				xor(t_game_entity *entity, t_cursor *cursor,
 void				zjmp(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
+	int				b;
+
 	(void)entity;
+	b = RAW_ARG(1) % IDX_MOD;
 	if (cursor->carry)
 	{
 		if (VERBOSE_LVL(4))
-			ft_printf("P%5ld | zjmp %d OK\n", cursor->index,
-				RAW_ARG(1) % IDX_MOD);
-		move_cursor(cursor, RAW_ARG(1) % IDX_MOD);
+			ft_printf("P%5ld | zjmp %d OK\n", cursor->index, b);
+		move_cursor(cursor, b);
 	}
 	else if (VERBOSE_LVL(4))
-		ft_printf("P%5ld | zjmp %d FAILED\n", cursor->index,
-			RAW_ARG(1) % IDX_MOD);
+		ft_printf("P%5ld | zjmp %d FAILED\n", cursor->index, b);
 }
 
 void				ldi(t_game_entity *entity, t_cursor *cursor,

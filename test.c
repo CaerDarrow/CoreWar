@@ -137,7 +137,9 @@ int	main()
 			ft_printf("%d, ", *(int *)l->data);
 			l = l->next;
 		}
-ft_printf("\n");
+printf("\n");
+
+	printf("%#4x\n", 0);
 	// rb_print(t);
 	// ft_printf("\n~~~~~~~~~~~~\n");
 	//
