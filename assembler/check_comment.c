@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:09:56 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/24 18:27:15 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:56:28 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	check_comment(t_list **lst)
 {
 	*lst = (*lst)->next;
-	if (TTYPE != NEWLINE)
+	if (!(*lst) || (*lst && (TTYPE != NEWLINE)))
 		c_error(lst, SYNTAX);
 }

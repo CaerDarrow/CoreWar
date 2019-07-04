@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/03 19:47:39 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 21:41:45 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ enum				e_type {
 # define TOK ((t_token *)(*lst)->data)
 # define TOKEN ((t_token *)(*lst)->data)->token
 # define TTYPE ((t_token *)(*lst)->data)->type
+# define RN(x, lo, hi) (((hi) - (x)) * ((lo) - (x)) <= 0)
 
 typedef struct		s_op
 {

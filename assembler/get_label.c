@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:15:47 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/24 19:56:18 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 21:39:48 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void		get_label(char *rd, int *i, t_list **lst)
 		(*i)++;
 	if (!islabelchar(rd[*I]) && (rd[*I] != LABEL_CHAR))
 	{
-		(rd[j] == 'r' && (*I - (j + 1)) < 3) ? token->type = REGISTER : 5;
+		(rd[j] == 'r' && RN(*I - (j + 1), 1, 2)) ? token->type = REGISTER : 5;
 		(ft_isdigit(rd[j]) || rd[j] == '-') ? token->type = INDIRECT : 5;
 	}
 	else
 	{
 		while (islabelchar(rd[*I]))
 			(*i)++;
-		if (rd[j] == ':')
+		if (rd[j] == LABEL_CHAR)
 			token->type = INDIRECT | LABEL;
 		else if (rd[*I] == LABEL_CHAR)
 			token->type = LABEL;

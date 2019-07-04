@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:10:39 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/24 18:27:14 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 20:55:19 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_command(t_list **lst)
 	{
 		counter |= 1;
 		*lst = (*lst)->next;
-		if (TTYPE != STRING)
+		if (!(*lst) || (*lst && TTYPE != STRING))
 			c_error(lst, SYNTAX);
 		if (ft_strlen(TOKEN) > PROG_NAME_LENGTH)
 			c_error(lst, NAMELEN);
@@ -29,7 +29,7 @@ void	check_command(t_list **lst)
 	{
 		counter |= 2;
 		*lst = (*lst)->next;
-		if (TTYPE != STRING)
+		if (!(*lst) || (*lst && TTYPE != STRING))
 			c_error(lst, SYNTAX);
 		if (ft_strlen(TOKEN) > COMMENT_LENGTH)
 			c_error(lst, COMMENTLEN);
@@ -37,6 +37,6 @@ void	check_command(t_list **lst)
 	else
 		c_error(lst, SYNTAX);
 	*lst = (*lst)->next;
-	if (TTYPE != NEWLINE || TTYPE == COMMENT)
+	if (!(*lst) || (*lst && (TTYPE != NEWLINE || TTYPE == COMMENT)))
 		c_error(lst, SYNTAX);
 }
