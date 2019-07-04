@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 13:35:51 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/03 20:24:01 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:34:38 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static int		swap_int(int val, int intflag)
 	if (intflag)
 	{
 		val = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF);
-		return ((val << 16) | (val >> 16));
+		return ((val << 16) | ((val >> 16) & 0xFFFF));
 	}
 	else
-		return ((val << 8) | (val >> 8));
+		return ((val << 8) | ((val >> 8) & 0xFF));
 }
 
 static void		encodeargs(t_list **lst, unsigned char **code)
