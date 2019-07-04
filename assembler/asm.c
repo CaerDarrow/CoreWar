@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/04 21:51:52 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:20:15 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			main(int argc, char **argv)
 	{
 		if ((parsed = parse(readed)))
 		{
+			l_iter(&parsed, printtoken);
 			if ((psize = syntax(&parsed)))
 			{
 				translate_labels(&parsed);
@@ -44,7 +45,6 @@ int			main(int argc, char **argv)
 				writechamp(unit, argv[argc - 1]);
 				free(unit);
 			}
-			//l_iter(&parsed, printtoken);
 			l_delall(&parsed, lcondel);
 		}
 		free(readed);

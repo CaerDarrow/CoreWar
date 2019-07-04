@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/04 21:41:45 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:17:25 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_token
 
 int					islabelchar(char c);
 t_token				*inittoken(int strpos, int type);
+void				l_error(int i);
 void				get_sep(char *rd, int *i, t_list **lst);
 void				get_commandname(char *rd, int *i, t_list **lst);
 void				get_string(char *rd, int *i, t_list **lst);

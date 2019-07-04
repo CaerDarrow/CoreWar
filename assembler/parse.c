@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:46:07 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/24 17:59:04 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:26:30 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	get_command(char *rd, int i)
 			return (j);
 		j++;
 	}
-	ft_printf("Lexical error at [%d:%d]\n", g_line + 1, i);
-	exit(1);
+	l_error(i);
+	return (-1);
 }
 
 t_list		*parse(char *rd)
