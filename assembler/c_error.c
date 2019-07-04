@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 18:14:54 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/20 21:03:27 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:07:18 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	c_error(t_list **lst, char err)
 	if (err == ARG)
 	{
 		ft_printf("Wrong argument type at token: ");
+		printtoken(lst);
+	}
+	if (err == LBL)
+	{
+		ft_printf("No such label while attempting to dereference token ");
 		printtoken(lst);
 	}
 	exit(1);

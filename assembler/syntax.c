@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 17:35:12 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/24 20:29:56 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/03 19:31:04 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,7 @@ void	(*g_check[10])(t_list **lst) = {
 	check_newline,
 };
 
-static t_op	*check_opname(t_list **lst)
-{
-	int i;
-
-	i = 1;
-	while (i < 17)
-	{
-		if (ft_strequ(g_op_tab[i].name, TOKEN))
-			return (&g_op_tab[i]);
-		i++;
-	}
-	c_error(lst, SYNTAX);
-	return (&g_op_tab[0]);
-}
-
-static int	set_tvalue(int type, int t_dirsize)
+static int	getargsize(int type, int t_dirsize)
 {
 	if (type == REGISTER)
 		return (1);
@@ -51,30 +36,33 @@ static int	set_tvalue(int type, int t_dirsize)
 	return (0);
 }
 
-static int	get_size_and_check_op(t_list **lst)
+static void	get_size_and_check_op(t_list **lst, int *size)
 {
 	t_op	*op;
 	int		*k;
 	int		i;
 
-	i = 0;
+	i = -1;
 	op = check_opname(lst);
-	k = &TOK->value;
-	*k = 1 + op->argtypes;
-	while (i < op->argc)
+	k = &TOK->argsize;
+	*k = -(*size);
+	while (i++ < op->argc - 1)
 	{
 		*lst = (*lst)->next;
 		if (TTYPE & op->argv[i])
-			TOK->value = set_tvalue(TTYPE, op->t_dirsize);
+		{
+			TOK->pos[2] = -(*k);
+			TOK->argsize = getargsize(TTYPE, op->t_dirsize);
+			*size += TOK->argsize;
+		}
 		else
 			c_error(lst, ARG);
-		*k += TOK->value;
 		*lst = (*lst)->next;
-		i++;
 	}
+	*size += op->argtypes + 1;
+	*k += *size;
 	if (!(TTYPE == NEWLINE || TTYPE == COMMENT))
 		c_error(lst, SYNTAX);
-	return (*k);
 }
 
 int			syntax(t_list **lst)
@@ -90,11 +78,14 @@ int			syntax(t_list **lst)
 	while (*lst)
 	{
 		if (TTYPE == LABEL)
-			TOK->value = size;
+			TOK->pos[2] = size;
 		if (TTYPE == INSTRUCTION)
-			size += get_size_and_check_op(lst);
+		{
+			TOK->pos[2] = size;
+			get_size_and_check_op(lst, &size);
+		}
 		*lst = (*lst)->next;
 	}
 	*lst = head;
-	return (1);
+	return (size);
 }
