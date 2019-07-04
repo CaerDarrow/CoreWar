@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 18:26:17 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 19:15:34 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:23:16 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int					get_arg(t_uchar *bg, t_cursor *cursor, int arg, int code)
 	else if (code == DIR_CODE)
 		return (arg);
 	if (cursor->op_code != 13)
-		return (get_num_by_addr(bg, cursor->position + arg % IDX_MOD,
-			REG_SIZE));
+	{
+		return (get_num_by_addr(bg,
+			cursor->position + arg % IDX_MOD, REG_SIZE));
+	}
 	return (get_num_by_addr(bg, cursor->position + arg, REG_SIZE));
 }

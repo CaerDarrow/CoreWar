@@ -6,39 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 21:37:42 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:23:30 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-static int			get_step(t_uchar op_code, t_uchar argc)
-{
-	int				i;
-	int				res;
-	int				flag;
-
-	res = 1 + g_op_tab[op_code].argtypes;
-	flag = g_op_tab[op_code].dir;
-	i = -1;
-	while (++i < g_op_tab[op_code].argc)
-		res += get_arg_size(argc, flag, i + 1);
-	return (res);
-}
-
-static void			*get_op_by_code(t_uchar op_code)
-{
-	if (!is_valid_op(op_code))
-		return (NULL);
-	return (g_op_tab[op_code].op);
-}
-
-static t_uchar		get_argc(t_uchar *bg, t_cursor *cursor)
-{
-	if (g_op_tab[cursor->op_code].argtypes)
-		return (bg[correct_position(cursor->position + 1)]);
-	return (DIR_CODE << 6);
-}
 
 static t_list		*read_args(t_cursor *cursor, t_uchar *bg, t_uchar argc)
 {
@@ -64,16 +36,25 @@ static t_list		*read_args(t_cursor *cursor, t_uchar *bg, t_uchar argc)
 	return (res);
 }
 
-void			print_n_cells_after(t_uchar *bg, int position, int bytes)
+static void			apply_op_debug(t_uchar *bg, int position, int step)
 {
-	int			i;
-
-	i = -1;
-	while (++i < bytes)
+	if (VERBOSE_LVL(16))
 	{
-		ft_printf("%.2x ", bg[correct_position(position + i)]);
+		ft_printf("ADV %d (0x%04x -> 0x%04x) ",
+			step,
+			position,
+			position + step);
+		print_n_cells_after(bg, position, step);
 	}
-	write(1, "\n", 1);
+}
+
+static int			skip_invalid_token(t_uchar *bg, t_cursor *cursor, int step,
+						char debug)
+{
+	if (debug == DEBUG_ON)
+		apply_op_debug(bg, cursor->position, step);
+	move_cursor(cursor, step);
+	return (-1);
 }
 
 int					apply_op(t_game_entity *entity, t_cursor *cursor)
@@ -84,67 +65,21 @@ int					apply_op(t_game_entity *entity, t_cursor *cursor)
 	void			(*f)(t_game_entity *, t_cursor *, t_uchar, t_list *);
 
 	if (!(f = get_op_by_code(cursor->op_code)))
+		return (skip_invalid_token(entity->bg, cursor, 1, DEBUG_OFF));
+	if (!is_valid_argc((argc = get_argc(entity->bg, cursor)), cursor->op_code))
 	{
-		move_cursor(cursor, 1);
-		return (-1);
-	}
-	argc = get_argc(entity->bg, cursor);
-	////////////
-//// correct position can be added but carefully
-
-	//////////
-	if (!is_valid_argc(argc, cursor->op_code))
-	{
-		//ft_printf("STEP: %d |", step);
-		step = 1 + g_op_tab[cursor->op_code].argtypes;
-		if (VERBOSE_LVL(16))
-		{
-			ft_printf("ADV %d (0x%04x -> 0x%04x) ", step,
-				cursor->position,
-				(cursor->position + step));
-			print_n_cells_after(entity->bg, cursor->position, step);
-		}
-		move_cursor(cursor, step);
-		return (-1);
+		return (skip_invalid_token(entity->bg, cursor,
+			1 + g_op_tab[cursor->op_code].argtypes, DEBUG_ON));
 	}
 	step = get_step(cursor->op_code, argc);
-
-	if (!is_proper_argc(argc, cursor->op_code))
-	{
-		if (VERBOSE_LVL(16))
-		{
-			ft_printf("ADV %d (0x%04x -> 0x%04x) ", step,
-				cursor->position,
-				(cursor->position + step));
-			print_n_cells_after(entity->bg, cursor->position, step);
-		}
-		move_cursor(cursor, step);
-		return (-1);
-	}
-
-	if (!(argv = read_args(cursor, entity->bg, argc)))
-	{
-		if (VERBOSE_LVL(16))
-		{
-			ft_printf("ADV %d (0x%04x -> 0x%04x) ", step,
-				cursor->position,
-				(cursor->position + step));
-			print_n_cells_after(entity->bg, cursor->position, step);
-		}
-		move_cursor(cursor, step);
-		return (-1);
-	}
+	if (!is_proper_argc(argc, cursor->op_code) ||
+		!(argv = read_args(cursor, entity->bg, argc)))
+		return (skip_invalid_token(entity->bg, cursor, step, DEBUG_ON));
 	f(entity, cursor, argc, argv);
 	l_destroy(&argv);
 	if ((f == zjmp && !cursor->carry) || (f != zjmp))
 	{
-		if (VERBOSE_LVL(16))
-		{
-			ft_printf("ADV %d (0x%04x -> 0x%04x) ", step,
-				cursor->position,
-				(cursor->position + step));
-			print_n_cells_after(entity->bg, cursor->position, step);
-		}
+		apply_op_debug(entity->bg, cursor->position, step);
 		move_cursor(cursor, step);
 	}
 	return (cursor->op_code);

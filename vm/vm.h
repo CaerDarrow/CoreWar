@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 20:13:29 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:21:31 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define XOR(x, y)		(x ^ y)
 # define PAIR(x, y)		((t_pair){x, y})
 # define REG_NUM		16
+# define DEBUG_ON		1
+# define DEBUG_OFF		0
 # define VERBOSE_LVL(n)	(g_verbose & n)
 # define RAW_ARG(n)		get_rawarg(argv, argc, n, g_op_tab[cursor->op_code].dir)
 # define CURSOR(x)		 ((t_cursor*)x->data)
@@ -184,10 +186,18 @@ t_uchar					*get_reg_num(t_cursor *cursor, int n);
 **						print_data.c
 */
 void					print_bg(t_game_entity *entity, int mod);
+void					print_n_cells_after(t_uchar *bg, int position,
+							int bytes);
 /*
 **						apply_op.c
 */
 int						apply_op(t_game_entity *entity, t_cursor *cursor);
+/*
+**						apply_op_service.c
+*/
+int						get_step(t_uchar op_code, t_uchar argc);
+void					*get_op_by_code(t_uchar op_code);
+t_uchar					get_argc(t_uchar *bg, t_cursor *cursor);
 /*
 **						check.c
 */
