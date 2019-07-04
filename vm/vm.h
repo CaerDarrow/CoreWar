@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/26 13:07:59 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:11:30 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include				"op.h"
 
 # define BYTE(n)		n
-# define XOR(x, y)		((x + y) % 2)
+# define XOR(x, y)		(x ^ y)
 # define PAIR(x, y)		((t_pair){x, y})
 # define REG_NUM		16
 # define VERBOSE_LVL(n)	(g_verbose & n)
@@ -98,7 +98,7 @@ void					check_handler(t_game_entity *entity, int *live_calls);
 void					destroy_cur(t_list **t);
 void					set_reg_num(t_cursor *c, int n, int value);
 void					destroy_cursors(t_game_entity *entity);
-int						cursor_should_die(t_list *c, t_game_entity *entity);
+int						cursor_should_die(t_cursor *c, t_game_entity *entity);
 void					move_cursor(t_cursor *cursor, int b);
 void					shift_cycle(t_cursor *cursor);
 t_cursor				*cursor_create(t_game_entity *entity, int id);
@@ -178,7 +178,12 @@ int						is_valid_player(t_game_entity *game, int p);
 /*
 **						read_args.c
 */
-t_list					*read_args(t_cursor *cursor, t_uchar *bg, t_uchar argc);
+int					read_reg_value(t_list **res, t_uchar *bg, t_cursor *cursor,
+						int *offset);
+void				read_ind_value(t_list **res, t_uchar *bg, t_cursor *cursor,
+						int *offset);
+void				read_dir_value(t_list **res, t_uchar *bg, t_cursor *cursor,
+						int *offset);
 /*
 **						registers.c
 */
@@ -192,7 +197,6 @@ void					print_bg(t_game_entity *entity, int mod);
 **						apply_op.c
 */
 int						apply_op(t_game_entity *entity, t_cursor *cursor);
-int						time_to_apply_op(t_cursor *cursor);
 /*
 **						check.c
 */
@@ -201,6 +205,14 @@ void					check_cursors(t_game_entity *entity);
 **						cursor.c
 */
 void					copy_reg(t_uchar **dest, t_uchar **src);
+/*
+**						set_flags.c
+*/
+int						set_flags(int argc, const char *argv[],
+							t_game_entity *entity, int *i);
+
+t_uchar				get_dir_size(t_uchar op_code);
+
 /*
 TODO: move if invalid func args or all valid;
 all funcs implementation;

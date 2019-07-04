@@ -6,11 +6,18 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:55:28 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/26 12:49:26 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:53:10 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+t_uchar				get_dir_size(t_uchar op_code)
+{
+	if (g_op_tab[op_code].dir)
+		return (DIR_SIZE);
+	return (IND_SIZE);
+}
 
 void				set_carry(char *carry, int num)
 {
@@ -49,18 +56,15 @@ int					uchar_to_int(t_uchar *s, int size)
 	i = -1;
 	while (++i < size)
 		res = (res << 8) | s[i];
-	///////tmp
 	if (size == 2)
 		return ((short)res);
-	///////
 	return (res);
 }
 
 int					get_raw_arg(t_list *argv, int argc, int n, int flag)
 {
-	// to type func ;get size and override num
-	if (get_arg_size(argc, flag, n) == 2)///// rm
-		return (*(short *)l_get_data(&argv, n));///// rm
+	if (get_arg_size(argc, flag, n) == 2)
+		return (*(short *)l_get_data(&argv, n));
 	return (*(int *)l_get_data(&argv, n));
 }
 
@@ -80,6 +84,7 @@ int					arg_code(t_uchar argc, int n)
 {
 	return ((argc >> (6 - (n - 1) * 2)) & 0b11);
 }
+
 int					get_arg(t_uchar *bg, t_cursor *cursor, int arg, int code)
 {
 	if (code == REG_CODE)

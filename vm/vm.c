@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/19 16:41:23 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:13:34 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ void					destroy_cursors(t_game_entity *entity)
 	}
 }
 
-void					print_usage()
+void					print_usage(void)
 {
-
 	ft_printf("Usage:\n\
 	-v N\t: Verbosity levels, can be added together to enable several\n\
 	\t* 1 : Show PC movements\n\

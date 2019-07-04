@@ -6,13 +6,13 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:55:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 12:58:17 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:34:50 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int				get_null(int fd)
+int					get_null(int fd)
 {
 	char			b[BYTE(4)];
 

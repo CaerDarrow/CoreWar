@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 19:09:58 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/28 16:33:45 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:00:39 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int			rb_is_black(t_rb_tree *t)
 
 void			rb_backtrack(t_rb_tree **root)
 {
+	if (!*root)
+		return ;
 	while((*root)->parent)
 		(*root) = (*root)->parent;
 	(*root)->clr = B;

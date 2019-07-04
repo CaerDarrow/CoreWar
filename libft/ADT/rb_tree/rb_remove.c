@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:57:32 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/28 16:54:42 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 16:03:19 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,17 @@ static void			rb_fix_remove(t_rb_tree *node)
 			{
 				if (rb_is_black(rb_right(bro)))
 				{
-					bro->left->clr = B;
+					if (bro->left)
+						bro->left->clr = B;
 					bro->clr = R;
 					rb_rotate_right(bro);
 					bro = node->parent->right;
 				}
-				bro->clr = node->parent->clr;
+				if (bro)
+					bro->clr = node->parent->clr;
 				node->parent->clr = B;
-				bro->right->clr = B;
+				if (bro && bro->right)
+					bro->right->clr = B;
 				rb_rotate_left(node->parent);
 				break;
 			}
@@ -112,14 +115,17 @@ static void			rb_fix_remove(t_rb_tree *node)
 			{
 				if (rb_is_black(rb_left(bro)))
 				{
-					bro->right->clr = B;
+					if (bro->right)
+						bro->right->clr = B;
 					bro->clr = R;
 					rb_rotate_left(bro);
 					bro = node->parent->left;
 				}
-				bro->clr = node->parent->clr;
+				if (bro)
+					bro->clr = node->parent->clr;
 				node->parent->clr = B;
-				bro->left->clr = B;
+				if (bro && bro->left)
+					bro->left->clr = B;
 				rb_rotate_right(node->parent);
 				break;
 			}
@@ -152,6 +158,9 @@ int				rb_remove(t_rb_tree **root, int index, void (*f)(void *))
 	else
 		rb_destroy_node(&successor, f);
 	if (clr == B)
+	{
 		rb_fix_remove(temp);
+		rb_backtrack(root);
+	}
 	return (1);
 }

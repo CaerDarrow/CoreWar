@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:48:54 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/26 14:22:57 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:41:29 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void				aff(t_game_entity *entity, t_cursor *cursor,
 {
 	if (entity->print_aff)
 	{
-		ft_printf("Aff: %c\n", uchar_to_int(get_reg_num(cursor, RAW_ARG(1)), REG_SIZE));
+		ft_printf("Aff: %c\n",
+			uchar_to_int(get_reg_num(cursor, RAW_ARG(1)), REG_SIZE));
 	}
 }

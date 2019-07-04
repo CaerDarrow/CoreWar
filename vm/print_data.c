@@ -6,12 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:39:07 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/15 20:14:54 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:42:31 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
 
 void			print_bg(t_game_entity *entity, int mod)
 {
