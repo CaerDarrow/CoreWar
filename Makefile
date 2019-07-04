@@ -22,7 +22,7 @@ $(STORED_ASM_OBJ): assembler/obj/%.o:assembler/%.c
 vm/obj:
 	mkdir vm/obj
 assembler/obj:
-	mkdir vm/obj
+	mkdir assembler/obj
 $(VM): $(LIBFT) vm/obj $(STORED_VM_OBJ)
 	gcc $(CFLAGS) $(STORED_VM_OBJ) $(LIBFT) $(PRINTF) -o $(VM)
 $(ASM): $(LIBFT) assembler/obj $(STORED_ASM_OBJ)
