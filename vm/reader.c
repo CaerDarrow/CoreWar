@@ -6,11 +6,22 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 18:11:01 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:24:35 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+int					get_null(int fd)
+{
+	char			b[BYTE(4)];
+
+	if (read(fd, &b, BYTE(4)) != BYTE(4))
+		return (0);
+	if (b[0] != 0 || b[1] != 0 || b[2] != 0 || b[3] != 0)
+		return (0);
+	return (1);
+}
 
 static t_header		*get_champ(const char *s, t_game_entity *entity,
 						int cur_player)

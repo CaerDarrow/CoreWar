@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   op_service.c                                       :+:      :+:    :+:   */
+/*   op_service_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:55:28 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 17:53:10 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:27:02 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,37 +59,4 @@ int					uchar_to_int(t_uchar *s, int size)
 	if (size == 2)
 		return ((short)res);
 	return (res);
-}
-
-int					get_raw_arg(t_list *argv, int argc, int n, int flag)
-{
-	if (get_arg_size(argc, flag, n) == 2)
-		return (*(short *)l_get_data(&argv, n));
-	return (*(int *)l_get_data(&argv, n));
-}
-
-int					get_num_by_addr(unsigned char *bg, int addr, int size)
-{
-	int				i;
-	int				res;
-
-	res = 0;
-	i = -1;
-	while (++i < size)
-		res = (res << 8) + bg[correct_position(addr + i)];
-	return (res);
-}
-
-int					arg_code(t_uchar argc, int n)
-{
-	return ((argc >> (6 - (n - 1) * 2)) & 0b11);
-}
-
-int					get_arg(t_uchar *bg, t_cursor *cursor, int arg, int code)
-{
-	if (code == REG_CODE)
-		return (uchar_to_int(get_reg_num(cursor, arg), REG_SIZE));
-	else if (code == DIR_CODE)
-		return (arg);
-	return (get_num_by_addr(bg, cursor->position + arg, REG_SIZE));
 }

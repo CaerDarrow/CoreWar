@@ -6,20 +6,17 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:34:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 17:57:14 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 19:16:33 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int			*get_ind_value(t_uchar *bg, int position, int offset,
-						int op_code)
+static int			*get_ind_value(t_uchar *bg, int position, int offset)
 {
 	int				addr;
 
 	addr = (short)get_num_by_addr(bg, position + offset, IND_SIZE);
-	if (op_code != 13)
-		addr %= IDX_MOD;
 	return (ft_int_get_mass(addr));
 }
 
@@ -47,8 +44,7 @@ void				read_dir_value(t_list **res, t_uchar *bg, t_cursor *cursor,
 void				read_ind_value(t_list **res, t_uchar *bg, t_cursor *cursor,
 						int *offset)
 {
-	ld_push_back(res, get_ind_value(bg, cursor->position, *offset,
-		cursor->op_code));
+	ld_push_back(res, get_ind_value(bg, cursor->position, *offset));
 	*offset += IND_SIZE;
 }
 
