@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 18:10:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 18:17:04 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:14:55 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int					set_flags(int argc, const char *argv[],
 {
 	if (ft_strcmp(argv[*i], "-vis") == 0)
 	{
-	   set_vis_flag(argc, argv, entity, i);
-	   return (1);
+		set_vis_flag(argc, argv, entity, i);
+		return (1);
 	}
 	else if (ft_strcmp(argv[*i], "-v") == 0)
 	{

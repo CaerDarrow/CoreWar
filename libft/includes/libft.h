@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 20:54:24 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 14:46:50 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:37:14 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include "stack.h"
 # include "queue.h"
 # include "ft_math.h"
-# include "rb_tree.h"
 # include "../printf/printf.h"
 
 # define SIGN(x)	((x > 0) ? 1 : -1)

@@ -1,6 +1,6 @@
 NAME = libft.a
 SRC = $(wildcard mem/ft_*.c math/*.c str/ft_*.c print/ft_*.c vec/*.c gnl/get_next_line.c \
-ADT/stack/*.c  ADT/list/*.c ADT/queue/*.c ADT/rb_tree/*.c)
+ADT/stack/*.c  ADT/list/*.c ADT/queue/*.c)
 OBJ = $(SRC:.c=.o)
 GCCFLAGS = -Wall -Wextra -Werror -g -I ./includes/
 .SILENT:

@@ -6,13 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 18:29:59 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 16:56:56 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:38:08 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-
 
 void						int_array_as_list(t_list **l, int i, ...)
 {

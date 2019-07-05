@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 18:32:34 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:08:37 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,19 @@ static void			destroy_cursors(t_game_entity *entity)
 	}
 }
 
-static void			print_usage(void)
+static void			primary_entity_loop(t_game_entity *entity)
 {
-	ft_printf("Usage:\n"
-	"\t-a\t: Prints output from \"aff\" (Default is to hide it)\n"
-	"#### TEXT OUTPUT MODE ##################################################\n"
-	"\t-d N\t: Dumps memory (x64 mode) after N cycles then exits\n"
-	"\t-dump N\t: Dumps memory (x32 mode) after N cycles then exits\n"
-	"\t-n N\t: Sets the number of the next player\n"
-	"\t-v N\t: Verbosity levels, can be added together to enable several\n"
-	"\t\t* 2 : Show cycles\n"
-	"\t\t* 4 : Show operations\n"
-	"\t\t* 8 : Show deaths\n"
-	"\t\t* 16 : Show cursors movements\n"
-	"#### OUTPUT MODE #######################################################\n"
-	"\t-vis N\t: Turn on visualisator and/or set size of cell\n"
-	"\t\t* N in range [1, 18] or not defined; (18 is warcraft mode)\n");
+	while (entity->cursors != NULL)
+	{
+		game_loop(entity);
+		entity->cycle++;
+	}
+	choose_winner(entity);
 }
 
 int					main(int argc, char const *argv[])
 {
-	t_game_entity		entity;
-
+	t_game_entity	entity;
 
 	if (argc == 1)
 	{
@@ -91,12 +82,7 @@ int					main(int argc, char const *argv[])
 	}
 	else
 	{
-		while (entity.cursors != NULL)
-		{
-			game_loop(&entity);
-			entity.cycle++;
-		}
-		choose_winner(&entity);
+		primary_entity_loop(&entity);
 	}
 	ft_memdel((void **)&entity.bg);
 	destroy_cursors(&entity);

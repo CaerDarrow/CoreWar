@@ -6,14 +6,13 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 10:54:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/23 18:48:03 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:38:49 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINTF_H
 # define PRINTF_H
 
-//# include "libft.h"
 # include "colors.h"
 # include <float.h>
 # include <wchar.h>
