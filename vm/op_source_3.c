@@ -19,20 +19,18 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	int				addr;
 	int				i;
 	int				b[3];
-	int				position;
 
 	addr = cursor->position +
 		((b[1] = get_arg(entity->bg, cursor, RAW_ARG(2), arg_code(argc, 2))) +
-		(b[2] = get_arg(entity->bg, cursor, RAW_ARG(3), arg_code(argc, 3))))
-		% IDX_MOD;
+		(b[2] = get_arg(entity->bg, cursor, RAW_ARG(3), arg_code(argc, 3)))) %
+		IDX_MOD;
 	reg_num = get_reg_num(cursor,
 		(b[0] = RAW_ARG(1)));
 	i = -1;
 	while (++i < REG_SIZE)
 	{
-		position = correct_position(addr + i);
-		entity->bg[correct_position(addr + i)] = reg_num[i];
-		entity->SQ->num_sq = position;
+		entity->SQ->num_sq = correct_position(addr + i);
+		entity->bg[entity->SQ->num_sq] = reg_num[i];
 		draw_square(entity->vis, cursor->id - 1);
 	}
 	if (VERBOSE_LVL(4))

@@ -26,7 +26,7 @@ static void	vis_game_loop(t_game_entity *entity, int *end_game, int **picture,
 	t_visualizer *vis;
 
 	vis = entity->vis;
-	if (game_loop(entity) == 1)
+	if (prep_game_loop(entity) == 1)
 	{
 		if (*winner == 0)
 			*winner = choose_winner(entity);
@@ -56,9 +56,9 @@ int			auto_draw(void *param)
 		return (prepare_end_game(vis, &end_game, picture));
 	else if ((!vis->loop_key || vis->loop_key == 2) && picture != NULL)
 		SIDE_SQUARE == WARCRAFT_SQUARE ? draw_press_enter(vis) :
-			draw_winner(vis, winner);
-	if (vis->loop_key && (BACKLOG == NULL ||
-		BACKLOG->prev == NULL) && picture == NULL)
+		draw_winner(vis, winner);
+	if (vis->loop_key && (BACKLOG == NULL || BACKLOG->prev == NULL) &&
+			picture == NULL)
 		vis_game_loop(entity, &end_game, &picture, &winner);
 	else if (vis->loop_key && BACKLOG != NULL && BACKLOG->prev != NULL)
 		move_log_front(vis);

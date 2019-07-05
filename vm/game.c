@@ -12,7 +12,7 @@
 
 #include "vm.h"
 
-static void		choose_winner(t_game_entity *entity)
+int				choose_winner(t_game_entity *entity)
 {
 	int			i;
 	t_list		*p;
@@ -23,6 +23,7 @@ static void		choose_winner(t_game_entity *entity)
 		p = p->next;
 	ft_printf("Contestant %d, \"%s\", has won !\n", i,
 		((t_header *)p->data)->prog_name);
+	return (i);
 }
 
 static void		game_loop_debug(t_game_entity *entity)
@@ -41,32 +42,27 @@ static void		game_loop_debug(t_game_entity *entity)
 		ft_printf("It is now cycle %d\n", entity->cycle);
 }
 
-void			game_loop(t_game_entity *entity)
+int				game_loop(t_game_entity *entity)
 {
 	t_list		*cursor_ptr;
 	t_cursor	*cursor;
 	long long	i;
 
-	while (entity->cursors)
+	game_loop_debug(entity);
+	cursor_ptr = entity->cursors;
+	i = 0;
+	while (cursor_ptr)
 	{
-		game_loop_debug(entity);
-		cursor_ptr = entity->cursors;
-		i = 0;
-		while (cursor_ptr)
-		{
-			cursor = (t_cursor *)cursor_ptr->data;
-			if (cursor->cycles_to_exec == 0)
-				set_op_code(cursor, entity->bg);
-			if (cursor->cycles_to_exec > 0)
-				cursor->cycles_to_exec--;
-			if (cursor->cycles_to_exec == 0 && apply_op(entity, cursor) == 1)
-				entity->live_calls++;
-			cursor_ptr = cursor_ptr->next;
-			i++;
-		}
-		check_cursors(entity);
-		go_on(entity);
-		entity->cycle++;
+		cursor = (t_cursor *)cursor_ptr->data;
+		if (cursor->cycles_to_exec == 0)
+			set_op_code(cursor, entity->bg);
+		if (cursor->cycles_to_exec > 0)
+			cursor->cycles_to_exec--;
+		if (cursor->cycles_to_exec == 0 && apply_op(entity, cursor) == 1)
+			entity->live_calls++;
+		cursor_ptr = cursor_ptr->next;
+		i++;
 	}
-	choose_winner(entity);
+	check_cursors(entity);
+	return (0);
 }

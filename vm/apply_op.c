@@ -48,12 +48,12 @@ static void			apply_op_debug(t_uchar *bg, int position, int step)
 	}
 }
 
-static int			skip_invalid_token(t_uchar *bg, t_cursor *cursor, int step,
-						char debug)
+static int			skip_invalid_token(t_game_entity *entity,
+						t_cursor *cursor, int step, char debug)
 {
 	if (debug == DEBUG_ON)
-		apply_op_debug(bg, cursor->position, step);
-	move_cursor(cursor, step);
+		apply_op_debug(entity->bg, cursor->position, step);
+	move_cursor(entity, cursor, step);
 	return (-1);
 }
 
@@ -65,22 +65,22 @@ int					apply_op(t_game_entity *entity, t_cursor *cursor)
 	void			(*f)(t_game_entity *, t_cursor *, t_uchar, t_list *);
 
 	if (!(f = get_op_by_code(cursor->op_code)))
-		return (skip_invalid_token(entity->bg, cursor, 1, DEBUG_OFF));
+		return (skip_invalid_token(entity, cursor, 1, DEBUG_OFF));
 	if (!is_valid_argc((argc = get_argc(entity->bg, cursor)), cursor->op_code))
 	{
-		return (skip_invalid_token(entity->bg, cursor,
+		return (skip_invalid_token(entity, cursor,
 			1 + g_op_tab[cursor->op_code].argtypes, DEBUG_ON));
 	}
 	step = get_step(cursor->op_code, argc);
 	if (!is_proper_argc(argc, cursor->op_code) ||
 		!(argv = read_args(cursor, entity->bg, argc)))
-		return (skip_invalid_token(entity->bg, cursor, step, DEBUG_ON));
+		return (skip_invalid_token(entity, cursor, step, DEBUG_ON));
 	f(entity, cursor, argc, argv);
 	l_destroy(&argv);
 	if ((f == zjmp && !cursor->carry) || (f != zjmp))
 	{
 		apply_op_debug(entity->bg, cursor->position, step);
-		move_cursor(cursor, step);
+		move_cursor(entity, cursor, step);
 	}
 	return (cursor->op_code);
 }

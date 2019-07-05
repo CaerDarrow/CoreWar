@@ -31,7 +31,7 @@ static void	change_percents(t_visualizer *vis, int cur_player)
 
 void		draw_square(t_visualizer *vis, int num_player)
 {
-	const int	*picture = get_picture(vis, num_player);
+	const int	*picture = get_mini_picture(vis, num_player);
 	int			num_pixel;
 	int			i;
 

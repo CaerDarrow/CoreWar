@@ -72,7 +72,7 @@ static void			introduce(t_header *p, int n)
 }
 
 void				read_champs(int argc, const char *argv[],
-						t_game_entity *entity)
+		t_game_entity *entity)
 {
 	int				i;
 	t_header		*champ;

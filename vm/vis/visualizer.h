@@ -16,7 +16,7 @@
 # include <mlx.h>
 # include "libft.h"
 
-# define KEK				18
+# define KEK				5
 
 /*
 **	TEXTURES
@@ -183,7 +183,6 @@ void						clear_area(t_visualizer *vis, int x, int y);
 **		MENU
 */
 void						draw_menu(t_visualizer *vis);
-void						draw_frame(t_visualizer *vis);
 void						draw_legend(t_visualizer *vis);
 void						draw_cycle(t_visualizer *vis);
 void						draw_percent(t_visualizer *vis);
@@ -191,6 +190,7 @@ void						draw_instructions(t_visualizer *vis);
 void						draw_log_scale(t_visualizer *vis, int move);
 void						draw_log_scale_uptoend(t_visualizer *vis,
 								int color);
+void						draw_frame(t_visualizer *vis);
 void						draw_press_enter(t_visualizer *vis);
 int							draw_winner(t_visualizer *vis, int winer);
 /*
@@ -211,7 +211,8 @@ void						add_log(t_visualizer *vis);
 **		TEXTURES
 */
 int							*get_final_picture(int player);
-int							*get_picture(t_visualizer *vis, int num_player);
+int							*get_mini_picture(t_visualizer *vis,
+								int num_player);
 int							*get_player1(t_visualizer *vis);
 int							*get_player2(t_visualizer *vis);
 int							*get_player3(t_visualizer *vis);

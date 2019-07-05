@@ -12,7 +12,7 @@
 
 #include "visualizer.h"
 
-int	*get_picture(t_visualizer *vis, int num_player)
+int	*get_mini_picture(t_visualizer *vis, int num_player)
 {
 	if (num_player == 0)
 		return (PICTURES.player1);

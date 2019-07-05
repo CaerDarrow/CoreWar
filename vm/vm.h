@@ -13,9 +13,9 @@
 #ifndef VM_H
 # define VM_H
 
-# include			"visualizer.h"
-# include			"libft.h"
-# include			"op.h"
+# include "visualizer.h"
+# include "libft.h"
+# include "op.h"
 
 # define BYTE(n)		n
 # define XOR(x, y)		(x ^ y)
@@ -84,7 +84,8 @@ void					init_field(t_game_entity *entity);
 void					visualizer_loop(t_game_entity *entity);
 void					go_on(t_game_entity *entity);
 static void				vis_game_loop(t_game_entity *entity, int *end_game,
-										 int **picture, int *winner);
+							int **picture, int *winner);
+int						prep_game_loop(t_game_entity *entity);
 /*
 **						error.c
 */
@@ -106,7 +107,8 @@ void					read_champs(int a, const char *arg[], t_game_entity *g);
 /*
 **						game.c
 */
-void					game_loop(t_game_entity *entity);
+int						game_loop(t_game_entity *entity);
+int						choose_winner(t_game_entity *entity);
 /*
 **						op_source_1.c
 */
@@ -220,7 +222,8 @@ void					copy_reg(t_uchar dest[REG_NUM][REG_SIZE],
 							t_uchar src[REG_NUM][REG_SIZE]);
 void					destroy_cur(t_list **t);
 int						cursor_should_die(t_cursor *c, t_game_entity *entity);
-void					move_cursor(t_cursor *cursor, int b);
+void					move_cursor(t_game_entity *entity, t_cursor *cursor,
+							int b);
 t_cursor				*cursor_create(t_game_entity *entity, int id);
 /*
 **						set_flags.c

@@ -74,7 +74,7 @@ int				draw_winner(t_visualizer *vis, int winer)
 	if (SIDE_SQUARE > 4)
 	{
 		draw_menu(vis);
-		if (color == 0 || color >= 0xFFFFFF)
+		if (color == 0 || color >= 16777216)
 			color = RGB_RED;
 		else
 			color += 5;

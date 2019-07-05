@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visualizer_loop.c                                  :+:      :+:    :+:   */
+/*   prep_game_loop.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gleonett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/02 11:04:03 by gleonett          #+#    #+#             */
-/*   Updated: 2019/06/02 11:04:04 by gleonett         ###   ########.fr       */
+/*   Created: 2019/07/05 13:39:53 by gleonett          #+#    #+#             */
+/*   Updated: 2019/07/05 13:39:57 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int	close_mlx(void *param)
+int	prep_game_loop(t_game_entity *entity)
 {
-	(void)param;
-	exit(0);
-}
+	static char end_cycle_flag;
 
-void		visualizer_loop(t_game_entity *entity)
-{
-	t_visualizer *vis;
-
-	vis = entity->vis;
-	mlx_hook(WIN->win, 2, 0, key_press, entity);
-	mlx_hook(WIN->win, 17, 0, close_mlx, NULL);
-	mlx_loop_hook(WIN->mlx, auto_draw, entity);
-	mlx_loop(WIN->mlx);
+	if (entity->cursors != NULL)
+	{
+		game_loop(entity);
+		go_on(entity);
+		entity->cycle++;
+		return (0);
+	}
+	else if (end_cycle_flag == 0)
+	{
+		end_cycle_flag = 1;
+		go_on(entity);
+		return (1);
+	}
+	return (1);
 }

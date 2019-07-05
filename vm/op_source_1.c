@@ -46,17 +46,19 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 	reg_num = get_reg_num(cursor,
 			b[0] = RAW_ARG(1));
 	if (arg_code(argc, 2) == REG_CODE)
-	{
 		set_reg_num(cursor, (b[1] = RAW_ARG(2)),
-			uchar_to_int(reg_num, REG_SIZE));
-	}
+				uchar_to_int(reg_num, REG_SIZE));
 	else
 	{
 		addr = cursor->position +
 			(b[1] = RAW_ARG(2)) % IDX_MOD;
 		i = -1;
 		while (++i < REG_SIZE)
-			entity->bg[correct_position(addr + i)] = reg_num[i];
+		{
+			entity->SQ->num_sq = correct_position(addr + i);
+			entity->bg[entity->SQ->num_sq] = reg_num[i];
+			draw_square(entity->vis, cursor->id - 1);
+		}
 	}
 	if (VERBOSE_LVL(4))
 		ft_printf("P%5ld | st r%d %d\n", cursor->index, b[0], b[1]);

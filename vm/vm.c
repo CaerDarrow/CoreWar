@@ -62,7 +62,8 @@ static void			print_usage(void)
 
 int					main(int argc, char const *argv[])
 {
-	t_game_entity	entity;
+	t_game_entity		entity;
+	int					side_square;
 
 	if (argc == 1)
 	{
@@ -73,11 +74,9 @@ int					main(int argc, char const *argv[])
 	read_champs(argc, argv, &entity);
 	init_cursors(&entity);
 	init_field(&entity);
-//	game_loop(&entity);
 	visualizer_loop(&entity);
 	ft_memdel((void **)&entity.bg);
 	l_destroy(&entity.players);
 	destroy_cursors(&entity);
-//	gc(NULL, GC_ALL, GC_DEL);
 	return (0);
 }

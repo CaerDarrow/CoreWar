@@ -77,6 +77,7 @@ t_visualizer		*inicialization_vis(t_game_entity *entity)
 	vis->n_players = entity->n_players;
 	vis->num_logs = 0;
 	vis->loop_key = 0;
+	vis->cycle = 1;
 	vis->win = inicialization_window(vis);
 	vis->log_scale = inicialization_log_scale(vis);
 	vis->sq = inicialization_square();

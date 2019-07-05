@@ -20,9 +20,9 @@ static char	g_pictures_pathes[4][200] =
 	"/Users/gleonett/Desktop/CW/vm/vis/textures/elf"
 };
 
-int			*get_final_picture(int player)
+int			*get_final_picture(int winner)
 {
-	const int	fd = open(g_pictures_pathes[player - 1], O_RDONLY);
+	const int	fd = open(g_pictures_pathes[winner - 1], O_RDONLY);
 	char		*line;
 	int			*picture;
 	int			i;
