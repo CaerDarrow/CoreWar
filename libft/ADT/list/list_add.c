@@ -6,22 +6,26 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/08 18:29:59 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/02/08 18:30:37 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:56:56 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list						*l_create(void *data, t_list *prev)
-{
-	t_list					*lst;
 
-	if (!(lst = (t_list*)malloc(sizeof(t_list))))
-		return ((t_list*)ft_ptr_free(&data));
-	lst->next = NULL;
-	lst->prev = prev;
-	lst->data = data;
-	return (lst);
+
+void						int_array_as_list(t_list **l, int i, ...)
+{
+	int						num;
+	va_list					ap;
+
+	num = 0;
+	va_start(ap, i);
+	while (i-- > 0)
+	{
+		ld_push_back(l, ft_int_get_mass((num = va_arg(ap, int))));
+	}
+	va_end(ap);
 }
 
 int							ld_push_back(t_list **l, void *data)

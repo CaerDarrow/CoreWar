@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleonett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 12:48:16 by gleonett          #+#    #+#             */
-/*   Updated: 2019/05/30 12:48:18 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:09:05 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include <mlx.h>
 # include "libft.h"
-
-# define KEK				5
 
 /*
 **	TEXTURES

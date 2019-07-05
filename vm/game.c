@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 16:34:24 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:06:25 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ int				choose_winner(t_game_entity *entity)
 	p = entity->players;
 	i = 0;
 	while (++i < -entity->last_alive_player)
+	{
+		if (!p->next)
+			break ;
 		p = p->next;
+	}
 	ft_printf("Contestant %d, \"%s\", has won !\n", i,
 		((t_header *)p->data)->prog_name);
 	return (i);

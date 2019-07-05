@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 16:24:12 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:06:07 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct			s_op
 int						g_verbose;
 int						g_dump_flag;
 int						g_d_flag;
+int						g_n_flag;
+t_list					*g_free_player_num;
 t_op					g_op_tab[17];
 
 /*

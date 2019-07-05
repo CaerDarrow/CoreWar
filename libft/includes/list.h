@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 12:15:31 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 17:06:26 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:57:04 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void						l_reciter(t_list **lst, void (*f1)(t_list **l,
 							void (*f)(t_list **l)), void (*f2)(t_list **l));
 void						l_delone(t_list **cur, void (*f)(t_list **elem));
 void						l_iter(t_list **lst, void (*f)(t_list **elem));
+void						int_array_as_list(t_list **l, int i, ...);
 #endif
