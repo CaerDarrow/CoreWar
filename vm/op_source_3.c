@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:48:20 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 17:41:13 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 20:33:32 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ void				lclone(t_game_entity *entity, t_cursor *cursor,
 	if (VERBOSE_LVL(4))
 	{
 		ft_printf("P%5ld | lfork %d (%d)\n", cursor->index, b,
-			new_cursor->position);
+			cursor->position + b);
 	}
 }

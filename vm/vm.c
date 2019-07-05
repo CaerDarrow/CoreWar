@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 19:08:37 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 20:28:02 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ static void			init_cursors(t_game_entity *entity)
 {
 	int				i;
 
-	i = entity->n_players;
-	while (i > 0)
+	i = 0;
+	while (++i <= entity->n_players)
 	{
 		ld_push_front(&entity->cursors, cursor_create(entity, i));
-		i--;
 	}
 	entity->last_alive_player = -entity->n_players;
 }
