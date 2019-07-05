@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 18:40:07 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:16:25 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,59 +76,6 @@ static void			introduce(t_header p, int n)
 		p.prog_size, p.prog_name, p.comment);
 }
 
-int					remove_n(t_list **l, int num)
-{
-	t_list			*t;
-
-	t = *l;
-	while (t)
-	{
-		if (*(int *)t->data == num)
-		{
-			if (!t->prev)
-			{
-				t = (*l)->next;
-				if (t)
-					t->prev = 0;
-				ft_memdel((void **)&(*l)->data);
-				ft_memdel((void **)l);
-				*l = t;
-			}
-			else
-			{
-				t->prev->next = t->next;
-				if (t->next)
-					t->next->prev = t->prev;
-				ft_memdel((void **)&t->data);
-				ft_memdel((void **)&t);
-			}
-			return (1);
-		}
-		t = t->next;
-	}
-	return (0);
-}
-
-static int			get_next_free_number()
-{
-	int				b;
-
-	if (!g_free_player_num)
-		error("Invalid -n flag");
-	if (g_n_flag <= 0)
-	{
-		b = *(int *)g_free_player_num->data;
-		if (!remove_n(&g_free_player_num, b))
-			error("Invalid -n flag");
-		return (b);
-	}
-	b = g_n_flag;
-	g_n_flag = -1;
-	if (!remove_n(&g_free_player_num, b))
-		error("Invalid -n flag");
-	return (b);
-}
-
 void				read_champs(int argc, const char *argv[],
 						t_game_entity *entity)
 {
@@ -147,7 +94,8 @@ void				read_champs(int argc, const char *argv[],
 	while (++i < argc)
 		if (!(argv[i][0] == '-' && set_flags(argc, argv, entity, &i)))
 		{
-			champ = get_champ(argv[i], entity, (n = get_next_free_number()));
+			champ = get_champ(argv[i], entity,
+				(n = get_next_free_number()));
 			g_n_flag = -1;
 			entity->players[n - 1] = champ;
 			introduce(champ, n);

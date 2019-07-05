@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 18:38:56 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:16:03 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct			s_game_entity
 	int					live_calls;
 	int					alive_cursors;
 	char				print_aff;
-	char 				vis_key;
+	char				vis_key;
 	t_visualizer		*vis;
 }						t_game_entity;
 
@@ -174,6 +174,7 @@ int						get_arg(t_uchar *bg, t_cursor *c, int arg, int code);
 */
 int						correct_position(int new_pos);
 void					set_op_code(t_cursor *cursor, t_uchar *bg);
+void					print_usage(void);
 /*
 **						game_validiation.c
 */
@@ -232,6 +233,12 @@ t_cursor				*cursor_create(t_game_entity *entity, int id);
 */
 int						set_flags(int argc, const char *argv[],
 							t_game_entity *entity, int *i);
+/*
+**						players_num.c
+*/
+int						remove_n(t_list **l, int num);
+int						get_next_free_number(void);
+
 /*
 ** C="test.cor";
 ** make corewar && ./corewar -v 14  $C > t;./vm_champs/corewar -v 14 $C > tt;

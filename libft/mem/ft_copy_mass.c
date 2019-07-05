@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_copy_maas.c                                     :+:      :+:    :+:   */
+/*   ft_copy_mass.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:42:15 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/05 11:00:48 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:38:35 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void**				ft_copy_mass(void **mas, int size)
+void				**ft_copy_mass(void **mas, int size)
 {
 	char			**s;
 	char			**res;
@@ -25,7 +25,6 @@ void**				ft_copy_mass(void **mas, int size)
 	while (++i < size)
 	{
 		res[i] = ft_strdup(s[i]);
-		// ft_memcpy(res[i], s[i], ft_strlen(s[i]));
 	}
 	return ((void**)res);
 }
