@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/04 22:17:25 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:05:44 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void				translate_labels(t_list **lst);
 t_unit				*encodechamp(t_list **lst, size_t psize);
 unsigned char		*encode(t_list **lst, size_t psize);
 void				printtoken(t_list **parsed);
+
+int					g_counter;
 
 enum				e_error_code {
 	SYNTAX,

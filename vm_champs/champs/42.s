@@ -1,9 +1,9 @@
 
 # 1231      2313
 
-.name "42"
-.comment "Just a basic Winner Program"
 
+.comment "Just a basic Winner Program"
+.name "42"
 
 entree:	live	%42	# entree
 	ld	%0,r5

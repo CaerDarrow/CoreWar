@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 17:35:12 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/04 20:52:10 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:03:41 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	(*g_check[10])(t_list **lst) = {
 	check_label,
 	check_newline,
 };
+
+int			g_counter = 0;
 
 static int	getargsize(int type, int t_dirsize)
 {
