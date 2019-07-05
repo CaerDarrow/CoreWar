@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 18:10:50 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:32:34 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int					main(int argc, char const *argv[])
 		choose_winner(&entity);
 	}
 	ft_memdel((void **)&entity.bg);
-	l_destroy(&entity.players);
 	destroy_cursors(&entity);
 	return (0);
 }

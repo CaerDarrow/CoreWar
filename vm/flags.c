@@ -6,13 +6,14 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 18:10:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 17:56:14 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:17:04 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
 static void			set_vis_flag(int argc, const char *argv[],
-								   t_game_entity *entity, int *i)
+						t_game_entity *entity, int *i)
 {
 	++*i;
 	if (*i >= argc)
@@ -41,8 +42,7 @@ static int			set_flags_part_2(int argc, const char *argv[],
 {
 	if (ft_strcmp(argv[*i], "-d") == 0)
 	{
-		++*i;
-		if (*i >= argc || !ft_isnum((char *)argv[*i]))
+		if (++*i >= argc || !ft_isnum((char *)argv[*i]))
 			error("Invalid flag (-d)");
 		g_d_flag = ft_atoi(argv[*i]);
 		if (g_d_flag < 0)
@@ -50,14 +50,10 @@ static int			set_flags_part_2(int argc, const char *argv[],
 		return (1);
 	}
 	else if (ft_strcmp(argv[*i], "-a") == 0)
-	{
-		entity->print_aff = 1;
-		return (1);
-	}
+		return ((entity->print_aff = 1));
 	if (ft_strcmp(argv[*i], "-n") == 0)
 	{
-		++*i;
-		if (*i >= argc || !ft_isnum((char *)argv[*i]))
+		if (++*i >= argc || !ft_isnum((char *)argv[*i]))
 			error("Invalid flag (-n)");
 		g_n_flag = ft_atoi(argv[*i]);
 		if (!ft_inrange(g_n_flag, 1, entity->n_players) ||

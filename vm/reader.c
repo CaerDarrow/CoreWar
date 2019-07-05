@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 18:05:41 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:40:07 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,24 @@ int					get_null(int fd)
 	return (1);
 }
 
-static t_header		*get_champ(const char *s, t_game_entity *entity,
+static t_header		get_champ(const char *s, t_game_entity *entity,
 						int cur_player)
 {
-	t_header		*champ;
-	t_uchar			*code;
+	t_header		champ;
+	t_uchar			code[CHAMP_MAX_SIZE + 1];
 	int				fd;
 
 	if ((fd = open(s, O_RDONLY)) < 0)
 		champ_error("Cant open file", cur_player);
-	if (!(champ = (t_header *)malloc(sizeof(t_header))))
-		champ_error("Malloc error", cur_player);
-	if ((champ->magic = get_magic(fd, cur_player)) != COREWAR_EXEC_MAGIC)
+	if ((champ.magic = get_magic(fd, cur_player)) != COREWAR_EXEC_MAGIC)
 		champ_error("Not binary file", cur_player);
-	get_prog_name(fd, champ->prog_name, cur_player);
-	if ((champ->prog_size = get_prog_size(fd, cur_player)) > CHAMP_MAX_SIZE)
+	get_prog_name(fd, champ.prog_name, cur_player);
+	if ((champ.prog_size = get_prog_size(fd, cur_player)) > CHAMP_MAX_SIZE)
 		champ_error("Invalid champion programm size", cur_player);
-	get_comment(fd, champ->comment, cur_player);
-	code = get_code(fd, champ->prog_size, cur_player);
+	get_comment(fd, champ.comment, cur_player);
+	get_code(fd, code, champ.prog_size, cur_player);
 	ft_memcpy(entity->bg + ((MEM_SIZE) * (cur_player - 1) / entity->n_players),
-		code, champ->prog_size);
-	ft_memdel((void **)&code);
+		code, champ.prog_size);
 	close(fd);
 	return (champ);
 }
@@ -73,10 +70,10 @@ static int			count_players(int argc, const char *argv[])
 	return (res);
 }
 
-static void			introduce(t_header *p, int n)
+static void			introduce(t_header p, int n)
 {
 	ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", n,
-		p->prog_size, p->prog_name, p->comment);
+		p.prog_size, p.prog_name, p.comment);
 }
 
 int					remove_n(t_list **l, int num)
@@ -137,7 +134,7 @@ void				read_champs(int argc, const char *argv[],
 {
 	int				i;
 	int				n;
-	t_header		*champ;
+	t_header		champ;
 
 	if (!(entity->bg = (t_uchar *)malloc(MEM_SIZE)))
 		error("Malloc error");
@@ -152,7 +149,7 @@ void				read_champs(int argc, const char *argv[],
 		{
 			champ = get_champ(argv[i], entity, (n = get_next_free_number()));
 			g_n_flag = -1;
-			ld_push_back(&entity->players, champ);
+			entity->players[n - 1] = champ;
 			introduce(champ, n);
 		}
 }
