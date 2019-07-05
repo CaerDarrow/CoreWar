@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/05 16:05:44 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:58:46 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ enum				e_error_code {
 	NAMELEN,
 	COMMENTLEN,
 	ARG,
-	LBL
+	LBL,
+	INS
 };
 
 typedef struct		s_label

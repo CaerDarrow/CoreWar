@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 13:35:51 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/04 19:34:38 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/05 17:14:37 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static void		encodeargt(t_list **lst, unsigned char **code, int end)
 				encoded |= 2;
 			else if (TTYPE == INDIRECT || TTYPE == INDIRECT_LABEL)
 				encoded |= 3;
+			*lst = (*lst)->next;
 		}
 		encoded = encoded << 2;
-		*lst = (*lst)->next;
 		i++;
 	}
 	*code = ft_memcpy(*code, (void *)&encoded, 1);
