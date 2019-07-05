@@ -228,7 +228,7 @@ p64li:	live	%1
 	ld	%0,r10
 	zjmp	%186
 
-tirdow:	ld	%425,r
+tirdow:	ld	%425,r2
 	ld	%0,r3
 	ld	%4,r4
 
