@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visualizer.c                                       :+:      :+:    :+:   */
+/*   init_field.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleonett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 13:07:30 by gleonett          #+#    #+#             */
-/*   Updated: 2019/06/22 18:10:27 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:56:43 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,13 @@ static void		draw_champion(t_visualizer *vis, int prog_size, int player)
 static void		draw_field(t_visualizer *vis, t_game_entity *entity)
 {
 	int			player;
-	t_list		*i;
 
-	player = 0;
-	i = entity->players;
-	while (i != NULL)
+	player = -1;
+	while (++player < entity->n_players)
 	{
 		SQ->num_sq = (MEM_SIZE / vis->n_players) * player;
-		draw_champion(vis, ((t_header *)i->data)->prog_size, player);
-		PLAYERS.occupied_cells[player] = ((t_header *)i->data)->prog_size;
-		i = i->next;
-		player++;
+		draw_champion(vis, entity->players[player].prog_size, player);
+		PLAYERS.occupied_cells[player] = entity->players[player].prog_size;
 	}
 }
 
