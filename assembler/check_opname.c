@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 19:29:45 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/03 19:30:19 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:58:39 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ t_op	*check_opname(t_list **lst)
 			return (&g_op_tab[i]);
 		i++;
 	}
-	c_error(lst, SYNTAX);
+	c_error(lst, INS);
 	return (&g_op_tab[0]);
 }
