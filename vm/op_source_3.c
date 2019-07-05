@@ -29,9 +29,9 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	i = -1;
 	while (++i < REG_SIZE)
 	{
-		entity->SQ->num_sq = correct_position(addr + i);
-		entity->bg[entity->SQ->num_sq] = reg_num[i];
-		draw_square(entity->vis, cursor->id - 1);
+		entity->vis_key ? entity->SQ->num_sq = correct_position(addr + i) : 0;
+		entity->bg[correct_position(addr + i)] = reg_num[i];
+		entity->vis_key ? draw_square(entity->vis, cursor->id - 1) : 0;
 	}
 	if (VERBOSE_LVL(4))
 	{

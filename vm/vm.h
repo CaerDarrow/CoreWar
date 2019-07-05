@@ -55,6 +55,7 @@ typedef struct			s_game_entity
 	int					live_calls;
 	int					alive_cursors;
 	char				print_aff;
+	char 				vis_key;
 	t_visualizer		*vis;
 }						t_game_entity;
 
@@ -83,8 +84,6 @@ t_visualizer			*inicialization_vis(t_game_entity *entity);
 void					init_field(t_game_entity *entity);
 void					visualizer_loop(t_game_entity *entity);
 void					go_on(t_game_entity *entity);
-static void				vis_game_loop(t_game_entity *entity, int *end_game,
-							int **picture, int *winner);
 int						prep_game_loop(t_game_entity *entity);
 /*
 **						error.c

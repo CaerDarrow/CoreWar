@@ -51,16 +51,23 @@ static t_header		*get_champ(const char *s, t_game_entity *entity,
 static int			count_players(int argc, const char *argv[])
 {
 	int				res;
+	int				i;
 
+	i = 0;
 	res = 0;
-	while (--argc > 0)
+	while (++i < argc)
 	{
-		if (argv[argc][0] != '-')
+		if (argv[i][0] != '-')
 			res++;
-		else if (ft_strcmp(argv[argc], "-v") == 0 ||
-			ft_strcmp(argv[argc], "-d") == 0 ||
-			ft_strcmp(argv[argc], "-dump") == 0)
-			res--;
+		else if (ft_strcmp(argv[i], "-vis") == 0)
+		{
+			if (i + 1 < argc && ft_isnum((char *)argv[i + 1]))
+				i++;
+		}
+		else if (ft_strcmp(argv[i], "-v") == 0 ||
+			ft_strcmp(argv[i], "-d") == 0 ||
+			ft_strcmp(argv[i], "-dump") == 0)
+			i++;
 	}
 	return (res);
 }

@@ -11,6 +11,29 @@
 /* ************************************************************************** */
 
 #include "vm.h"
+static int			set_vis_flag(int argc, const char *argv[],
+								   t_game_entity *entity, int *i)
+{
+	++*i;
+	if (*i >= argc)
+		error("Invalid flag (-vis)");
+	if (!ft_isnum((char *)argv[*i]))
+	{
+		entity->vis_key = 10;
+		return (0);
+	}
+	if (*i + 1 < argc)
+	{
+		entity->vis_key = ft_atoi(argv[*i]);
+	}
+	else
+	{
+		entity->vis_key = 10;
+	}
+	if (!ft_inrange(entity->vis_key, 1, 18))
+		error("Invalid size (-vis)");
+	return (1);
+}
 
 static int			set_flags_part_2(int argc, const char *argv[],
 						t_game_entity *entity, int *i)
@@ -20,7 +43,7 @@ static int			set_flags_part_2(int argc, const char *argv[],
 		++*i;
 		if (*i >= argc)
 			error("Invalid flag (-d)");
-		g_d_flag = atoi(argv[*i]);
+		g_d_flag = ft_atoi(argv[*i]);
 		if (g_d_flag < 0)
 			error("Invalid flag (-d)");
 		return (1);
@@ -29,6 +52,10 @@ static int			set_flags_part_2(int argc, const char *argv[],
 	{
 		entity->print_aff = 1;
 		return (1);
+	}
+	else if (ft_strcmp(argv[*i], "-vis") == 0)
+	{
+		return (set_vis_flag(argc, argv, entity, i));
 	}
 	else
 		error("Wrong flag");
@@ -43,7 +70,7 @@ int					set_flags(int argc, const char *argv[],
 		++*i;
 		if (*i >= argc)
 			error("Invalid flag (-v)");
-		g_verbose = atoi(argv[*i]);
+		g_verbose = ft_atoi(argv[*i]);
 		return (1);
 	}
 	else if (ft_strcmp(argv[*i], "-dump") == 0)
@@ -51,10 +78,11 @@ int					set_flags(int argc, const char *argv[],
 		++*i;
 		if (*i >= argc)
 			error("Invalid flag (-dump)");
-		g_dump_flag = atoi(argv[*i]);
+		g_dump_flag = ft_atoi(argv[*i]);
 		if (g_dump_flag < 0)
 			error("Invalid flag (-dump)");
 		return (1);
 	}
+
 	return (set_flags_part_2(argc, argv, entity, i));
 }

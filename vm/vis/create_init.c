@@ -73,7 +73,7 @@ t_visualizer		*inicialization_vis(t_game_entity *entity)
 	if (!(vis = (t_visualizer *)malloc(sizeof(t_visualizer))))
 		error("Malloc error");
 	entity->vis = vis;
-	SIDE_SQUARE = KEK;
+	SIDE_SQUARE = entity->vis_key;
 	vis->n_players = entity->n_players;
 	vis->num_logs = 0;
 	vis->loop_key = 0;

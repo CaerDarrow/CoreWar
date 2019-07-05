@@ -14,9 +14,6 @@
 
 static void	clear_cycle(t_visualizer *vis)
 {
-	const int x = SQ->x;
-	const int y = SQ->y;
-
 	SQ->x = CYCLE_X - 5 * LETER_X;
 	SQ->y = LINE_WIDTH + LEGEND_INDENT_Y;
 	clear_area(vis, LETER_X * 15, LETER_Y);

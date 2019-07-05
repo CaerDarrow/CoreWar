@@ -43,9 +43,10 @@ int				cursor_should_die(t_cursor *cursor, t_game_entity *entity)
 
 void			move_cursor(t_game_entity *entity, t_cursor *cursor, int bytes)
 {
-	wipe_off_cursor(entity->vis, cursor->position);
+	entity->vis_key ? wipe_off_cursor(entity->vis, cursor->position) : 0;
 	cursor->position = correct_position(cursor->position + bytes);
-	draw_cursor(entity->vis, cursor->position, cursor->id - 1);
+	entity->vis_key ? draw_cursor(entity->vis, cursor->position,
+			cursor->id - 1) : 0;
 }
 
 void			copy_reg(t_uchar dest[REG_NUM][REG_SIZE],
