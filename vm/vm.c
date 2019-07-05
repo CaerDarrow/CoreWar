@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 18:35:10 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:38:50 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,28 @@ static void			destroy_cursors(t_game_entity *entity)
 	while (t)
 	{
 		b = t->next;
-		destroy_cur(&t);
+		destroy_cur(entity, &t);
 		t = b;
 	}
 }
 
 static void			print_usage(void)
 {
-	ft_printf("Usage:\n\
-	-v N\t: Verbosity levels, can be added together to enable several\n\
-	\t* 1 : Show PC movements\n\
-	\t* 2 : Show cycles\n\
-	\t* 4 : Show operations\n\
-	\t* 8 : Show deaths\n\
-	\t* 16 : Show cursors movements\n");
+	ft_printf("Usage:\n"
+	"\t-a\t: Prints output from \"aff\" (Default is to hide it)\n"
+	"#### TEXT OUTPUT MODE ##################################################\n"
+	"\t-d N\t: Dumps memory (x64 mode) after N cycles then exits\n"
+	"\t-dump N\t: Dumps memory (x32 mode) after N cycles then exits\n"
+	"\t-v N\t: Verbosity levels, can be added together to enable several\n"
+	"\t\t* 2 : Show cycles\n"
+	"\t\t* 4 : Show operations\n"
+	"\t\t* 8 : Show deaths\n"
+	"\t\t* 16 : Show cursors movements\n"
+	"#### OUTPUT MODE #######################################################\n"
+	"\t-vis N\t: Turn on visualisator and/or set size of cell\n"
+	"\t\t* N in range [1, 18] or not defined; (18 is warcraft mode)\n"
+
+	);
 }
 
 int					main(int argc, char const *argv[])

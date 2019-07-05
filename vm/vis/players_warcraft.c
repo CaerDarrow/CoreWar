@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   players_warcraft.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleonett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 18:53:24 by gleonett          #+#    #+#             */
-/*   Updated: 2019/06/22 18:53:27 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:58:43 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static char	g_mini_pictures_pathes[4][200] =
 {
-	"/Users/gleonett/Desktop/CW/vm/vis/textures/mini_orc",
-	"/Users/gleonett/Desktop/CW/vm/vis/textures/mini_human",
-	"/Users/gleonett/Desktop/CW/vm/vis/textures/mini_undead",
-	"/Users/gleonett/Desktop/CW/vm/vis/textures/mini_elf"
+	"vm/vis/textures/mini_orc",
+	"vm/vis/textures/mini_human",
+	"vm/vis/textures/mini_undead",
+	"vm/vis/textures/mini_elf"
 };
 
 static int	*read_mini_picture(int player)

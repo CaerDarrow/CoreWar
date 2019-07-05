@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 18:24:35 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:40:35 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void				read_champs(int argc, const char *argv[],
 	ft_bzero(entity->bg, MEM_SIZE);
 	entity->n_players = count_players(argc, argv);
 	if (entity->n_players > MAX_PLAYERS || entity->n_players <= 0)
-		error("Invalid quantity of champions");
+		error("Invalid quantity of champions (or invalid flags)");
 	ft_printf("Introducing contestants...\n");
 	i = 0;
 	n = 1;
