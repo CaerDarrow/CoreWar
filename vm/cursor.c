@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 17:27:08 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 22:17:41 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:25:14 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ t_cursor		*cursor_create(t_game_entity *entity, int id)
 	return (c);
 }
 
-void			destroy_cur(t_list **t)
+void			destroy_cur(t_game_entity *entity, t_list **t)
 {
+	if (entity->vis_key)
+		wipe_off_cursor(entity->vis, ((t_cursor *)(*t)->data)->position);
 	ft_memdel((void**)&(*t)->data);
 	ft_memdel((void**)t);
 }

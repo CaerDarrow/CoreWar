@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 22:21:31 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:24:12 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void					check_cursors(t_game_entity *entity);
 */
 void					copy_reg(t_uchar dest[REG_NUM][REG_SIZE],
 							t_uchar src[REG_NUM][REG_SIZE]);
-void					destroy_cur(t_list **t);
+void					destroy_cur(t_game_entity *entity, t_list **t);
 int						cursor_should_die(t_cursor *c, t_game_entity *entity);
 void					move_cursor(t_game_entity *entity, t_cursor *cursor,
 							int b);

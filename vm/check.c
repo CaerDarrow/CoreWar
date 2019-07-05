@@ -6,13 +6,13 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:52 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 17:23:03 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:24:52 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void		kill_cursor(t_list **cur)
+static void		kill_cursor(t_game_entity *entity, t_list **cur)
 {
 	t_list		*prev;
 	t_list		*b;
@@ -22,7 +22,7 @@ static void		kill_cursor(t_list **cur)
 	{
 		b = (*cur)->next;
 		prev->next = b;
-		destroy_cur(cur);
+		destroy_cur(entity, cur);
 		*cur = prev;
 		if (b)
 		{
@@ -33,7 +33,7 @@ static void		kill_cursor(t_list **cur)
 	else
 	{
 		b = (*cur)->next;
-		destroy_cur(cur);
+		destroy_cur(entity, cur);
 		*cur = b;
 		if (*cur)
 			(*cur)->prev = 0;
@@ -62,12 +62,12 @@ static void		try_kill_cursors(t_game_entity *entity)
 			if (!prev)
 			{
 				cursor_debug_info(entity, CURSOR(cursor));
-				kill_cursor(&entity->cursors);
+				kill_cursor(entity, &entity->cursors);
 				cursor = entity->cursors;
 				continue;
 			}
 			cursor_debug_info(entity, CURSOR(cursor));
-			kill_cursor(&cursor);
+			kill_cursor(entity, &cursor);
 			cursor = cursor->prev;
 		}
 		prev = cursor;

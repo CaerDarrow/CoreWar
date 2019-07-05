@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_final_picture.c                               :+:      :+:    :+:   */
+/*   get_final_picture_warcraft.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleonett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 16:10:44 by gleonett          #+#    #+#             */
-/*   Updated: 2019/06/22 16:16:56 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/07/05 15:58:37 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static char	g_pictures_pathes[4][200] =
 {
-	"/Users/gleonett/Desktop/CW/vm/vis/textures/orc",
-	"/Users/gleonett/Desktop/CW/vm/vis/textures/human",
-	"/Users/gleonett/Desktop/CW/vm/vis/textures/undead",
-	"/Users/gleonett/Desktop/CW/vm/vis/textures/elf"
+	"vm/vis/textures/orc",
+	"vm/vis/textures/human",
+	"vm/vis/textures/undead",
+	"vm/vis/textures/elf"
 };
 
 int			*get_final_picture(int winner)
