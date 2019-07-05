@@ -6,13 +6,14 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 18:10:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 16:42:59 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:17:04 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
 static void			set_vis_flag(int argc, const char *argv[],
-								   t_game_entity *entity, int *i)
+						t_game_entity *entity, int *i)
 {
 	++*i;
 	if (*i >= argc)
@@ -21,6 +22,7 @@ static void			set_vis_flag(int argc, const char *argv[],
 	{
 		entity->vis_key = 10;
 		--*i;
+		return ;
 	}
 	if (*i + 1 < argc)
 	{
@@ -40,8 +42,7 @@ static int			set_flags_part_2(int argc, const char *argv[],
 {
 	if (ft_strcmp(argv[*i], "-d") == 0)
 	{
-		++*i;
-		if (*i >= argc || !ft_isnum((char *)argv[*i]))
+		if (++*i >= argc || !ft_isnum((char *)argv[*i]))
 			error("Invalid flag (-d)");
 		g_d_flag = ft_atoi(argv[*i]);
 		if (g_d_flag < 0)
@@ -49,13 +50,15 @@ static int			set_flags_part_2(int argc, const char *argv[],
 		return (1);
 	}
 	else if (ft_strcmp(argv[*i], "-a") == 0)
+		return ((entity->print_aff = 1));
+	if (ft_strcmp(argv[*i], "-n") == 0)
 	{
-		entity->print_aff = 1;
-		return (1);
-	}
-	else if (ft_strcmp(argv[*i], "-vis") == 0)
-	{
-		set_vis_flag(argc, argv, entity, i);
+		if (++*i >= argc || !ft_isnum((char *)argv[*i]))
+			error("Invalid flag (-n)");
+		g_n_flag = ft_atoi(argv[*i]);
+		if (!ft_inrange(g_n_flag, 1, entity->n_players) ||
+			!l_int_find(g_free_player_num, g_n_flag))
+			error("Invalid flag (-n)");
 		return (1);
 	}
 	else
@@ -66,7 +69,12 @@ static int			set_flags_part_2(int argc, const char *argv[],
 int					set_flags(int argc, const char *argv[],
 						t_game_entity *entity, int *i)
 {
-	if (ft_strcmp(argv[*i], "-v") == 0)
+	if (ft_strcmp(argv[*i], "-vis") == 0)
+	{
+	   set_vis_flag(argc, argv, entity, i);
+	   return (1);
+	}
+	else if (ft_strcmp(argv[*i], "-v") == 0)
 	{
 		++*i;
 		if (*i >= argc || !ft_isnum((char *)argv[*i]))

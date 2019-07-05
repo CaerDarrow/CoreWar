@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:55:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 18:24:30 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:38:39 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,14 @@ void				get_comment(int fd, char s[], int cur_player)
 		champ_error("Null not found", cur_player);
 }
 
-unsigned char		*get_code(int fd, unsigned int size, int cur_player)
+void				get_code(int fd, t_uchar s[], unsigned int size,
+						int cur_player)
 {
-	unsigned char	*res;
 	char			b;
 
-	if (!(res = (unsigned char *)malloc(size + 1)))
-		champ_error("Malloc error", cur_player);
-	if (read(fd, res, size) != size)
+	if (read(fd, s, size) != size)
 		champ_error("Invalid champion programm code", cur_player);
-	res[size] = 0;
+	s[size] = 0;
 	if (read(fd, &b, 1) != 0)
 		champ_error("Invalid champion composition", cur_player);
-	return (res);
 }

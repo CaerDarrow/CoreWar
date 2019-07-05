@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 16:24:12 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:38:56 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct			s_game_entity
 {
 	t_uchar				*bg;
 	t_list				*cursors;
-	t_list				*players;
+	t_header			players[4];
 	char				n_players;
 	long				cycle;
 	int					cycles_to_die;
@@ -75,6 +75,8 @@ typedef struct			s_op
 int						g_verbose;
 int						g_dump_flag;
 int						g_d_flag;
+int						g_n_flag;
+t_list					*g_free_player_num;
 t_op					g_op_tab[17];
 
 /*
@@ -97,7 +99,8 @@ unsigned int			get_magic(int fd, int cur_player);
 void					get_prog_name(int fd, char s[], int cur_player);
 unsigned int			get_prog_size(int fd, int cur_player);
 void					get_comment(int fd, char s[], int cur_player);
-t_uchar					*get_code(int fd, unsigned int size, int cur_player);
+void					get_code(int fd, t_uchar s[], unsigned int size,
+							int cur_player);
 /*
 **						reader.c
 */
