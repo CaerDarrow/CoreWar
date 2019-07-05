@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/15 20:40:38 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:21:31 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,27 @@
 # include			"op.h"
 
 # define BYTE(n)		n
-# define XOR(x, y)		((x + y) % 2)
+# define XOR(x, y)		(x ^ y)
+# define PAIR(x, y)		((t_pair){x, y})
 # define REG_NUM		16
+# define DEBUG_ON		1
+# define DEBUG_OFF		0
 # define VERBOSE_LVL(n)	(g_verbose & n)
-# define ARG(n)			get_arg(argv, argc, n, g_op_tab[cursor->op_code].dir)
+# define RAW_ARG(n)		get_rawarg(argv, argc, n, g_op_tab[cursor->op_code].dir)
 # define CURSOR(x)		 ((t_cursor*)x->data)
+
 typedef unsigned char	t_uchar;
 
 typedef struct			s_cursor
 {
 	char				id;
 	long long			index;
-	t_uchar				**reg;
+	t_uchar				reg[REG_NUM][REG_SIZE];
 	char				carry;
 	int					last_live_call;
 	t_uchar				op_code;
 	int					cycles_to_exec;
 	int					position;
-	// char				moved;
 }						t_cursor;
 
 typedef struct			s_game_entity
@@ -51,14 +54,15 @@ typedef struct			s_game_entity
 	int					last_check;
 	int					live_calls;
 	int					alive_cursors;
+	char				print_aff;
 	t_visualizer		*vis;
 }						t_game_entity;
 
-typedef struct			op_s
+typedef struct			s_op
 {
-	char 				*name;
+	char				*name;
 	char				argc;
-	int					*argv;
+	char				*argv;
 	char				index;
 	int					cycles;
 	void				(*op)(t_game_entity *, t_cursor *,
@@ -80,16 +84,7 @@ void					init_field(t_game_entity *entity);
 void					visualizer_loop(t_game_entity *entity);
 void					go_on(t_game_entity *entity);
 static void				vis_game_loop(t_game_entity *entity, int *end_game,
-							int **picture, int *winner);
-/*
-**					basik
-*/
-
-void					read_champs(int ac, const char *argv[], t_game_entity *ge);
-int						game_loop(t_game_entity *entity);
-int						choose_winner(t_game_entity *entity);
-void					read_champs(int ac, const char *argv[], t_game_entity *ge);
-int						game_loop(t_game_entity *entity);
+										 int **picture, int *winner);
 /*
 **						error.c
 */
@@ -98,32 +93,20 @@ void					champ_error(char *s, int player);
 /*
 **						get_header.c
 */
-int						get_null(int fd);
 unsigned int			get_magic(int fd, int cur_player);
 void					get_prog_name(int fd, char s[], int cur_player);
 unsigned int			get_prog_size(int fd, int cur_player);
 void					get_comment(int fd, char s[], int cur_player);
 t_uchar					*get_code(int fd, unsigned int size, int cur_player);
-
-void					init_cursors(t_game_entity *entity);
-int						time_to__op(t_cursor *cursor);
-int						is_valid_op(char op_code);
-int						is_live_op(char op_code);
-void					check_handler(t_game_entity *entity, int *live_calls);
-
-void					destroy_cur(t_list **t);
-void					set_reg_num(t_cursor *c, int n, int value);
-void					destroy_cursors(t_game_entity *entity);
-int						cursor_should_die(t_list *c, t_game_entity *entity);
-void					move_cursor(t_game_entity *entity, t_cursor *cursor,
-							int b);
-void					shift_cycle(t_cursor *cursor);
-t_cursor				*cursor_create(t_game_entity *entity, int id);
-void					live(t_game_entity * entity, t_cursor *cursor,
-						t_uchar argc, t_list *argv);
-t_uchar					*get_reg_num(t_cursor *c, int n);
-int						get_num(t_uchar *s, int size);
-int						is_valid_op(char op_code);
+/*
+**						reader.c
+*/
+int						get_null(int fd);
+void					read_champs(int a, const char *arg[], t_game_entity *g);
+/*
+**						game.c
+*/
+void					game_loop(t_game_entity *entity);
 /*
 **						op_source_1.c
 */
@@ -169,14 +152,19 @@ void					lclone(t_game_entity *entity, t_cursor *cursor,
 void					aff(t_game_entity *entity, t_cursor *cursor,
 							t_uchar argc, t_list *argv);
 /*
-**						op_service.c
+**						op_service_1.c
 */
+t_uchar					get_dir_size(t_uchar op_code);
 void					set_carry(char *carry, int num);
 int						get_arg_size(t_uchar argc, int flag, int n);
 int						uchar_to_int(t_uchar *s, int size);
-int						get_arg(t_list *argv, int argc, int n, int flag);
-int						arg_code(t_uchar argc, int n);
+/*
+**						op_service_2.c
+*/
+int						get_rawarg(t_list *argv, int argc, int n, int flag);
 int						get_num_by_addr(unsigned char *bg, int addr, int size);
+int						arg_code(t_uchar argc, int n);
+int						get_arg(t_uchar *bg, t_cursor *c, int arg, int code);
 /*
 **						game_service.c
 */
@@ -190,10 +178,16 @@ int						is_valid_op(char op_code);
 int						is_live_op(char op_code);
 int						is_valid_argc(t_uchar argc, int op_code);
 int						is_proper_argc(t_uchar argc, int op_code);
+int						is_valid_player(t_game_entity *game, int p);
 /*
 **						read_args.c
 */
-t_list					*read_args(t_cursor *cursor, t_uchar *bg, t_uchar argc);
+int						read_reg_value(t_list **res, t_uchar *bg, t_cursor *c,
+							int *offset);
+void					read_ind_value(t_list **res, t_uchar *bg, t_cursor *c,
+							int *offset);
+void					read_dir_value(t_list **res, t_uchar *bg, t_cursor *c,
+							int *offset);
 /*
 **						registers.c
 */
@@ -203,11 +197,18 @@ t_uchar					*get_reg_num(t_cursor *cursor, int n);
 **						print_data.c
 */
 void					print_bg(t_game_entity *entity, int mod);
+void					print_n_cells_after(t_uchar *bg, int position,
+							int bytes);
 /*
 **						apply_op.c
 */
 int						apply_op(t_game_entity *entity, t_cursor *cursor);
-int						time_to_apply_op(t_cursor *cursor);
+/*
+**						apply_op_service.c
+*/
+int						get_step(t_uchar op_code, t_uchar argc);
+void					*get_op_by_code(t_uchar op_code);
+t_uchar					get_argc(t_uchar *bg, t_cursor *cursor);
 /*
 **						check.c
 */
@@ -215,6 +216,20 @@ void					check_cursors(t_game_entity *entity);
 /*
 **						cursor.c
 */
-void					copy_reg(t_uchar **dest, t_uchar **src);
-
+void					copy_reg(t_uchar dest[REG_NUM][REG_SIZE],
+							t_uchar src[REG_NUM][REG_SIZE]);
+void					destroy_cur(t_list **t);
+int						cursor_should_die(t_cursor *c, t_game_entity *entity);
+void					move_cursor(t_cursor *cursor, int b);
+t_cursor				*cursor_create(t_game_entity *entity, int id);
+/*
+**						set_flags.c
+*/
+int						set_flags(int argc, const char *argv[],
+							t_game_entity *entity, int *i);
+/*
+** C="test.cor";
+** make corewar && ./corewar -v 14  $C > t;./vm_champs/corewar -v 14 $C > tt;
+** diff t tt | head -n 50
+*/
 #endif

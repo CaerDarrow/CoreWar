@@ -6,22 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:55:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/05/31 12:58:17 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:24:30 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-int				get_null(int fd)
-{
-	char			b[BYTE(4)];
-
-	if (read(fd, &b, BYTE(4)) != BYTE(4))
-		return (0);
-	if (b[0] != 0 || b[1] != 0 || b[2] != 0 || b[3] != 0)
-		return (0);
-	return (1);
-}
 
 unsigned int		get_magic(int fd, int cur_player)
 {

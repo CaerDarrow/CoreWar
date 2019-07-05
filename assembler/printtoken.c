@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   printtoken.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/05 21:05:17 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/05 21:39:28 by ajon-hol         ###   ########.fr       */
+/*   Created: 2019/06/20 17:05:52 by ajon-hol          #+#    #+#             */
+/*   Updated: 2019/07/03 19:59:38 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-char	*lexer(char *s, const char *delim, char **save_ptr)
+void	printtoken(t_list **lst)
 {
-	char *end;
+	static char	*type[13] = {"COMMAND", "REGISTER", "DIRECT", "COMMENT",
+	"INDERECT", "INSTRUCTION", "SEPARATOR", "STRING", "LABEL", "NEWLINE",
+	"DIRECT_LABEL", "", "INDIRECT_LABEL"};
 
-	if (s == NULL)
-		s = *save_ptr;
-	if (*s == '\0')
-	{
-		*save_ptr = s;
-		return (NULL);
-	}
-	s += ft_strspn(s, delim);
-	if (*s == '\0')
-	{
-		*save_ptr = s;
-		return (NULL);
-	}
-	end = s + ft_strcspn(s, delim);
-	if (*end == '\0')
-	{
-		*save_ptr = end;
-		return (s);
-	}
-	ft_printf("{%c}\n", *end);
-	*end = '\0';
-	*save_ptr = end + 1;
-	return (s);
+	ft_printf("[TOKEN][%03d:%03d] %s",
+				TOK->pos[0], TOK->pos[1], type[TOK->type]);
+	if (TOK->type != NEWLINE)
+		ft_printf(" \"%s\"", TOK->token);
+	ft_printf("\n");
 }

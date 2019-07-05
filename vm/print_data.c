@@ -6,12 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:39:07 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/15 20:14:54 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:20:52 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
 
 void			print_bg(t_game_entity *entity, int mod)
 {
@@ -31,4 +30,16 @@ void			print_bg(t_game_entity *entity, int mod)
 		if (i % mod == mod - 1)
 			ft_printf("\n");
 	}
+}
+
+void			print_n_cells_after(t_uchar *bg, int position, int bytes)
+{
+	int			i;
+
+	i = -1;
+	while (++i < bytes)
+	{
+		ft_printf("%.2x ", bg[correct_position(position + i)]);
+	}
+	write(1, "\n", 1);
 }

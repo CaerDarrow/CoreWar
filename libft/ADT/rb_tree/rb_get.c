@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 14:48:37 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/15 19:26:44 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/06/28 14:47:58 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,12 @@ t_rb_tree		*rb_uncle(t_rb_tree *t)
 	return (NULL);
 }
 
-void			*rb_find(t_rb_tree *t, int index)
+t_rb_tree	*rb_parent(t_rb_tree *t)
+{
+	return (t ? t->parent : NULL);
+}
+
+t_rb_tree		*rb_find(t_rb_tree *t, int index)
 {
 	if (!t)
 		return (NULL);
@@ -60,6 +65,6 @@ void			*rb_find(t_rb_tree *t, int index)
 			break ;
 	}
 	if (t->index == index)
-		return (t->data);
+		return (t);
 	return (NULL);
 }

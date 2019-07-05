@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/23 18:45:35 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/13 17:08:18 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:17:25 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,29 @@
 # include "op.h"
 # include "libft.h"
 
-/*
-** read
-*/
+typedef struct		s_unit
+{
+	t_header		header;
+	unsigned char	exec[];
+}					t_unit;
 
-char				*read_s(char *fname);
-
 /*
-** parse (lexer)
+** parse(lexer)
 */
 
 # define I i + g_readed
 
 typedef struct		s_token
 {
-	int				pos[2];
+	int				pos[3];
 	int				type;
+	int				argsize;
 	char			*token;
 }					t_token;
 
 int					islabelchar(char c);
 t_token				*inittoken(int strpos, int type);
+void				l_error(int i);
 void				get_sep(char *rd, int *i, t_list **lst);
 void				get_commandname(char *rd, int *i, t_list **lst);
 void				get_string(char *rd, int *i, t_list **lst);
@@ -48,13 +50,28 @@ int					g_readed;
 int					g_line;
 
 enum				e_type {
-	SEP, COMMAND_NAME, STRING, LABEL, COMMENT, DIRECT, DIRECT_LABEL,
-	INSTRUCTION, REGISTER, INDERECT, NEWLINE
+	COMMAND_NAME,
+	REGISTER,
+	DIRECT,
+	COMMENT,
+	INDIRECT,
+	INSTRUCTION,
+	SEP,
+	STRING,
+	LABEL,
+	NEWLINE,
+	DIRECT_LABEL,
+	INDIRECT_LABEL = 12
 };
 
 /*
-** syntax
+** syntax/encode
 */
+
+# define TOK ((t_token *)(*lst)->data)
+# define TOKEN ((t_token *)(*lst)->data)->token
+# define TTYPE ((t_token *)(*lst)->data)->type
+# define RN(x, lo, hi) (((hi) - (x)) * ((lo) - (x)) <= 0)
 
 typedef struct		s_op
 {
@@ -70,33 +87,44 @@ typedef struct		s_op
 
 t_op				g_op_tab[17];
 
-int					syntax(t_list *lst);
+void				check_comment(t_list **lst);
+void				check_command(t_list **lst);
+void				check_label(t_list **lst);
+void				check_instruction(t_list **lst);
+void				check_newline(t_list **lst);
+t_op				*check_opname(t_list **lst);
+int					syntax(t_list **lst);
+void				translate_labels(t_list **lst);
+t_unit				*encodechamp(t_list **lst, size_t psize);
+unsigned char		*encode(t_list **lst, size_t psize);
+void				printtoken(t_list **parsed);
+
+enum				e_error_code {
+	SYNTAX,
+	NAMELEN,
+	COMMENTLEN,
+	ARG,
+	LBL
+};
+
+typedef struct		s_label
+{
+	char			*name;
+	int				pos;
+}					t_label;
+
+void				c_error(t_list **lst, char err);
 
 /*
-** write
+** write/read
 */
 
-typedef struct		s_unit
-{
-	t_header		header;
-	unsigned char	exec[];
-}					t_unit;
-
+char				*read_s(char *fname);
 void				set_magic(t_unit *unit);
 void				set_name(char *name, t_unit *unit);
 void				set_prog_size(int size, t_unit *unit);
-void				set_comment(char *comment, t_unit *unit);
+void				set_comment_name(char *name, t_unit *unit, char *token);
 void				set_exec(unsigned char *exec, int size, t_unit *unit);
-t_unit				*initchamp(void);
 void				writechamp(t_unit *unit, char *fname);
-
-/*
-** garbage
-*/
-
-int					match(char *regexp, char *text);
-int					matchstar(int c, char *regexp, char *text);
-int					matchhere(char *regexp, char *text);
-char				*lexer(char *s, const char *delim, char **save_ptr);
 
 #endif

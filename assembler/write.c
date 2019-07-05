@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   champ.c                                            :+:      :+:    :+:   */
+/*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 16:01:26 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/10 19:59:50 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/03 20:28:33 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,6 @@ static size_t	writerev(size_t start, int fd, unsigned char *ptr)
 	return (start + 4);
 }
 
-t_unit			*initchamp(void)
-{
-	t_unit	*unit;
-	int		psize;
-
-	psize = 22;
-	if (!(unit = (t_unit *)malloc(sizeof(t_unit) + sizeof(char[psize]))))
-		exit(1);
-	ft_bzero(unit, (sizeof(t_unit) + sizeof(char[psize])));
-	set_magic(unit);
-	set_name("Batman", unit);
-	set_prog_size(psize, unit);
-	set_comment("This city needs me", unit);
-	set_exec((unsigned char *)"aaaaaaaaaaaaaaaaaaaaaa",
-	unit->header.prog_size, unit);
-	return (unit);
-}
-
 void			writechamp(t_unit *unit, char *fname)
 {
 	unsigned char	*ptr;
@@ -51,8 +33,9 @@ void			writechamp(t_unit *unit, char *fname)
 	size_t			i;
 	int				fd;
 
-	name = ft_strsub(fname, 0, (ft_strlen(fname) - 2)); //malloc
-	newfile = ft_strfjoin(&name, ".cor"); // malloc
+	if (!(name = ft_strsub(fname, 0, (ft_strlen(fname) - 2))) ||
+		!(newfile = ft_strfjoin(&name, ".cor")))
+		exit(1);
 	fd = open(newfile, O_RDWR | O_CREAT | O_TRUNC, 0755);
 	ptr = (unsigned char *)unit;
 	i = 0;

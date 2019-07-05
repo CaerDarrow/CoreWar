@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:13:33 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 14:01:12 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:34:30 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ int				is_valid_reg(int n)
 int				is_valid_op(char op_code)
 {
 	return (op_code > 0 && op_code <= 16);
-}
-
-int				is_live_op(char op_code)
-{
-	return (op_code == 1);
 }
 
 int				is_proper_argc(t_uchar argc, int op_code)
@@ -61,4 +56,9 @@ int				is_valid_argc(t_uchar argc, int op_code)
 			return (0);
 	}
 	return (1);
+}
+
+int				is_valid_player(t_game_entity *game, int p)
+{
+	return (ft_inrange(p, 1, l_size(game->players)));
 }

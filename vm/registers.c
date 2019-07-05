@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:01 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/07 18:56:41 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:12:52 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void			set_reg_num(t_cursor *cursor, int n, int value)
 t_uchar			*get_reg_num(t_cursor *cursor, int n)
 {
 	if (!is_valid_reg(n))
-		error("Invalid register: get reg value");
-		// ft_printf("getreg: %d\n", get_num(cursor->reg[n - 1], 4));
+		error("Invalid register");
 	return (cursor->reg[n - 1]);
 }

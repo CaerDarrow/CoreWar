@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 18:17:13 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/06/11 16:34:21 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:18:38 by ajon-hol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	get_commandname(char *rd, int *i, t_list **lst)
 	t_token	*token;
 	int		j;
 
-	token = inittoken((*i)++, COMMAND_NAME);
 	j = *I;
+	token = inittoken((*i)++, COMMAND_NAME);
+	if (!(islabelchar(rd[*I])))
+		l_error(*i - 1);
 	while (islabelchar(rd[*I]))
 		(*i)++;
 	token->token = ft_strsub(rd, j, (*I - j));

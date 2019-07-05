@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:48:20 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/13 13:10:30 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 17:41:13 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	t_uchar			*reg_num;
 	int				addr;
 	int				i;
+	int				b[3];
 	int				position;
-	(void)entity;(void)argc;
 
-	addr = cursor->position + (ARG(2) + ARG(3)) % IDX_MOD;
-	reg_num = get_reg_num(cursor, ARG(1));
-	//set_num_by_addr?
+	addr = cursor->position +
+		((b[1] = get_arg(entity->bg, cursor, RAW_ARG(2), arg_code(argc, 2))) +
+		(b[2] = get_arg(entity->bg, cursor, RAW_ARG(3), arg_code(argc, 3))))
+		% IDX_MOD;
+	reg_num = get_reg_num(cursor,
+		(b[0] = RAW_ARG(1)));
 	i = -1;
 	while (++i < REG_SIZE)
 	{
@@ -34,16 +37,9 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	}
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("sti r%d", ARG(1));
-		if (arg_code(argc, 2) == REG_CODE)
-			ft_printf(" r%d", ARG(2));
-		else
-			ft_printf(" %d", ARG(2));
-		if (arg_code(argc, 3) == REG_CODE)
-			ft_printf(" r%d\n", ARG(3));
-		else
-			ft_printf(" %d\n", ARG(3));
-		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", ARG(2), ARG(3), ARG(2) + ARG(3), correct_position(addr));
+		ft_printf("P%5ld | sti r%d %d %d\n", cursor->index, b[0], b[1], b[2]);
+		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
+			b[1], b[2], b[1] + b[2], (addr));
 	}
 }
 
@@ -51,61 +47,75 @@ void				clone(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
 	t_cursor		*new_cursor;
-	(void)entity;(void)argc;
+	int				b;
 
-	new_cursor = cursor_create(entity, cursor->id); //cursor copy
+	new_cursor = cursor_create(entity, cursor->id);
 	copy_reg(new_cursor->reg, cursor->reg);
 	new_cursor->carry = cursor->carry;
 	new_cursor->last_live_call = cursor->last_live_call;
-	new_cursor->position = correct_position(cursor->position + ARG(1) % IDX_MOD);
-	//something more?
-	ld_push_front(&entity->cursors, new_cursor);// push back?
+	new_cursor->position = correct_position(cursor->position +
+		(b = RAW_ARG(1)) % IDX_MOD);
+	ld_push_front(&entity->cursors, new_cursor);
 	if (VERBOSE_LVL(4))
-		ft_printf("fork %d\n", ARG(1));
+	{
+		ft_printf("P%5ld | fork %d (%d)\n", cursor->index, b,
+			new_cursor->position);
+	}
 }
 
 void				lld(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
-	int				num;
+	int				b[2];
 
-	(void)entity;(void)argc;
-	if (arg_code(argc, 1) == DIR_CODE)
-		num = ARG(1);
-	else
-		num = get_num_by_addr(entity->bg, cursor->position + ARG(1), REG_SIZE);
-	set_reg_num(cursor, ARG(2), num);
-	set_carry(&cursor->carry, num);
+	b[0] = get_arg(entity->bg, cursor, RAW_ARG(1), arg_code(argc, 1));
+	b[1] = RAW_ARG(2);
+	set_reg_num(cursor, b[1], b[0]);
+	set_carry(&cursor->carry, b[0]);
 	if (VERBOSE_LVL(4))
-		ft_printf("\tStore %d at %d reg; carry: %d\n", num, ARG(2), cursor->carry);
+	{
+		ft_printf("P%5ld | lld %d r%d\n", cursor->index, b[0], b[1]);
+	}
 }
 
 void				lldi(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
 	int				num;
+	int				addr;
+	int				b[3];
 
-	(void)entity;(void)argc;
-	num = get_num_by_addr(entity->bg, cursor->position + ARG(1) + ARG(2), REG_SIZE);
-	set_reg_num(cursor, ARG(3), num);
+	(void)argc;
+	addr = cursor->position +
+		(b[0] = get_arg(entity->bg, cursor, RAW_ARG(1), arg_code(argc, 1))) +
+		(b[1] = get_arg(entity->bg, cursor, RAW_ARG(2), arg_code(argc, 2)));
+	num = get_num_by_addr(entity->bg, addr, REG_SIZE);
+	set_reg_num(cursor, (b[2] = RAW_ARG(3)), num);
 	set_carry(&cursor->carry, num);
 	if (VERBOSE_LVL(4))
-		ft_printf("\tStore %d at %d reg; carry: %d\n", num, ARG(3), cursor->carry);
+	{
+		ft_printf("P%5ld | lldi %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
+		ft_printf("       | -> load from %d + %d = %d (with pc %d)\n",
+			b[0], b[1], b[0] + b[1], addr);
+	}
 }
 
 void				lclone(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
 	t_cursor		*new_cursor;
-	(void)entity;(void)argc;
+	int				b;
 
-	new_cursor = cursor_create(entity, cursor->id); //cursor copy
+	new_cursor = cursor_create(entity, cursor->id);
 	copy_reg(new_cursor->reg, cursor->reg);
 	new_cursor->carry = cursor->carry;
 	new_cursor->last_live_call = cursor->last_live_call;
-	new_cursor->position = correct_position(cursor->position + ARG(1));
-	//something more?
-	ld_push_front(&entity->cursors, new_cursor);// push back?
+	new_cursor->position = correct_position(cursor->position +
+		(b = RAW_ARG(1)));
+	ld_push_front(&entity->cursors, new_cursor);
 	if (VERBOSE_LVL(4))
-		ft_printf("\tFork to %d addr\n", new_cursor->position);
+	{
+		ft_printf("P%5ld | lfork %d (%d)\n", cursor->index, b,
+			new_cursor->position);
+	}
 }

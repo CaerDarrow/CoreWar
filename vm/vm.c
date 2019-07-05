@@ -6,15 +6,15 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/06/15 20:13:08 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/04 18:35:10 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void					init_cursors(t_game_entity *entity)
+static void			init_cursors(t_game_entity *entity)
 {
-	int			i;
+	int				i;
 
 	i = entity->n_players;
 	while (i > 0)
@@ -22,9 +22,10 @@ void					init_cursors(t_game_entity *entity)
 		ld_push_front(&entity->cursors, cursor_create(entity, i));
 		i--;
 	}
+	entity->last_alive_player = -entity->n_players;
 }
 
-void					init_game_entity(t_game_entity *entity)
+static void			init_game_entity(t_game_entity *entity)
 {
 	ft_bzero(entity, sizeof(t_game_entity));
 	entity->cycles_to_die = CYCLE_TO_DIE;
@@ -34,10 +35,10 @@ void					init_game_entity(t_game_entity *entity)
 	entity->cycle = 1;
 }
 
-void					destroy_cursors(t_game_entity *entity)
+static void			destroy_cursors(t_game_entity *entity)
 {
-	t_list				*t;
-	t_list				*b;
+	t_list			*t;
+	t_list			*b;
 
 	t = entity->cursors;
 	while (t)
@@ -48,9 +49,8 @@ void					destroy_cursors(t_game_entity *entity)
 	}
 }
 
-void					print_usage()
+static void			print_usage(void)
 {
-
 	ft_printf("Usage:\n\
 	-v N\t: Verbosity levels, can be added together to enable several\n\
 	\t* 1 : Show PC movements\n\
@@ -60,9 +60,9 @@ void					print_usage()
 	\t* 16 : Show cursors movements\n");
 }
 
-int						main(int argc, char const *argv[])
+int					main(int argc, char const *argv[])
 {
-	t_game_entity		entity;
+	t_game_entity	entity;
 
 	if (argc == 1)
 	{
