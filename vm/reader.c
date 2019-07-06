@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 16:52:30 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:20:39 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int			count_players(int argc, const char *argv[])
 
 static void			introduce(t_header p, int n)
 {
-	PRINT("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", n,
+	ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", n,
 		p.prog_size, p.prog_name, p.comment);
 }
 
@@ -100,7 +100,7 @@ void				read_champs(int argc, const char *argv[],
 	entity->n_players = count_players(argc, argv);
 	if (entity->n_players > MAX_PLAYERS || entity->n_players <= 0)
 		error("Invalid quantity of champions (or invalid flags)");
-	PRINT("Introducing contestants...\n");
+	ft_printf("Introducing contestants...\n");
 	i = 0;
 	n = 1;
 	while (++i < argc)

@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:52 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 16:53:34 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:20:05 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void		kill_cursor(t_game_entity *entity, t_list **cur)
 static void		cursor_debug_info(t_game_entity *entity, t_cursor *cursor)
 {
 	if (VERBOSE_LVL(8))
-		PRINT("Process %d hasn't lived for %d cycles (CTD %d)\n",
+		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
 			cursor->index, entity->cycle -
 			cursor->last_live_call, entity->cycles_to_die);
 }
@@ -88,7 +88,7 @@ void			check_cursors(t_game_entity *entity)
 			entity->cycles_to_die -= CYCLE_DELTA;
 			entity->periods_with_same_ctd = 0;
 			if (VERBOSE_LVL(2))
-				PRINT("Cycle to die is now %d\n", entity->cycles_to_die);
+				ft_printf("Cycle to die is now %d\n", entity->cycles_to_die);
 		}
 		entity->live_calls = 0;
 		entity->last_check = entity->cycle;

@@ -6,11 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/07/06 17:09:17 by jjacobso         ###   ########.fr       */
-=======
-/*   Updated: 2019/07/06 16:51:53 by jjacobso         ###   ########.fr       */
->>>>>>> 7a00320bd65b65add1570375e7def3d4d2a0b9c4
+/*   Updated: 2019/07/06 17:27:16 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +40,7 @@ static void			apply_op_debug(t_uchar *bg, int position, int step)
 {
 	if (VERBOSE_LVL(16))
 	{
-		PRINT("ADV %d (0x%04x -> 0x%04x) ",
+		ft_printf("ADV %d (0x%04x -> 0x%04x) ",
 			step,
 			position,
 			position + step);
@@ -68,23 +64,15 @@ int					apply_op(t_game_entity *entity, t_cursor *cursor)
 	int				step;
 	void			(*f)(t_game_entity *, t_cursor *, t_uchar, t_list *);
 
-<<<<<<< HEAD
-	// if (cursor->position == 0x0faa)
-	// 	{
-	//
-	// 	}
-=======
-	if (cursor->position == 0x0faa)
+	if (entity->cycle== 3271 && cursor->position == 0x0521)
 		{
 
 		}
->>>>>>> 7a00320bd65b65add1570375e7def3d4d2a0b9c4
 	if (!(f = get_op_by_code(cursor->op_code)))
 		return (skip_invalid_token(entity, cursor, 1, DEBUG_OFF));
 	if (!is_valid_argc((argc = get_argc(entity->bg, cursor)), cursor->op_code))
 	{
-		return (skip_invalid_token(entity, cursor,
-			g_op_tab[cursor->op_code].argtypes ? 2 : 1, DEBUG_ON));
+		return (skip_invalid_token(entity, cursor, 2, DEBUG_ON));
 	}
 	step = get_step(cursor->op_code, argc);
 	if (!is_proper_argc(argc, cursor->op_code))

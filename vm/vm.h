@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 16:54:28 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:24:08 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@
 # include "visualizer.h"
 # include "libft.h"
 # include "op.h"
-/////
-#include "stdio.h"
-#define PRINT printf
-///
 # define BYTE(n)		n
 # define XOR(x, y)		(x ^ y)
 # define PAIR(x, y)		((t_pair){x, y})
@@ -34,9 +30,9 @@ typedef unsigned char	t_uchar;
 
 typedef struct			s_cursor
 {
+	t_uchar				reg[REG_NUM][REG_SIZE];
 	char				id;
 	int					index;
-	t_uchar				reg[REG_NUM][REG_SIZE];
 	char				carry;
 	int					last_live_call;
 	t_uchar				op_code;

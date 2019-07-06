@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:46:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 16:54:17 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:20:24 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void				live(t_game_entity *entity, t_cursor *cursor,
 	if (is_valid_player(entity, b))
 		entity->last_alive_player = b;
 	if (VERBOSE_LVL(4))
-		PRINT("P%5d | live %d\n", cursor->index, b);
+		ft_printf("P%5d | live %d\n", cursor->index, b);
 }
 
 void				ld(t_game_entity *entity, t_cursor *cursor,
@@ -35,7 +35,7 @@ void				ld(t_game_entity *entity, t_cursor *cursor,
 	set_reg_num(cursor, b[1], b[0]);
 	set_carry(&cursor->carry, b[0]);
 	if (VERBOSE_LVL(4))
-		PRINT("P%5d | ld %d r%d\n", cursor->index, b[0], b[1]);
+		ft_printf("P%5d | ld %d r%d\n", cursor->index, b[0], b[1]);
 }
 
 void				st(t_game_entity *entity, t_cursor *cursor,
@@ -69,7 +69,7 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 		}
 	}
 	if (VERBOSE_LVL(4))
-		PRINT("P%5d | st r%d %d\n", cursor->index, b[0], b[1]);
+		ft_printf("P%5d | st r%d %d\n", cursor->index, b[0], b[1]);
 }
 
 void				add(t_game_entity *entity, t_cursor *cursor,
@@ -86,7 +86,7 @@ void				add(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		PRINT("P%5d | add r%d r%d r%d\n", cursor->index, b[0],
+		ft_printf("P%5d | add r%d r%d r%d\n", cursor->index, b[0],
 			b[1], b[2]);
 	}
 }
@@ -105,7 +105,7 @@ void				sub(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		PRINT("P%5d | sub r%d r%d r%d\n", cursor->index, b[0],
+		ft_printf("P%5d | sub r%d r%d r%d\n", cursor->index, b[0],
 			b[1], b[2]);
 	}
 }

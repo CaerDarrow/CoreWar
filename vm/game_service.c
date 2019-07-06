@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:09:57 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 16:57:15 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:20:13 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			set_op_code(t_cursor *cursor, t_uchar *bg)
 
 void			print_usage(void)
 {
-	PRINT("Usage:\n"
+	ft_printf("Usage:\n"
 	"\t-a\t: Prints output from \"aff\" (Default is to hide it)\n"
 	"#### TEXT OUTPUT MODE ##################################################\n"
 	"\t-d N\t: Dumps memory (x64 mode) after N cycles then exits\n"
