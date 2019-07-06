@@ -24,7 +24,7 @@
 # define DEBUG_OFF		0
 # define VERBOSE_LVL(n)	(g_verbose & n)
 # define RAW_ARG(n)		get_rawarg(argv, argc, n, g_op_tab[cursor->op_code].dir)
-# define CURSOR(x)		 ((t_cursor*)x->data)
+# define CURSOR(x)		((t_cursor*)x->data)
 
 typedef unsigned char	t_uchar;
 

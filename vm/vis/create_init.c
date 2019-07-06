@@ -68,29 +68,26 @@ static t_log_scale	*inicialization_log_scale(t_visualizer *vis)
 
 t_visualizer		*inicialization_vis(t_game_entity *entity)
 {
-	t_visualizer	*vis;
-
-	if (!(vis = (t_visualizer *)malloc(sizeof(t_visualizer))))
+	if (!(entity->vis = (t_visualizer *)malloc(sizeof(t_visualizer))))
 		error("Malloc error");
-	entity->vis = vis;
-	SIDE_SQUARE = entity->vis_key;
-	vis->n_players = entity->n_players;
-	vis->num_logs = 0;
-	vis->loop_key = 0;
-	vis->cycle = 1;
-	vis->win = inicialization_window(vis);
-	vis->log_scale = inicialization_log_scale(vis);
-	vis->sq = inicialization_square();
-	vis->pictures.player1 = get_player1(vis);
-	vis->pictures.player2 = get_player2(vis);
-	vis->pictures.player3 = get_player3(vis);
-	vis->pictures.player4 = get_player4(vis);
-	PLAYERS.players_colors[0] = PLAYER_1;
-	PLAYERS.players_colors[1] = PLAYER_2;
-	PLAYERS.players_colors[2] = PLAYER_3;
-	PLAYERS.players_colors[3] = PLAYER_4;
-	ft_memset(PLAYERS.percents, -1, sizeof(char) * 4);
-	ft_memset(PLAYERS.occupied_cells, -1, sizeof(char) * 4);
-	BACKLOG = NULL;
-	return (vis);
+	entity->SIDE_SQUARE = entity->vis_key;
+	entity->vis->n_players = entity->n_players;
+	entity->vis->num_logs = 0;
+	entity->vis->loop_key = 0;
+	entity->vis->cycle = 1;
+	entity->vis->win = inicialization_window(entity->vis);
+	entity->vis->log_scale = inicialization_log_scale(entity->vis);
+	entity->vis->sq = inicialization_square();
+	entity->vis->pictures.player1 = get_player1(entity->vis);
+	entity->vis->pictures.player2 = get_player2(entity->vis);
+	entity->vis->pictures.player3 = get_player3(entity->vis);
+	entity->vis->pictures.player4 = get_player4(entity->vis);
+	entity->PLAYERS.players_colors[0] = PLAYER_1;
+	entity->PLAYERS.players_colors[1] = PLAYER_2;
+	entity->PLAYERS.players_colors[2] = PLAYER_3;
+	entity->PLAYERS.players_colors[3] = PLAYER_4;
+	ft_memset(entity->PLAYERS.percents, -1, sizeof(char) * 4);
+	ft_memset(entity->PLAYERS.occupied_cells, -1, sizeof(char) * 4);
+	entity->BACKLOG = NULL;
+	return (entity->vis);
 }
