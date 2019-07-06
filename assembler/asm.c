@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 16:41:52 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/05 17:18:02 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:39:20 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ int			main(int argc, char **argv)
 	{
 		if ((parsed = parse(readed)))
 		{
-			if ((psize = syntax(&parsed)))
-			{
-				translate_labels(&parsed);
-				unit = encodechamp(&parsed, psize);
-				writechamp(unit, argv[argc - 1]);
-				free(unit);
-			}
+			psize = syntax(&parsed);
+			translate_labels(&parsed);
+			unit = encodechamp(&parsed, psize);
+			writechamp(unit, argv[argc - 1]);
+			free(unit);
 			l_delall(&parsed, lcondel);
 		}
 		free(readed);

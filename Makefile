@@ -38,6 +38,7 @@ $(ASM): $(LIBFT) assembler/obj $(STORED_ASM_OBJ)
 clean:
 	$(RM) $(STORED_VM_OBJ)
 	$(RM) $(STORED_ASM_OBJ)
+	$(RM) $(STORED_VIS_OBJ)
 	$(RM) *.dSYM
 	make clean -C libft
 fclean: clean

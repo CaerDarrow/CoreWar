@@ -6,7 +6,7 @@
 /*   By: ajon-hol <ajon-hol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 13:35:51 by ajon-hol          #+#    #+#             */
-/*   Updated: 2019/07/05 17:14:37 by ajon-hol         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:38:59 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static void		encodeargt(t_list **lst, unsigned char **code, int end)
 	i = 1;
 	while (i <= 3)
 	{
-		*lst = (*lst)->next;
 		if (i <= end)
 		{
+			*lst = (*lst)->next;
 			if (TTYPE == REGISTER)
 				encoded |= 1;
 			else if (TTYPE == DIRECT || TTYPE == DIRECT_LABEL)
