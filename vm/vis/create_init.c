@@ -66,7 +66,7 @@ static t_log_scale	*inicialization_log_scale(t_visualizer *vis)
 	return (log_scale);
 }
 
-void			inicialization_vis(t_game_entity *entity)
+void				inicialization_vis(t_game_entity *entity)
 {
 	if (!(entity->vis = (t_visualizer *)malloc(sizeof(t_visualizer))))
 		error("Malloc error");

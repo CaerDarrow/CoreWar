@@ -41,12 +41,8 @@ void		draw_square(t_visualizer *vis, int num_player)
 	i = -1;
 	while (++i < SIDE_SQUARE)
 	{
-//		ft_printf("%p %p\n", WIN, WIN->data);
-//		ft_printf("size %d\n", WIN->data + num_pixel);
 		ft_memcpy(WIN->data + num_pixel, picture + SIDE_SQUARE * i,
 			sizeof(int) * SIDE_SQUARE);
-//		ft_printf("num_player %d\n", num_player);
 		num_pixel += SIZE_FIELD_X;
 	}
-//	ft_printf("i =  %d\n", i);
 }
