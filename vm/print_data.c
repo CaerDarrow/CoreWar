@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:39:07 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 22:20:52 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:52:25 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void			print_bg(t_game_entity *entity, int mod)
 	{
 		if (i % mod == 0)
 		{
-			ft_printf("0x%04x : ", offset);
+			PRINT("0x%04x : ", offset);
 			offset += mod;
 		}
-		ft_printf("%02x ", entity->bg[i]);
+		PRINT("%02x ", entity->bg[i]);
 		if (i % mod == mod - 1)
-			ft_printf("\n");
+			PRINT("\n");
 	}
 }
 
@@ -39,7 +39,7 @@ void			print_n_cells_after(t_uchar *bg, int position, int bytes)
 	i = -1;
 	while (++i < bytes)
 	{
-		ft_printf("%.2x ", bg[correct_position(position + i)]);
+		PRINT("%.2x ", bg[correct_position(position + i)]);
 	}
 	write(1, "\n", 1);
 }

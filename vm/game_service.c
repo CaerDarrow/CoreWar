@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:09:57 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 19:08:47 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:57:15 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ void			set_op_code(t_cursor *cursor, t_uchar *bg)
 	cursor->op_code = get_op_code(cursor, bg);
 	if (is_valid_op(cursor->op_code))
 		cursor->cycles_to_exec = g_op_tab[cursor->op_code].cycles;
+	else
+		cursor->cycles_to_exec = 0;
 }
 
 void			print_usage(void)
 {
-	ft_printf("Usage:\n"
+	PRINT("Usage:\n"
 	"\t-a\t: Prints output from \"aff\" (Default is to hide it)\n"
 	"#### TEXT OUTPUT MODE ##################################################\n"
 	"\t-d N\t: Dumps memory (x64 mode) after N cycles then exits\n"

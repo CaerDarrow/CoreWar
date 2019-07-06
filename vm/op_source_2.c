@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:47:50 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 20:18:33 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:54:19 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void				and(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | and %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
+		PRINT("P%5d | and %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
 	}
 }
 
@@ -44,7 +44,7 @@ void				or(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | or %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
+		PRINT("P%5d | or %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
 	}
 }
 
@@ -62,7 +62,7 @@ void				xor(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | xor %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
+		PRINT("P%5d | xor %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
 	}
 }
 
@@ -71,16 +71,15 @@ void				zjmp(t_game_entity *entity, t_cursor *cursor,
 {
 	int				b;
 
-	(void)entity;
-	b = RAW_ARG(1) % IDX_MOD;
+	b = RAW_ARG(1);
 	if (cursor->carry)
 	{
 		if (VERBOSE_LVL(4))
-			ft_printf("P%5ld | zjmp %d OK\n", cursor->index, b);
-		move_cursor(entity, cursor, b);
+			PRINT("P%5d | zjmp %d OK\n", cursor->index, b);
+		move_cursor(entity, cursor, b % IDX_MOD);
 	}
 	else if (VERBOSE_LVL(4))
-		ft_printf("P%5ld | zjmp %d FAILED\n", cursor->index, b);
+		PRINT("P%5d | zjmp %d FAILED\n", cursor->index, b);
 }
 
 void				ldi(t_game_entity *entity, t_cursor *cursor,
@@ -98,8 +97,8 @@ void				ldi(t_game_entity *entity, t_cursor *cursor,
 	set_reg_num(cursor, (b[2] = RAW_ARG(3)), num);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | ldi %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
-		ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+		PRINT("P%5d | ldi %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
+		PRINT("       | -> load from %d + %d = %d (with pc and mod %d)\n",
 			b[0], b[1], b[0] + b[1], (addr));
 	}
 }

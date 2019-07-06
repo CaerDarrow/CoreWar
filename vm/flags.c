@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/04 18:10:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 19:14:55 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 15:11:02 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int			set_flags_part_2(int argc, const char *argv[],
 			error("Invalid flag (-n)");
 		g_n_flag = ft_atoi(argv[*i]);
 		if (!ft_inrange(g_n_flag, 1, entity->n_players) ||
-			!l_int_find(g_free_player_num, g_n_flag))
+			(g_taken_player_num & (1 << (g_n_flag - 1))))
 			error("Invalid flag (-n)");
 		return (1);
 	}
