@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 17:27:16 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:37:12 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ static int			skip_invalid_token(t_game_entity *entity,
 	return (-1);
 }
 
+int					invalid_argc_size(t_uchar argc)
+{
+	(void)argc;
+	return (0);
+}
+
 int					apply_op(t_game_entity *entity, t_cursor *cursor)
 {
 	t_uchar			argc;
@@ -72,7 +78,7 @@ int					apply_op(t_game_entity *entity, t_cursor *cursor)
 		return (skip_invalid_token(entity, cursor, 1, DEBUG_OFF));
 	if (!is_valid_argc((argc = get_argc(entity->bg, cursor)), cursor->op_code))
 	{
-		return (skip_invalid_token(entity, cursor, 2, DEBUG_ON));
+		return (skip_invalid_token(entity, cursor, 2 + invalid_argc_size(argc), DEBUG_ON));
 	}
 	step = get_step(cursor->op_code, argc);
 	if (!is_proper_argc(argc, cursor->op_code))
