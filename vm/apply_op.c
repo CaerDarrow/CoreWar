@@ -6,7 +6,11 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/07/06 17:09:17 by jjacobso         ###   ########.fr       */
+=======
+/*   Updated: 2019/07/06 16:51:53 by jjacobso         ###   ########.fr       */
+>>>>>>> 7a00320bd65b65add1570375e7def3d4d2a0b9c4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +68,17 @@ int					apply_op(t_game_entity *entity, t_cursor *cursor)
 	int				step;
 	void			(*f)(t_game_entity *, t_cursor *, t_uchar, t_list *);
 
+<<<<<<< HEAD
 	// if (cursor->position == 0x0faa)
 	// 	{
 	//
 	// 	}
+=======
+	if (cursor->position == 0x0faa)
+		{
+
+		}
+>>>>>>> 7a00320bd65b65add1570375e7def3d4d2a0b9c4
 	if (!(f = get_op_by_code(cursor->op_code)))
 		return (skip_invalid_token(entity, cursor, 1, DEBUG_OFF));
 	if (!is_valid_argc((argc = get_argc(entity->bg, cursor)), cursor->op_code))
