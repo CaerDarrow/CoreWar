@@ -58,7 +58,8 @@ void			init_field(t_game_entity *entity)
 {
 	t_visualizer *vis;
 
-	vis = inicialization_vis(entity);
+	inicialization_vis(entity);
+	vis = entity->vis;
 	if (SIDE_SQUARE > 4)
 	{
 		draw_frame(vis);

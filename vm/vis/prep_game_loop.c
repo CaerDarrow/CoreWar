@@ -21,6 +21,7 @@ int	prep_game_loop(t_game_entity *entity)
 		game_loop(entity);
 		go_on(entity);
 		entity->cycle++;
+		entity->vis->cycle = entity->cycle;
 		return (0);
 	}
 	else if (end_cycle_flag == 0)

@@ -36,6 +36,7 @@ static void			init_game_entity(t_game_entity *entity)
 	g_n_flag = -1;
 	g_taken_player_num = 0;
 	entity->cycle = 1;
+	entity->vis = NULL;
 }
 
 static void			destroy_cursors(t_game_entity *entity)

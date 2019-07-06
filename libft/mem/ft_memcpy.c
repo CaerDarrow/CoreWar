@@ -17,9 +17,11 @@ void			*ft_memcpy(void *dest, const void *src, size_t len)
 	char		*d;
 	const char	*s;
 
+//	ft_printf("dest = %p\n src = %p, len = %zu\n", dest, src, len);
 	d = dest;
 	s = src;
 	while (len--)
 		*d++ = *s++;
+//	ft_printf("kek\n");
 	return (dest);
 }

@@ -81,7 +81,7 @@ t_op					g_op_tab[17];
 /*
 **					visualizer
 */
-t_visualizer			*inicialization_vis(t_game_entity *entity);
+void					inicialization_vis(t_game_entity *entity);
 void					init_field(t_game_entity *entity);
 void					visualizer_loop(t_game_entity *entity);
 void					go_on(t_game_entity *entity);
