@@ -66,7 +66,7 @@ static t_log_scale	*inicialization_log_scale(t_visualizer *vis)
 	return (log_scale);
 }
 
-t_visualizer		*inicialization_vis(t_game_entity *entity)
+void			inicialization_vis(t_game_entity *entity)
 {
 	if (!(entity->vis = (t_visualizer *)malloc(sizeof(t_visualizer))))
 		error("Malloc error");
@@ -86,8 +86,7 @@ t_visualizer		*inicialization_vis(t_game_entity *entity)
 	entity->PLAYERS.players_colors[1] = PLAYER_2;
 	entity->PLAYERS.players_colors[2] = PLAYER_3;
 	entity->PLAYERS.players_colors[3] = PLAYER_4;
-	ft_memset(entity->PLAYERS.percents, -1, sizeof(char) * 4);
-	ft_memset(entity->PLAYERS.occupied_cells, -1, sizeof(char) * 4);
+	ft_memset(entity->PLAYERS.percents, -1, sizeof(int) * 4);
+	ft_memset(entity->PLAYERS.occupied_cells, -1, sizeof(int) * 4);
 	entity->BACKLOG = NULL;
-	return (entity->vis);
 }
