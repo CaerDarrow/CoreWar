@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:51 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 18:18:18 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 20:12:10 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ static int			get_player_num(int n)
 	{
 		n = g_n_flag;
 		g_n_flag = -1;
+	}
+	else
+	{
+		if (g_taken_player_num & (1 << (n - 1)))
+		{
+			n = 1;
+			while (g_taken_player_num & (1 << (n - 1)))
+				n++;
+		}
+		if (n > 4)
+			error("invalid -n flag");
 	}
 	return (n);
 }

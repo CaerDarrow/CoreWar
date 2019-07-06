@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:09:57 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 18:16:50 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 19:51:04 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void			print_usage(void)
 	"\t\t* 16 : Show cursors movements\n"
 	"#### OUTPUT MODE #######################################################\n"
 	"\t-vis N\t: Turn on visualisator and/or set size of cell\n"
-	"\t\t* N in range [1, 18] or not defined; (18 is warcraft mode)\n");
+	"\t\t* N in range [1, 18] or not defined; (18 is Warcraft mode)\n");
 }
