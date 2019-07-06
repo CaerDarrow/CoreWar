@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 19:52:41 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 17:20:17 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:06:52 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,12 @@ int				game_loop(t_game_entity *entity)
 	t_cursor	*cursor;
 	long long	i;
 
-	// int buff;
 	game_loop_debug(entity);
 	cursor_ptr = entity->cursors;
 	i = 0;
-	// if (entity->cycle == 15930)
-	// 	{
-	//
-	// 	}
 	while (cursor_ptr)
 	{
 		cursor = (t_cursor *)cursor_ptr->data;
-		// if (cursor->position == 0x0faa)
-		// 	{
-		// 		buff = cursor->cycles_to_exec;
-		// 	}
 		if (cursor->cycles_to_exec == 0)
 			set_op_code(cursor, entity->bg);
 		if (cursor->cycles_to_exec > 0)

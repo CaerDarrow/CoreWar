@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 17:49:55 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 17:24:08 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:17:50 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,12 @@ t_cursor				*cursor_create(t_game_entity *entity, int id);
 */
 int						set_flags(int argc, const char *argv[],
 							t_game_entity *entity, int *i);
+/*
+**						reader_service.c
+*/
+void					introduce(t_header p, int n);
+void					init_bg_and_players(int argc, const char *argv[],
+							t_game_entity *entity);
 /*
 ** C="test.cor";
 ** make corewar && ./corewar -v 14  $C > t;./vm_champs/corewar -v 14 $C > tt;

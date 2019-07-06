@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:55:28 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 17:44:45 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:12:31 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int					get_arg_size(t_uchar argc, int flag, int n)
 		return (IND_SIZE);
 	else if (code == REG_CODE)
 		return (1);
-	else
-		return (0);
-	return (-1);
+	return (0);
 }
 
 int					uchar_to_int(t_uchar *s, int size)

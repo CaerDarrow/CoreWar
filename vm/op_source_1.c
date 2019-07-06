@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:46:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/06 17:20:24 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 18:06:30 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 	int				i;
 	int				b[2];
 
-	if (cursor->index == 989 && entity->cycle ==15930)
-	{
-
-	}
 	reg_num = get_reg_num(cursor,
 			b[0] = RAW_ARG(1));
 	if (arg_code(argc, 2) == REG_CODE)
