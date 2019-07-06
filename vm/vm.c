@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/24 15:24:45 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 20:28:02 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:31:17 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 static void			init_cursors(t_game_entity *entity)
 {
 	int				i;
+	t_cursor		*c;
 
 	i = 0;
 	while (++i <= entity->n_players)
 	{
-		ld_push_front(&entity->cursors, cursor_create(entity, i));
+		c = cursor_create(entity, i);
+		ld_push_front(&entity->cursors, c);
 	}
 	entity->last_alive_player = -entity->n_players;
 }
@@ -32,8 +34,7 @@ static void			init_game_entity(t_game_entity *entity)
 	g_dump_flag = -1;
 	g_d_flag = -1;
 	g_n_flag = -1;
-	g_free_player_num = 0;
-	int_array_as_list(&g_free_player_num, 4, 1, 2, 3, 4);
+	g_taken_player_num = 0;
 	entity->cycle = 1;
 }
 
@@ -72,7 +73,6 @@ int					main(int argc, char const *argv[])
 	}
 	init_game_entity(&entity);
 	read_champs(argc, argv, &entity);
-	l_destroy(&g_free_player_num);
 	init_cursors(&entity);
 	if (entity.vis_key != 0)
 	{

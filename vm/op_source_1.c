@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:46:26 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 18:24:06 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:54:17 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 void				live(t_game_entity *entity, t_cursor *cursor,
 						t_uchar argc, t_list *argv)
 {
+	int				b;
+
+	b = RAW_ARG(1);
 	cursor->last_live_call = entity->cycle;
-	if (is_valid_player(entity, RAW_ARG(1)))
-		entity->last_alive_player = RAW_ARG(1);
+	if (is_valid_player(entity, b))
+		entity->last_alive_player = b;
 	if (VERBOSE_LVL(4))
-		ft_printf("P%5ld | live %d\n", cursor->index, RAW_ARG(1));
+		PRINT("P%5d | live %d\n", cursor->index, b);
 }
 
 void				ld(t_game_entity *entity, t_cursor *cursor,
@@ -32,7 +35,7 @@ void				ld(t_game_entity *entity, t_cursor *cursor,
 	set_reg_num(cursor, b[1], b[0]);
 	set_carry(&cursor->carry, b[0]);
 	if (VERBOSE_LVL(4))
-		ft_printf("P%5ld | ld %d r%d\n", cursor->index, b[0], b[1]);
+		PRINT("P%5d | ld %d r%d\n", cursor->index, b[0], b[1]);
 }
 
 void				st(t_game_entity *entity, t_cursor *cursor,
@@ -43,6 +46,10 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 	int				i;
 	int				b[2];
 
+	if (cursor->index == 989 && entity->cycle ==15930)
+	{
+
+	}
 	reg_num = get_reg_num(cursor,
 			b[0] = RAW_ARG(1));
 	if (arg_code(argc, 2) == REG_CODE)
@@ -62,7 +69,7 @@ void				st(t_game_entity *entity, t_cursor *cursor,
 		}
 	}
 	if (VERBOSE_LVL(4))
-		ft_printf("P%5ld | st r%d %d\n", cursor->index, b[0], b[1]);
+		PRINT("P%5d | st r%d %d\n", cursor->index, b[0], b[1]);
 }
 
 void				add(t_game_entity *entity, t_cursor *cursor,
@@ -79,7 +86,7 @@ void				add(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | add r%d r%d r%d\n", cursor->index, b[0],
+		PRINT("P%5d | add r%d r%d r%d\n", cursor->index, b[0],
 			b[1], b[2]);
 	}
 }
@@ -98,7 +105,7 @@ void				sub(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, res);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | sub r%d r%d r%d\n", cursor->index, b[0],
+		PRINT("P%5d | sub r%d r%d r%d\n", cursor->index, b[0],
 			b[1], b[2]);
 	}
 }

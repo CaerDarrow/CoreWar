@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:37:11 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/04 22:23:30 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:09:17 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void			apply_op_debug(t_uchar *bg, int position, int step)
 {
 	if (VERBOSE_LVL(16))
 	{
-		ft_printf("ADV %d (0x%04x -> 0x%04x) ",
+		PRINT("ADV %d (0x%04x -> 0x%04x) ",
 			step,
 			position,
 			position + step);
@@ -64,16 +64,21 @@ int					apply_op(t_game_entity *entity, t_cursor *cursor)
 	int				step;
 	void			(*f)(t_game_entity *, t_cursor *, t_uchar, t_list *);
 
+	// if (cursor->position == 0x0faa)
+	// 	{
+	//
+	// 	}
 	if (!(f = get_op_by_code(cursor->op_code)))
 		return (skip_invalid_token(entity, cursor, 1, DEBUG_OFF));
 	if (!is_valid_argc((argc = get_argc(entity->bg, cursor)), cursor->op_code))
 	{
 		return (skip_invalid_token(entity, cursor,
-			1 + g_op_tab[cursor->op_code].argtypes, DEBUG_ON));
+			g_op_tab[cursor->op_code].argtypes ? 2 : 1, DEBUG_ON));
 	}
 	step = get_step(cursor->op_code, argc);
-	if (!is_proper_argc(argc, cursor->op_code) ||
-		!(argv = read_args(cursor, entity->bg, argc)))
+	if (!is_proper_argc(argc, cursor->op_code))
+		return (skip_invalid_token(entity, cursor, step, DEBUG_ON));
+	if (!(argv = read_args(cursor, entity->bg, argc)))
 		return (skip_invalid_token(entity, cursor, step, DEBUG_ON));
 	f(entity, cursor, argc, argv);
 	l_destroy(&argv);

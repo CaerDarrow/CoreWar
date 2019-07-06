@@ -6,7 +6,7 @@
 /*   By: jjacobso <jjacobso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 17:48:20 by jjacobso          #+#    #+#             */
-/*   Updated: 2019/07/05 20:33:32 by jjacobso         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:54:21 by jjacobso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void				sti(t_game_entity *entity, t_cursor *cursor,
 	}
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | sti r%d %d %d\n", cursor->index, b[0], b[1], b[2]);
-		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
+		PRINT("P%5d | sti r%d %d %d\n", cursor->index, b[0], b[1], b[2]);
+		PRINT("       | -> store to %d + %d = %d (with pc and mod %d)\n",
 			b[1], b[2], b[1] + b[2], (addr));
 	}
 }
@@ -56,7 +56,7 @@ void				clone(t_game_entity *entity, t_cursor *cursor,
 	ld_push_front(&entity->cursors, new_cursor);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | fork %d (%d)\n", cursor->index, b,
+		PRINT("P%5d | fork %d (%d)\n", cursor->index, b,
 			new_cursor->position);
 	}
 }
@@ -72,7 +72,7 @@ void				lld(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, b[0]);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | lld %d r%d\n", cursor->index, b[0], b[1]);
+		PRINT("P%5d | lld %d r%d\n", cursor->index, b[0], b[1]);
 	}
 }
 
@@ -92,8 +92,8 @@ void				lldi(t_game_entity *entity, t_cursor *cursor,
 	set_carry(&cursor->carry, num);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | lldi %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
-		ft_printf("       | -> load from %d + %d = %d (with pc %d)\n",
+		PRINT("P%5d | lldi %d %d r%d\n", cursor->index, b[0], b[1], b[2]);
+		PRINT("       | -> load from %d + %d = %d (with pc %d)\n",
 			b[0], b[1], b[0] + b[1], addr);
 	}
 }
@@ -113,7 +113,7 @@ void				lclone(t_game_entity *entity, t_cursor *cursor,
 	ld_push_front(&entity->cursors, new_cursor);
 	if (VERBOSE_LVL(4))
 	{
-		ft_printf("P%5ld | lfork %d (%d)\n", cursor->index, b,
+		PRINT("P%5d | lfork %d (%d)\n", cursor->index, b,
 			cursor->position + b);
 	}
 }
